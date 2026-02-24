@@ -1,0 +1,867 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/global.css';
+---
+
+<BaseLayout title="Beneficiaries Meet Benefactors" description="Benefactor Marketing — full-service marketing agency that connects beneficiaries with benefactors. Brand strategy, digital advertising, content marketing & growth.">
+
+  <!-- ═══════════ HERO SECTION ═══════════ -->
+  <section class="hero section--hero bg-grid bg-radial" id="hero">
+    <div class="container">
+      <div class="hero__content">
+        <div class="badge animate-fade-in-up">
+          <span class="badge__dot"></span>
+          Now Accepting New Clients
+        </div>
+
+        <h1 class="hero__title animate-fade-in-up stagger-1">
+          Beneficiaries<br/>
+          <span class="gradient-text">Meet Benefactors</span>
+        </h1>
+
+        <p class="hero__subtitle animate-fade-in-up stagger-2">
+          Full-service marketing that creates real connections between your brand
+          and the people who matter most. We turn strategy into measurable growth
+          — so every marketing dollar works harder.
+        </p>
+
+        <div class="hero__actions animate-fade-in-up stagger-3">
+          <a href="#contact" class="btn btn--primary btn--large" id="hero-cta-primary">
+            Start Growing
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#services" class="btn btn--secondary btn--large" id="hero-cta-secondary">
+            View Services
+          </a>
+        </div>
+
+        <div class="hero__capabilities animate-fade-in-up stagger-4">
+          <span class="hero__capabilities-label">What We Do</span>
+          <div class="hero__capability-badges">
+            <span class="hero__capability-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              Brand Strategy
+            </span>
+            <span class="hero__capability-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              Paid Media
+            </span>
+            <span class="hero__capability-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Content
+            </span>
+            <span class="hero__capability-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              SEO
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decorative orbs -->
+    <div class="hero__orb" aria-hidden="true"></div>
+    <div class="hero__orb hero__orb--2" aria-hidden="true"></div>
+  </section>
+
+
+  <!-- ═══════════ STATS BAR ═══════════ -->
+  <section class="stats" id="stats-bar">
+    <div class="container">
+      <div class="stats__grid">
+        <div class="stats__item animate-fade-in-up stagger-1">
+          <span class="stats__number">3x</span>
+          <span class="stats__label">Average ROI Lift</span>
+        </div>
+        <div class="stats__item animate-fade-in-up stagger-2">
+          <span class="stats__number">150+</span>
+          <span class="stats__label">Campaigns Launched</span>
+        </div>
+        <div class="stats__item animate-fade-in-up stagger-3">
+          <span class="stats__number">92%</span>
+          <span class="stats__label">Client Retention</span>
+        </div>
+        <div class="stats__item animate-fade-in-up stagger-4">
+          <span class="stats__number">24hr</span>
+          <span class="stats__label">Response Time</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════ SERVICES SECTION ═══════════ -->
+  <section class="services section" id="services">
+    <div class="container">
+      <div class="services__header">
+        <span class="badge animate-fade-in-up">What We Deliver</span>
+        <h2 class="animate-fade-in-up stagger-1">Marketing Services<br/><span class="gradient-text">That Drive Growth</span></h2>
+        <p class="services__desc animate-fade-in-up stagger-2">
+          We build full-funnel marketing programs that connect your brand with the right
+          audience at the right time. Data-driven strategy, creative execution.
+        </p>
+      </div>
+
+      <div class="services__grid">
+        <div class="card services__card animate-fade-in-up stagger-1" id="service-brand">
+          <div class="services__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>Brand Strategy & Identity</h3>
+          <p>Define your market position with a brand that resonates. We craft compelling narratives, visual identities, and messaging frameworks that set you apart.</p>
+          <ul class="services__features">
+            <li>Brand positioning & messaging</li>
+            <li>Visual identity systems</li>
+            <li>Competitive analysis</li>
+            <li>Go-to-market strategy</li>
+          </ul>
+        </div>
+
+        <div class="card services__card animate-fade-in-up stagger-2" id="service-digital">
+          <div class="services__icon services__icon--navy">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <h3>Digital Advertising</h3>
+          <p>Reach your ideal customers with precision-targeted campaigns across search, social, and display. We maximize every ad dollar through relentless optimization.</p>
+          <ul class="services__features">
+            <li>Google & Meta Ads management</li>
+            <li>Programmatic display</li>
+            <li>Retargeting & remarketing</li>
+            <li>A/B creative testing</li>
+          </ul>
+        </div>
+
+        <div class="card services__card animate-fade-in-up stagger-3" id="service-content">
+          <div class="services__icon services__icon--blue">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </div>
+          <h3>Content Marketing</h3>
+          <p>Build authority and trust with content that educates, inspires, and converts. From blog posts to video production, we create content that moves the needle.</p>
+          <ul class="services__features">
+            <li>Editorial strategy & calendars</li>
+            <li>Blog, video & podcast production</li>
+            <li>Social media management</li>
+            <li>Email marketing automation</li>
+          </ul>
+        </div>
+
+        <div class="card services__card animate-fade-in-up stagger-4" id="service-analytics">
+          <div class="services__icon services__icon--gray">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          </div>
+          <h3>SEO & Analytics</h3>
+          <p>Dominate organic search and make smarter decisions with data. We build SEO programs and analytics dashboards that reveal exactly what's working.</p>
+          <ul class="services__features">
+            <li>Technical & on-page SEO</li>
+            <li>Keyword research & mapping</li>
+            <li>GA4 & conversion tracking</li>
+            <li>Custom reporting dashboards</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════ HOW IT WORKS ═══════════ -->
+  <section class="process section bg-noise" id="process">
+    <div class="container" style="position: relative; z-index: 1;">
+      <div class="process__header">
+        <span class="badge animate-fade-in-up">How It Works</span>
+        <h2 class="animate-fade-in-up stagger-1">From Brief to <span class="gradient-text">Business Impact</span></h2>
+      </div>
+
+      <div class="process__timeline">
+        <div class="process__step animate-fade-in-up stagger-1">
+          <div class="process__step-number">01</div>
+          <div class="process__step-content">
+            <h3>Discovery & Audit</h3>
+            <p>We dig deep into your business, audience, and competitive landscape. Every engagement starts with a thorough audit of what's working, what's not, and where the opportunity lives.</p>
+          </div>
+        </div>
+
+        <div class="process__step animate-fade-in-up stagger-2">
+          <div class="process__step-number">02</div>
+          <div class="process__step-content">
+            <h3>Strategy & Roadmap</h3>
+            <p>We deliver a clear, prioritized marketing roadmap with defined KPIs, channel mix, and budget allocation. No guessing — just a data-backed plan to hit your targets.</p>
+          </div>
+        </div>
+
+        <div class="process__step animate-fade-in-up stagger-3">
+          <div class="process__step-number">03</div>
+          <div class="process__step-content">
+            <h3>Execute & Optimize</h3>
+            <p>Our team launches campaigns, creates content, and manages channels while continuously running experiments. We double down on what works and kill what doesn't.</p>
+          </div>
+        </div>
+
+        <div class="process__step animate-fade-in-up stagger-4">
+          <div class="process__step-number">04</div>
+          <div class="process__step-content">
+            <h3>Report & Scale</h3>
+            <p>Monthly performance reviews with full transparency. We show you exactly what moved the needle, then plan the next wave of growth together.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════ RESULTS ═══════════ -->
+  <section class="results section" id="results">
+    <div class="container">
+      <div class="results__header">
+        <span class="badge animate-fade-in-up">Proven Results</span>
+        <h2 class="animate-fade-in-up stagger-1">Marketing That<br/><span class="gradient-text">Moves Metrics</span></h2>
+        <p class="results__desc animate-fade-in-up stagger-2">
+          We measure everything and only celebrate when your business grows.
+          Here's what our clients have achieved.
+        </p>
+      </div>
+
+      <div class="results__grid">
+        <div class="results__item animate-fade-in-up stagger-1">
+          <div class="results__icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <h4>Revenue Growth</h4>
+          <p class="results__stat">+340%</p>
+          <p>Average pipeline revenue increase within 12 months of engagement.</p>
+        </div>
+        <div class="results__item animate-fade-in-up stagger-2">
+          <div class="results__icon-wrap results__icon-wrap--navy">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </div>
+          <h4>Organic Traffic</h4>
+          <p class="results__stat">+520%</p>
+          <p>Organic search traffic growth through technical SEO and content strategy.</p>
+        </div>
+        <div class="results__item animate-fade-in-up stagger-3">
+          <div class="results__icon-wrap results__icon-wrap--blue">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h4>Lead Generation</h4>
+          <p class="results__stat">-62% CPL</p>
+          <p>Cost per lead reduction while maintaining lead quality and conversion rates.</p>
+        </div>
+        <div class="results__item animate-fade-in-up stagger-4">
+          <div class="results__icon-wrap results__icon-wrap--gray">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+          <h4>Brand Awareness</h4>
+          <p class="results__stat">+280%</p>
+          <p>Social engagement and brand mention growth across all measured platforms.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════ WHY BENEFACTOR ═══════════ -->
+  <section class="why section" id="about">
+    <div class="container">
+      <div class="why__header">
+        <span class="badge animate-fade-in-up">Why Benefactor</span>
+        <h2 class="animate-fade-in-up stagger-1">Built for Brands<br/><span class="gradient-text">That Want More</span></h2>
+      </div>
+
+      <div class="why__grid">
+        <div class="why__item animate-fade-in-up stagger-1">
+          <div class="why__number">01</div>
+          <h4>Results-Obsessed</h4>
+          <p>We don't celebrate vanity metrics. Every strategy is tied to revenue, pipeline, and business outcomes. If it doesn't move the needle, we don't do it.</p>
+        </div>
+        <div class="why__item animate-fade-in-up stagger-2">
+          <div class="why__number">02</div>
+          <h4>Full-Stack Capability</h4>
+          <p>From brand strategy to paid media to SEO — one team, one vision. No fragmented agencies, no dropped balls between silos.</p>
+        </div>
+        <div class="why__item animate-fade-in-up stagger-3">
+          <div class="why__number">03</div>
+          <h4>Startup DNA</h4>
+          <p>We've been in the trenches. We understand tight budgets, fast pivots, and the pressure to grow. That makes us a better partner for ambitious companies.</p>
+        </div>
+        <div class="why__item animate-fade-in-up stagger-4">
+          <div class="why__number">04</div>
+          <h4>Transparent Pricing</h4>
+          <p>No hidden fees, no surprise charges. You get a clear scope, a fixed price, and complete visibility into where every dollar goes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════ TESTIMONIAL ═══════════ -->
+  <section class="testimonial section" id="testimonial-section">
+    <div class="container">
+      <div class="testimonial__card animate-fade-in-up">
+        <svg class="testimonial__quote" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" opacity="0.15"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H0z"/></svg>
+        <blockquote>
+          <p class="testimonial__text">
+            "Benefactor completely transformed our marketing. Within 6 months, our pipeline
+            tripled and our cost per acquisition dropped by 40%. They operate like an extension
+            of our team — fully embedded, fully accountable. Best marketing investment we've made."
+          </p>
+        </blockquote>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar">SK</div>
+          <div>
+            <p class="testimonial__name">Sarah Kim</p>
+            <p class="testimonial__role">VP of Growth, Series A SaaS</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════ CONTACT CTA ═══════════ -->
+  <section class="cta section bg-radial-navy" id="contact">
+    <div class="container">
+      <div class="cta__content animate-fade-in-up">
+        <h2>Ready to<br/><span class="gradient-text">Grow Faster?</span></h2>
+        <p>
+          Whether you need a full marketing engine or help with a specific channel,
+          we'll build a plan that fits your goals and your budget.
+        </p>
+        <div class="cta__actions">
+          <a href="mailto:hello@benefactor.cc" class="btn btn--primary btn--large" id="cta-contact-btn">
+            Schedule a Free Strategy Call
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#services" class="btn btn--secondary btn--large" id="cta-services-btn">
+            Explore Services
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+
+<style>
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero__content {
+    max-width: 780px;
+  }
+
+  .hero__title {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero__subtitle {
+    font-size: 1.2rem;
+    max-width: 640px;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .badge__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--bf-success);
+    display: inline-block;
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  .hero__capabilities-label {
+    font-size: 0.8rem;
+    color: var(--bf-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero__capability-badges {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .hero__capability-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--bf-text-secondary);
+    background: var(--bf-surface);
+    border: 1px solid var(--bf-border);
+    border-radius: var(--radius-full);
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  .hero__capability-badge svg {
+    color: var(--bf-red);
+    opacity: 0.6;
+  }
+
+  .hero__capability-badge:hover {
+    border-color: var(--bf-border-active);
+    color: var(--bf-red);
+  }
+
+  .hero__orb {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(230, 57, 70, 0.05), transparent 70%);
+    top: -15%;
+    right: -15%;
+    animation: float 8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .hero__orb--2 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(30, 58, 95, 0.08), transparent 70%);
+    bottom: 10%;
+    right: 20%;
+    top: auto;
+    animation-delay: -4s;
+  }
+
+  /* ── Stats ── */
+  .stats {
+    padding: var(--space-3xl) 0;
+    border-top: 1px solid var(--bf-border);
+    border-bottom: 1px solid var(--bf-border);
+    background: var(--bf-surface);
+  }
+
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-xl);
+    text-align: center;
+  }
+
+  .stats__number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--bf-red-light), var(--bf-red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+  }
+
+  .stats__label {
+    font-size: 0.85rem;
+    color: var(--bf-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    margin-top: var(--space-xs);
+    display: block;
+  }
+
+  /* ── Services ── */
+  .services__header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .services__header h2 {
+    margin-top: var(--space-md);
+  }
+
+  .services__desc {
+    max-width: 600px;
+    margin: var(--space-md) auto 0;
+  }
+
+  .services__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .services__icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    background: var(--bf-red-glow);
+    color: var(--bf-red);
+    margin-bottom: var(--space-lg);
+    border: 1px solid rgba(230, 57, 70, 0.15);
+  }
+
+  .services__icon--navy {
+    background: var(--bf-navy-glow);
+    color: var(--bf-navy-light);
+    border-color: rgba(30, 58, 95, 0.25);
+  }
+
+  .services__icon--blue {
+    background: var(--bf-blue-glow);
+    color: var(--bf-blue);
+    border-color: rgba(59, 130, 246, 0.15);
+  }
+
+  .services__icon--gray {
+    background: rgba(148, 163, 184, 0.08);
+    color: #94a3b8;
+    border-color: rgba(148, 163, 184, 0.15);
+  }
+
+  .services__card h3 {
+    margin-bottom: var(--space-sm);
+    font-size: 1.25rem;
+  }
+
+  .services__card p {
+    font-size: 0.95rem;
+    margin-bottom: var(--space-lg);
+  }
+
+  .services__features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .services__features li {
+    font-size: 0.85rem;
+    color: var(--bf-text-secondary);
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .services__features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--bf-red);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  /* ── Process ── */
+  .process__header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .process__header h2 {
+    margin-top: var(--space-md);
+  }
+
+  .process__timeline {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .process__step {
+    display: flex;
+    gap: var(--space-lg);
+    padding: var(--space-2xl);
+    border-radius: var(--radius-lg);
+    background: var(--bf-surface);
+    border: 1px solid var(--bf-border);
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  .process__step:hover {
+    border-color: var(--bf-border-active);
+  }
+
+  .process__step-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--bf-red);
+    opacity: 0.3;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .process__step-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .process__step-content p {
+    font-size: 0.9rem;
+  }
+
+  /* ── Results ── */
+  .results__header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .results__header h2 {
+    margin-top: var(--space-md);
+  }
+
+  .results__desc {
+    max-width: 600px;
+    margin: var(--space-md) auto 0;
+  }
+
+  .results__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .results__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-2xl) var(--space-lg);
+    background: var(--bf-surface);
+    border: 1px solid var(--bf-border);
+    border-radius: var(--radius-lg);
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  .results__item:hover {
+    border-color: var(--bf-border-active);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .results__item h4 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .results__item p {
+    font-size: 0.78rem;
+    color: var(--bf-text-muted);
+  }
+
+  .results__stat {
+    font-size: 2rem !important;
+    font-weight: 800 !important;
+    background: linear-gradient(135deg, var(--bf-red-light), var(--bf-red)) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    margin: var(--space-sm) 0 var(--space-xs) !important;
+    color: var(--bf-red) !important;
+  }
+
+  .results__icon-wrap {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    background: var(--bf-red-glow);
+    color: var(--bf-red);
+    margin-bottom: var(--space-md);
+    border: 1px solid rgba(230, 57, 70, 0.12);
+  }
+
+  .results__icon-wrap--navy {
+    background: var(--bf-navy-glow);
+    color: var(--bf-navy-light);
+    border-color: rgba(30, 58, 95, 0.2);
+  }
+
+  .results__icon-wrap--blue {
+    background: var(--bf-blue-glow);
+    color: var(--bf-blue);
+    border-color: rgba(59, 130, 246, 0.12);
+  }
+
+  .results__icon-wrap--gray {
+    background: rgba(148, 163, 184, 0.06);
+    color: #94a3b8;
+    border-color: rgba(148, 163, 184, 0.12);
+  }
+
+  /* ── Why Benefactor ── */
+  .why__header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .why__header h2 {
+    margin-top: var(--space-md);
+  }
+
+  .why__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .why__item {
+    padding: var(--space-2xl);
+    background: var(--bf-surface);
+    border: 1px solid var(--bf-border);
+    border-radius: var(--radius-lg);
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  .why__item:hover {
+    border-color: var(--bf-border-active);
+  }
+
+  .why__number {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--bf-red);
+    opacity: 0.25;
+    margin-bottom: var(--space-md);
+    font-family: var(--font-mono);
+  }
+
+  .why__item h4 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .why__item p {
+    font-size: 0.95rem;
+  }
+
+  /* ── Testimonial ── */
+  .testimonial__card {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-3xl);
+    background: var(--bf-surface);
+    border: 1px solid var(--bf-border);
+    border-radius: var(--radius-xl);
+    text-align: center;
+  }
+
+  .testimonial__quote {
+    position: absolute;
+    top: 28px;
+    left: 28px;
+    color: var(--bf-red);
+  }
+
+  .testimonial__text {
+    font-size: 1.2rem;
+    color: var(--bf-text-primary);
+    font-weight: 400;
+    line-height: 1.8;
+    font-style: italic;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .testimonial__author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+
+  .testimonial__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--bf-navy-dark), var(--bf-navy));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #fff;
+  }
+
+  .testimonial__name {
+    font-weight: 600;
+    color: var(--bf-text-primary);
+    font-size: 0.95rem;
+  }
+
+  .testimonial__role {
+    font-size: 0.8rem;
+    color: var(--bf-text-muted);
+  }
+
+  /* ── CTA ── */
+  .cta__content {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .cta__content h2 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .cta__content p {
+    font-size: 1.1rem;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .cta__actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .hero {
+      min-height: auto;
+    }
+
+    .stats__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .services__grid,
+    .process__timeline,
+    .why__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .results__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .testimonial__card {
+      padding: var(--space-2xl) var(--space-lg);
+    }
+
+    .testimonial__text {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .results__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

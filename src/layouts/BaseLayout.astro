@@ -1,0 +1,337 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Benefactor Marketing — Where beneficiaries meet benefactors. Full-service marketing that delivers measurable growth." } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0f1117" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} | Benefactor Marketing</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={`${title} | Benefactor Marketing`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <nav class="nav" id="main-nav">
+      <div class="nav__inner container">
+        <a href="/" class="nav__logo" id="nav-logo">
+          <svg class="nav__logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Upward arrow / growth icon -->
+            <rect x="2" y="2" width="28" height="28" rx="6" stroke="currentColor" stroke-width="1.5" fill="currentColor" opacity="0.08"/>
+            <path d="M10 22L16 10L22 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="nav__logo-text">
+            <span class="nav__logo-benefactor">BENEFACTOR</span><span class="nav__logo-marketing">MKT</span>
+          </span>
+        </a>
+
+        <div class="nav__links" id="nav-links">
+          <a href="#services" class="nav__link" id="nav-services">Services</a>
+          <a href="#process" class="nav__link" id="nav-process">Process</a>
+          <a href="#results" class="nav__link" id="nav-results">Results</a>
+          <a href="#about" class="nav__link" id="nav-about">About</a>
+          <a href="#contact" class="btn btn--primary nav__cta" id="nav-contact">Get Started</a>
+        </div>
+
+        <button class="nav__mobile-toggle" id="nav-toggle" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="footer" id="site-footer">
+      <div class="container">
+        <div class="footer__top">
+          <div class="footer__brand">
+            <a href="/" class="nav__logo">
+              <svg class="nav__logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="28" height="28" rx="6" stroke="currentColor" stroke-width="1.5" fill="currentColor" opacity="0.08"/>
+                <path d="M10 22L16 10L22 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <span class="nav__logo-text">
+                <span class="nav__logo-benefactor">BENEFACTOR</span><span class="nav__logo-marketing">MKT</span>
+              </span>
+            </a>
+            <p class="footer__tagline">Beneficiaries meet benefactors.<br/>Full-service marketing that drives real growth.</p>
+          </div>
+
+          <div class="footer__columns">
+            <div class="footer__col">
+              <h4 class="footer__col-title">Services</h4>
+              <a href="#services" class="footer__link">Brand Strategy</a>
+              <a href="#services" class="footer__link">Digital Advertising</a>
+              <a href="#services" class="footer__link">Content Marketing</a>
+              <a href="#services" class="footer__link">SEO & Analytics</a>
+            </div>
+            <div class="footer__col">
+              <h4 class="footer__col-title">Company</h4>
+              <a href="#about" class="footer__link">About Us</a>
+              <a href="#process" class="footer__link">Our Process</a>
+              <a href="#results" class="footer__link">Results</a>
+              <a href="#contact" class="footer__link">Contact</a>
+            </div>
+            <div class="footer__col">
+              <h4 class="footer__col-title">Connect</h4>
+              <a href="https://linkedin.com/company/benefactor-marketing" target="_blank" class="footer__link">LinkedIn ↗</a>
+              <a href="https://dancingdragons.cc" target="_blank" class="footer__link">Dancing Dragons ↗</a>
+              <a href="mailto:hello@benefactor.cc" class="footer__link">hello@benefactor.cc</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer__bottom">
+          <p class="footer__copy">&copy; {new Date().getFullYear()} Benefactor Marketing. All rights reserved.</p>
+          <p class="footer__copy">A <a href="https://dancingdragons.cc" target="_blank" class="footer__link--inline">Dancing Dragons</a> company.</p>
+        </div>
+      </div>
+    </footer>
+
+    <style>
+      /* ── Navigation ── */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        height: var(--nav-height);
+        background: rgba(15, 17, 23, 0.88);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border-bottom: 1px solid var(--bf-border);
+      }
+
+      .nav__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+      }
+
+      .nav__logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .nav__logo-icon {
+        width: 32px;
+        height: 32px;
+        color: var(--bf-red);
+      }
+
+      .nav__logo-text {
+        font-size: 0.95rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+      }
+
+      .nav__logo-benefactor {
+        color: var(--bf-text-primary);
+      }
+
+      .nav__logo-marketing {
+        color: var(--bf-red);
+      }
+
+      .nav__links {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xl);
+      }
+
+      .nav__link {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--bf-text-secondary);
+        transition: color var(--duration-fast) var(--ease-out);
+        position: relative;
+      }
+
+      .nav__link::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--bf-red);
+        transition: width var(--duration-normal) var(--ease-out);
+      }
+
+      .nav__link:hover {
+        color: var(--bf-text-primary);
+      }
+
+      .nav__link:hover::after {
+        width: 100%;
+      }
+
+      .nav__cta {
+        padding: 0.5rem 1.25rem;
+        font-size: 0.85rem;
+      }
+
+      .nav__mobile-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        padding: 4px;
+      }
+
+      .nav__mobile-toggle span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: var(--bf-text-secondary);
+        border-radius: 2px;
+        transition: all var(--duration-fast) var(--ease-out);
+      }
+
+      /* ── Footer ── */
+      .footer {
+        border-top: 1px solid var(--bf-border);
+        padding: var(--space-4xl) 0 var(--space-xl);
+        background: var(--bf-black);
+      }
+
+      .footer__top {
+        display: flex;
+        justify-content: space-between;
+        gap: var(--space-4xl);
+        margin-bottom: var(--space-3xl);
+      }
+
+      .footer__brand {
+        max-width: 300px;
+      }
+
+      .footer__tagline {
+        margin-top: var(--space-md);
+        font-size: 0.95rem;
+        color: var(--bf-text-muted);
+        line-height: 1.6;
+      }
+
+      .footer__columns {
+        display: flex;
+        gap: var(--space-3xl);
+      }
+
+      .footer__col {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-sm);
+      }
+
+      .footer__col-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--bf-text-primary);
+        margin-bottom: var(--space-sm);
+      }
+
+      .footer__link {
+        font-size: 0.9rem;
+        color: var(--bf-text-muted);
+        transition: color var(--duration-fast) var(--ease-out);
+      }
+
+      .footer__link:hover {
+        color: var(--bf-red);
+      }
+
+      .footer__bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: var(--space-xl);
+        border-top: 1px solid var(--bf-border);
+      }
+
+      .footer__copy {
+        font-size: 0.8rem;
+        color: var(--bf-text-muted);
+      }
+
+      .footer__link--inline {
+        color: var(--bf-red);
+        transition: opacity var(--duration-fast);
+      }
+
+      .footer__link--inline:hover {
+        opacity: 0.8;
+      }
+
+      @media (max-width: 768px) {
+        .nav__links {
+          display: none;
+        }
+
+        .nav__mobile-toggle {
+          display: flex;
+        }
+
+        .footer__top {
+          flex-direction: column;
+          gap: var(--space-2xl);
+        }
+
+        .footer__columns {
+          flex-wrap: wrap;
+          gap: var(--space-2xl);
+        }
+
+        .footer__bottom {
+          flex-direction: column;
+          gap: var(--space-sm);
+          text-align: center;
+        }
+      }
+    </style>
+
+    <script>
+      // Navbar scroll effect
+      const nav = document.getElementById('main-nav');
+      if (nav) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 10) {
+            nav.style.borderBottomColor = 'rgba(255,255,255,0.1)';
+          } else {
+            nav.style.borderBottomColor = 'rgba(255,255,255,0.06)';
+          }
+        });
+      }
+
+      // Mobile toggle
+      const toggle = document.getElementById('nav-toggle');
+      const links = document.getElementById('nav-links');
+      if (toggle && links) {
+        toggle.addEventListener('click', () => {
+          links.classList.toggle('nav__links--open');
+        });
+      }
+    </script>
+  </body>
+</html>
