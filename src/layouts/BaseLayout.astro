@@ -4,7 +4,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Benefactor Marketing — Where beneficiaries meet benefactors. Full-service marketing that delivers measurable growth." } = Astro.props;
+const { title, description = "Benefactor is a full-service growth marketing agency helping startups and scaling companies achieve rapid, sustainable results." } = Astro.props;
 ---
 
 <!doctype html>
@@ -31,6 +31,7 @@ const { title, description = "Benefactor Marketing — Where beneficiaries meet 
             <rect x="2" y="2" width="28" height="28" rx="6" stroke="currentColor" stroke-width="1.5" fill="currentColor" opacity="0.08"/>
             <path d="M10 22L16 10L22 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M12 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <polygon points="32,32 32,19.07 19.07,32" fill="var(--bf-red, #e63946)"/>
           </svg>
           <span class="nav__logo-text">
             <span class="nav__logo-benefactor">BENEFACTOR</span><span class="nav__logo-marketing">MKT</span>
@@ -66,12 +67,13 @@ const { title, description = "Benefactor Marketing — Where beneficiaries meet 
                 <rect x="2" y="2" width="28" height="28" rx="6" stroke="currentColor" stroke-width="1.5" fill="currentColor" opacity="0.08"/>
                 <path d="M10 22L16 10L22 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M12 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <polygon points="32,32 32,19.07 19.07,32" fill="var(--bf-red, #e63946)"/>
               </svg>
               <span class="nav__logo-text">
                 <span class="nav__logo-benefactor">BENEFACTOR</span><span class="nav__logo-marketing">MKT</span>
               </span>
             </a>
-            <p class="footer__tagline">Beneficiaries meet benefactors.<br/>Full-service marketing that drives real growth.</p>
+            <p class="footer__tagline">Growth marketing that<br/>moves metrics for ambitious brands.</p>
           </div>
 
           <div class="footer__columns">

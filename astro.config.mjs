@@ -3,8 +3,8 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://oresoftware.github.io',
-  base: '/benefactor.cc',
+  site: 'https://benefactor.cc',
+  base: '/',
   server: {
     port: 4323,
   },
