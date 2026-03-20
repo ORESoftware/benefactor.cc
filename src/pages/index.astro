@@ -1,472 +1,412 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/global.css';
+
+const stats = [
+  { number: '90-180', label: 'Day engagements' },
+  { number: '2-20', label: 'Person teams' },
+  { number: 'B2B', label: 'SaaS and services' },
+  { number: 'SEO/SEM', label: 'Plus automation' },
+];
+
+const fitPills = [
+  'Founder-led B2B teams',
+  '90-180 day engagements',
+  '2-20 person teams',
+  'Search, paid, and automation',
+];
+
+const focusAreas = [
+  {
+    title: 'Search strategy built around buyer intent',
+    description:
+      'We rebuild SEO around the way founders, operators, and revenue leaders actually search when they are diagnosing a problem or evaluating options.',
+    features: [
+      'High-intent keyword mapping',
+      'Pillar-cluster site architecture',
+      'Decision-stage landing pages',
+      'Content tied to pipeline influence',
+    ],
+  },
+  {
+    title: 'Paid search aligned to real jobs-to-be-done',
+    description:
+      'We tighten campaigns around problem-aware queries, match pages to specific use cases, and remove the gaps between keyword, promise, and activation.',
+    features: [
+      'Search campaign restructuring',
+      'Message-to-page alignment',
+      'Offer testing by intent',
+      'Lower cost per qualified action',
+    ],
+  },
+  {
+    title: 'Automation that replaces manual follow-up',
+    description:
+      'We connect forms, CRM stages, email, and calendars so qualified leads move to the next step without founders living inside a dozen tools.',
+    features: [
+      'Behavior-based nurture sequences',
+      'Lead routing and lifecycle stages',
+      'Calendar and follow-up automation',
+      'CRM as a single source of truth',
+    ],
+  },
+  {
+    title: 'Measurement that shows what moved revenue',
+    description:
+      'We build reporting founders can actually use: where demand came from, which pages influenced deals, and where the funnel is leaking.',
+    features: [
+      'Closed-won content attribution',
+      'Source-of-truth dashboards',
+      'Funnel leak analysis',
+      'Weekly decision-ready reporting',
+    ],
+  },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Diagnose the highest-intent opportunity',
+    description:
+      'We audit acquisition channels, search behavior, and follow-up gaps to find the pages, keywords, and handoffs most likely to unlock pipeline first.',
+  },
+  {
+    number: '02',
+    title: 'Prioritize the funnel around buying intent',
+    description:
+      'We simplify the roadmap so traffic sources, offers, landing pages, and CRM stages all support the same conversion path instead of competing with each other.',
+  },
+  {
+    number: '03',
+    title: 'Ship pages, campaigns, and automation in sprints',
+    description:
+      'Each sprint turns into something live: tighter targeting, clearer messaging, better routing, cleaner attribution, or a stronger onboarding path.',
+  },
+  {
+    number: '04',
+    title: 'Measure pipeline and compound the wins',
+    description:
+      'We track the work against qualified conversations, activated accounts, and revenue influence so the system gets sharper every month.',
+  },
+];
+
+const clientStories = [
+  {
+    name: 'Signalboard',
+    meta: 'B2B SaaS · Revenue operations analytics · New York',
+    pill: 'SEO + Demand Gen',
+    metrics: ['+118% organic demo requests', '3x blog-to-pipeline attribution'],
+    challenge:
+      'Signalboard had a strong product and a handful of champion customers, but search traffic and inbound demos were flat. Content was insightful but misaligned with high-intent keywords and decision-maker pain.',
+    built:
+      'We rebuilt their SEO strategy around revenue leaders\' real search behavior, shipped a new pillar-cluster architecture, and wired HubSpot to attribute content to closed-won deals.',
+    result:
+      'Within 5 months, Signalboard doubled organic demos from search and could see exactly which pages moved revenue, not just sessions.',
+  },
+  {
+    name: 'Northline Advisory',
+    meta: 'B2B consulting · Leadership and strategy · Remote, US',
+    pill: 'Funnels + Automation',
+    metrics: ['40%+ calendar fill from inbound', '3-step nurture replacing manual follow-up'],
+    challenge:
+      'The founder\'s personal brand drove referrals, but there was no consistent way to turn podcast appearances, events, and LinkedIn content into a predictable pipeline.',
+    built:
+      'We designed a simple insight-to-lead-magnet-to-consult-call funnel, layered in behavior-based email sequences, and connected everything to a single source of truth in their CRM.',
+    result:
+      'Northline went from chasing follow-ups in spreadsheets to waking up to qualified strategy calls booked automatically each week.',
+  },
+  {
+    name: 'Launchpad OS',
+    meta: 'PLG SaaS · Founder tooling · Austin',
+    pill: 'SEO + Paid Search',
+    metrics: ['-52% cost per trial', '+73% trial-to-activation rate'],
+    challenge:
+      'Search campaigns and landing pages were built quickly during launch, leading to broad targeting, generic messaging, and a mismatch between keywords and onboarding.',
+    built:
+      'We rebuilt campaigns around problem-aware queries, matched landing pages to specific jobs-to-be-done, and designed an onboarding flow that nudged users to their first "aha moment" in under 15 minutes.',
+    result:
+      'Paid acquisition became profitable, and the team could confidently scale budgets into channels that consistently turned clicks into activated accounts.',
+  },
+  {
+    name: 'Fieldnote Logistics',
+    meta: 'B2B services · Warehousing and 3PL · Midwest',
+    pill: 'Local SEO + Inbound',
+    metrics: ['5x qualified RFQs from search', 'New markets opened from inbound'],
+    challenge:
+      'Sales relied on trade shows and cold outreach. Decision-makers were increasingly researching 3PL partners online before ever talking to a rep.',
+    built:
+      'We optimized core service pages for geo-intent, overhauled their Google Business Profile, and launched decision-focused content answering the exact questions operations leaders asked before sending an RFP.',
+    result:
+      'Within one quarter, inbound RFQs became a meaningful pipeline source, often with higher deal sizes than outbound.',
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      'Before Benefactor, growth felt like a series of one-off experiments. Within a quarter we had a clear SEO strategy, a working funnel, and a dashboard that finally let us see which levers were actually moving pipeline.',
+    name: 'Elena Ruiz',
+    role: 'Co-founder and CEO, Signalboard',
+    tag: 'RevOps SaaS',
+  },
+  {
+    quote:
+      'I did not want another agency sending vanity metrics. Benefactor plugged into our team, owned the numbers, and built systems that keep my calendar full without me living inside a marketing tool.',
+    name: 'Marcus Lee',
+    role: 'Founder, Northline Advisory',
+    tag: 'B2B Consulting',
+  },
+  {
+    quote:
+      'What I appreciated most was the focus on compounding wins. Every sprint, we shipped something small but meaningful: better onboarding, tighter campaigns, cleaner data. Six months later, our acquisition economics look completely different.',
+    name: 'Jordan Patel',
+    role: 'Head of Growth, Launchpad OS',
+    tag: 'PLG SaaS',
+  },
+  {
+    quote:
+      'Benefactor helped us translate decades of offline expertise into a digital presence that actually brings the right operators to our door. We now treat inbound as seriously as our biggest trade shows.',
+    name: 'Christina Ward',
+    role: 'VP Sales, Fieldnote Logistics',
+    tag: '3PL and Logistics',
+  },
+];
 ---
 
-<BaseLayout title="Benefactor — Growth Marketing Agency" description="Benefactor is a full-service growth marketing agency helping startups and scaling companies achieve rapid, sustainable results. Brand strategy, paid media, content & SEO.">
-
-  <!-- ═══════════ HERO SECTION ═══════════ -->
+<BaseLayout
+  title="Benefactor - Search, Paid, and Automation for Founder-Led B2B"
+  description="Benefactor partners with founder-led B2B teams to build search, paid, and automation systems that turn scattered traffic into a reliable pipeline of sales conversations."
+>
   <section class="hero section--hero bg-grid bg-radial" id="hero">
     <div class="container">
       <div class="hero__content">
         <div class="badge animate-fade-in-up">
           <span class="badge__dot"></span>
-          Now Accepting New Clients
+          Selected client stories
         </div>
 
         <h1 class="hero__title animate-fade-in-up stagger-1">
-          Growth Marketing<br/>
-          <span class="gradient-text">That Moves Metrics</span>
+          Leaner funnels.<br />
+          <span class="gradient-text">Sharper intent. Compounding growth.</span>
         </h1>
 
         <p class="hero__subtitle animate-fade-in-up stagger-2">
-          We help startups and scaling companies achieve rapid, sustainable growth —
-          through channel-level expertise, data-driven strategy, and creative
-          execution that turns every marketing dollar into measurable business impact.
+          Benefactor partners with founder-led B2B teams to build search, paid, and automation
+          systems that turn scattered traffic into a reliable pipeline of sales conversations.
         </p>
 
         <div class="hero__actions animate-fade-in-up stagger-3">
           <a href="#contact" class="btn btn--primary btn--large" id="hero-cta-primary">
-            Start Growing
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Book a Strategy Call
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M3 8h10M9 4l4 4-4 4"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
           </a>
-          <a href="#services" class="btn btn--secondary btn--large" id="hero-cta-secondary">
-            View Services
+          <a href="#results" class="btn btn--secondary btn--large" id="hero-cta-secondary">
+            See Client Portfolio
           </a>
         </div>
 
         <div class="hero__capabilities animate-fade-in-up stagger-4">
-          <span class="hero__capabilities-label">What We Do</span>
+          <span class="hero__capabilities-label">Typical fit</span>
           <div class="hero__capability-badges">
-            <span class="hero__capability-badge">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-              Brand Strategy
-            </span>
-            <span class="hero__capability-badge">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-              Paid Media
-            </span>
-            <span class="hero__capability-badge">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-              Content
-            </span>
-            <span class="hero__capability-badge">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-              SEO
-            </span>
+            {fitPills.map((pill) => <span class="hero__capability-badge">{pill}</span>)}
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Decorative orbs -->
     <div class="hero__orb" aria-hidden="true"></div>
     <div class="hero__orb hero__orb--2" aria-hidden="true"></div>
   </section>
 
-
-  <!-- ═══════════ STATS BAR ═══════════ -->
   <section class="stats" id="stats-bar">
     <div class="container">
       <div class="stats__grid">
-        <div class="stats__item animate-fade-in-up stagger-1">
-          <span class="stats__number">3x</span>
-          <span class="stats__label">Average ROI Lift</span>
-        </div>
-        <div class="stats__item animate-fade-in-up stagger-2">
-          <span class="stats__number">150+</span>
-          <span class="stats__label">Campaigns Launched</span>
-        </div>
-        <div class="stats__item animate-fade-in-up stagger-3">
-          <span class="stats__number">92%</span>
-          <span class="stats__label">Client Retention</span>
-        </div>
-        <div class="stats__item animate-fade-in-up stagger-4">
-          <span class="stats__number">24hr</span>
-          <span class="stats__label">Response Time</span>
-        </div>
+        {stats.map((stat) => (
+          <div class="stats__item animate-fade-in-up">
+            <span class="stats__number">{stat.number}</span>
+            <span class="stats__label">{stat.label}</span>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-
-  <!-- ═══════════ SERVICES SECTION ═══════════ -->
   <section class="services section" id="services">
     <div class="container">
       <div class="services__header">
-        <span class="badge animate-fade-in-up">What We Deliver</span>
-        <h2 class="animate-fade-in-up stagger-1">Marketing Services<br/><span class="gradient-text">That Drive Growth</span></h2>
+        <span class="badge animate-fade-in-up">What we build</span>
+        <h2 class="animate-fade-in-up stagger-1">
+          Growth systems that turn intent into <span class="gradient-text">pipeline</span>
+        </h2>
         <p class="services__desc animate-fade-in-up stagger-2">
-          We build full-funnel marketing programs that connect your brand with the right
-          audience at the right time. Data-driven strategy, creative execution.
+          Search, paid, and automation only work when the handoffs between them are tight. We
+          build the pages, campaigns, follow-up, and measurement layers as one system.
         </p>
       </div>
 
       <div class="services__grid">
-        <div class="card services__card animate-fade-in-up stagger-1" id="service-brand">
-          <div class="services__icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        {focusAreas.map((area, index) => (
+          <div class="card services__card animate-fade-in-up">
+            <div class="services__kicker">{String(index + 1).padStart(2, '0')}</div>
+            <h3>{area.title}</h3>
+            <p>{area.description}</p>
+            <ul class="services__features">
+              {area.features.map((feature) => <li>{feature}</li>)}
+            </ul>
           </div>
-          <h3>Brand Strategy & Identity</h3>
-          <p>Define your market position with a brand that resonates. We craft compelling narratives, visual identities, and messaging frameworks that set you apart.</p>
-          <ul class="services__features">
-            <li>Brand positioning & messaging</li>
-            <li>Visual identity systems</li>
-            <li>Competitive analysis</li>
-            <li>Go-to-market strategy</li>
-          </ul>
-        </div>
-
-        <div class="card services__card animate-fade-in-up stagger-2" id="service-digital">
-          <div class="services__icon services__icon--navy">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><path d="M8 21h8M12 17v4"/></svg>
-          </div>
-          <h3>Digital Advertising</h3>
-          <p>Reach your ideal customers with precision-targeted campaigns across search, social, and display. We maximize every ad dollar through relentless optimization.</p>
-          <ul class="services__features">
-            <li>Google & Meta Ads management</li>
-            <li>Programmatic display</li>
-            <li>Retargeting & remarketing</li>
-            <li>A/B creative testing</li>
-          </ul>
-        </div>
-
-        <div class="card services__card animate-fade-in-up stagger-3" id="service-content">
-          <div class="services__icon services__icon--blue">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-          </div>
-          <h3>Content Marketing</h3>
-          <p>Build authority and trust with content that educates, inspires, and converts. From blog posts to video production, we create content that moves the needle.</p>
-          <ul class="services__features">
-            <li>Editorial strategy & calendars</li>
-            <li>Blog, video & podcast production</li>
-            <li>Social media management</li>
-            <li>Email marketing automation</li>
-          </ul>
-        </div>
-
-        <div class="card services__card animate-fade-in-up stagger-4" id="service-analytics">
-          <div class="services__icon services__icon--gray">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
-          </div>
-          <h3>SEO & Analytics</h3>
-          <p>Dominate organic search and make smarter decisions with data. We build SEO programs and analytics dashboards that reveal exactly what's working.</p>
-          <ul class="services__features">
-            <li>Technical & on-page SEO</li>
-            <li>Keyword research & mapping</li>
-            <li>GA4 & conversion tracking</li>
-            <li>Custom reporting dashboards</li>
-          </ul>
-        </div>
+        ))}
       </div>
     </div>
   </section>
 
-
-  <!-- ═══════════ HOW IT WORKS ═══════════ -->
   <section class="process section bg-noise" id="process">
-    <div class="container" style="position: relative; z-index: 1;">
+    <div class="container process__container">
       <div class="process__header">
-        <span class="badge animate-fade-in-up">How It Works</span>
-        <h2 class="animate-fade-in-up stagger-1">From Brief to <span class="gradient-text">Business Impact</span></h2>
+        <span class="badge animate-fade-in-up">How we work</span>
+        <h2 class="animate-fade-in-up stagger-1">
+          Fast enough to create momentum, structured enough to <span class="gradient-text">compound</span>
+        </h2>
       </div>
 
       <div class="process__timeline">
-        <div class="process__step animate-fade-in-up stagger-1">
-          <div class="process__step-number">01</div>
-          <div class="process__step-content">
-            <h3>Discovery & Audit</h3>
-            <p>We dig deep into your business, audience, and competitive landscape. Every engagement starts with a thorough audit of what's working, what's not, and where the opportunity lives.</p>
+        {processSteps.map((step) => (
+          <div class="process__step animate-fade-in-up">
+            <div class="process__step-number">{step.number}</div>
+            <div class="process__step-content">
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
           </div>
-        </div>
-
-        <div class="process__step animate-fade-in-up stagger-2">
-          <div class="process__step-number">02</div>
-          <div class="process__step-content">
-            <h3>Strategy & Roadmap</h3>
-            <p>We deliver a clear, prioritized marketing roadmap with defined KPIs, channel mix, and budget allocation. No guessing — just a data-backed plan to hit your targets.</p>
-          </div>
-        </div>
-
-        <div class="process__step animate-fade-in-up stagger-3">
-          <div class="process__step-number">03</div>
-          <div class="process__step-content">
-            <h3>Execute & Optimize</h3>
-            <p>Our team launches campaigns, creates content, and manages channels while continuously running experiments. We double down on what works and kill what doesn't.</p>
-          </div>
-        </div>
-
-        <div class="process__step animate-fade-in-up stagger-4">
-          <div class="process__step-number">04</div>
-          <div class="process__step-content">
-            <h3>Report & Scale</h3>
-            <p>Monthly performance reviews with full transparency. We show you exactly what moved the needle, then plan the next wave of growth together.</p>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   </section>
 
-
-  <!-- ═══════════ RESULTS ═══════════ -->
-  <section class="results section" id="results">
+  <section class="portfolio section" id="results" aria-labelledby="portfolio-heading">
     <div class="container">
-      <div class="results__header">
-        <span class="badge animate-fade-in-up">Proven Results</span>
-        <h2 class="animate-fade-in-up stagger-1">Marketing That<br/><span class="gradient-text">Moves Metrics</span></h2>
-        <p class="results__desc animate-fade-in-up stagger-2">
-          We measure everything and only celebrate when your business grows.
-          Here's what our clients have achieved.
+      <div class="portfolio__header">
+        <span class="badge animate-fade-in-up">Client portfolio</span>
+        <h2 id="portfolio-heading" class="animate-fade-in-up stagger-1">
+          Selected client stories
+        </h2>
+        <p class="portfolio__desc animate-fade-in-up stagger-2">
+          A sample of founder-led teams we support across SaaS, consulting, and education. Names
+          and details are anonymized, and results are representative of our typical work.
         </p>
       </div>
 
-      <div class="results__grid">
-        <div class="results__item animate-fade-in-up stagger-1">
-          <div class="results__icon-wrap">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-          </div>
-          <h4>Revenue Growth</h4>
-          <p class="results__stat">+340%</p>
-          <p>Average pipeline revenue increase within 12 months of engagement.</p>
-        </div>
-        <div class="results__item animate-fade-in-up stagger-2">
-          <div class="results__icon-wrap results__icon-wrap--navy">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-          </div>
-          <h4>Organic Traffic</h4>
-          <p class="results__stat">+520%</p>
-          <p>Organic search traffic growth through technical SEO and content strategy.</p>
-        </div>
-        <div class="results__item animate-fade-in-up stagger-3">
-          <div class="results__icon-wrap results__icon-wrap--blue">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-          </div>
-          <h4>Lead Generation</h4>
-          <p class="results__stat">-62% CPL</p>
-          <p>Cost per lead reduction while maintaining lead quality and conversion rates.</p>
-        </div>
-        <div class="results__item animate-fade-in-up stagger-4">
-          <div class="results__icon-wrap results__icon-wrap--gray">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-          </div>
-          <h4>Brand Awareness</h4>
-          <p class="results__stat">+280%</p>
-          <p>Social engagement and brand mention growth across all measured platforms.</p>
-        </div>
+      <div class="portfolio__grid">
+        {clientStories.map((story) => (
+          <article class="card portfolio__card animate-fade-in-up">
+            <div class="portfolio__top">
+              <div>
+                <h3 class="portfolio__name">{story.name}</h3>
+                <p class="portfolio__meta">{story.meta}</p>
+              </div>
+              <span class="portfolio__pill">{story.pill}</span>
+            </div>
+
+            <div class="portfolio__metrics">
+              {story.metrics.map((metric) => <span class="portfolio__metric">{metric}</span>)}
+            </div>
+
+            <div class="portfolio__block">
+              <span class="portfolio__label">Challenge</span>
+              <p class="portfolio__copy">{story.challenge}</p>
+            </div>
+
+            <div class="portfolio__block">
+              <span class="portfolio__label">What we built</span>
+              <p class="portfolio__copy">{story.built}</p>
+            </div>
+
+            <div class="portfolio__block">
+              <span class="portfolio__label">Result</span>
+              <p class="portfolio__copy">{story.result}</p>
+            </div>
+          </article>
+        ))}
       </div>
+
+      <p class="portfolio__note">
+        Client stories on this page use fictional names and anonymized details while reflecting
+        the kinds of outcomes and engagements Benefactor creates for founder-led B2B teams.
+      </p>
     </div>
   </section>
 
-
-  <!-- ═══════════ WHY BENEFACTOR ═══════════ -->
-  <section class="why section" id="about">
+  <section class="voices section" id="about" aria-labelledby="voices-heading">
     <div class="container">
-      <div class="why__header">
-        <span class="badge animate-fade-in-up">Why Benefactor</span>
-        <h2 class="animate-fade-in-up stagger-1">Built for Brands<br/><span class="gradient-text">That Want More</span></h2>
-      </div>
-
-      <div class="why__grid">
-        <div class="why__item animate-fade-in-up stagger-1">
-          <div class="why__number">01</div>
-          <h4>Results-Obsessed</h4>
-          <p>We don't celebrate vanity metrics. Every strategy is tied to revenue, pipeline, and business outcomes. If it doesn't move the needle, we don't do it.</p>
-        </div>
-        <div class="why__item animate-fade-in-up stagger-2">
-          <div class="why__number">02</div>
-          <h4>Full-Stack Capability</h4>
-          <p>From brand strategy to paid media to SEO — one team, one vision. No fragmented agencies, no dropped balls between silos.</p>
-        </div>
-        <div class="why__item animate-fade-in-up stagger-3">
-          <div class="why__number">03</div>
-          <h4>Startup DNA</h4>
-          <p>We've been in the trenches. We understand tight budgets, fast pivots, and the pressure to grow. That makes us a better partner for ambitious companies.</p>
-        </div>
-        <div class="why__item animate-fade-in-up stagger-4">
-          <div class="why__number">04</div>
-          <h4>Transparent Pricing</h4>
-          <p>No hidden fees, no surprise charges. You get a clear scope, a fixed price, and complete visibility into where every dollar goes.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════ TESTIMONIAL ═══════════ -->
-  <section class="testimonial section" id="testimonial-section">
-    <div class="container">
-      <div class="testimonial__card animate-fade-in-up">
-        <svg class="testimonial__quote" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" opacity="0.15"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H0z"/></svg>
-        <blockquote>
-          <p class="testimonial__text">
-            "Benefactor completely transformed our marketing. Within 6 months, our pipeline
-            tripled and our cost per acquisition dropped by 40%. They operate like an extension
-            of our team — fully embedded, fully accountable. Best marketing investment we've made."
-          </p>
-        </blockquote>
-        <div class="testimonial__author">
-          <div class="testimonial__avatar">SK</div>
-          <div>
-            <p class="testimonial__name">Sarah Kim</p>
-            <p class="testimonial__role">VP of Growth, Series A SaaS</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════ TEAM SECTION ═══════════ -->
-  <section class="team section" id="team">
-    <div class="container">
-      <div class="team__header">
-        <span class="badge animate-fade-in-up">Our People</span>
-        <h2 class="animate-fade-in-up stagger-1">Meet the <span class="gradient-text">Team</span></h2>
-        <p class="team__desc animate-fade-in-up stagger-2">
-          A global crew of marketers, operators, and strategists committed to making every campaign count.
+      <div class="voices__header">
+        <span class="badge animate-fade-in-up">Voices from our partners</span>
+        <h2 id="voices-heading" class="animate-fade-in-up stagger-1">
+          We work best with founders who want a thinking partner, not a task-taker
+        </h2>
+        <p class="voices__desc animate-fade-in-up stagger-2">
+          Here is how partners describe the shift after Benefactor tightened their messaging,
+          funnels, and growth systems.
         </p>
       </div>
 
-      <div class="team__grid">
-        <div class="team__member animate-fade-in-up stagger-1" id="team-alex">
-          <div class="team__photo-wrap">
-            <img src="/team/alex-mills.jpg" alt="Alex Mills" class="team__photo" loading="lazy" />
-          </div>
-          <h4 class="team__name">Alex Mills</h4>
-          <p class="team__title">IT &amp; Operations</p>
-          <p class="team__location">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Austin, TX
-          </p>
-        </div>
-
-        <div class="team__member animate-fade-in-up stagger-2" id="team-katie">
-          <div class="team__photo-wrap">
-            <img src="/team/katie-muntyan.jpg" alt="Katie Muntyan" class="team__photo" loading="lazy" />
-          </div>
-          <h4 class="team__name">Katie Muntyan</h4>
-          <p class="team__title">Marketing Operations</p>
-          <p class="team__location">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Moscow, Russia
-          </p>
-        </div>
-
-        <div class="team__member animate-fade-in-up stagger-3" id="team-vinayak">
-          <div class="team__photo-wrap">
-            <img src="/team/vinayak-pandey.png" alt="Vinayak Pandey" class="team__photo" loading="lazy" />
-          </div>
-          <h4 class="team__name">Vinayak Pandey</h4>
-          <p class="team__title">Chief Marketer</p>
-          <p class="team__location">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            North India
-          </p>
-        </div>
-
-        <div class="team__member animate-fade-in-up stagger-4" id="team-jacob">
-          <div class="team__photo-wrap">
-            <img src="/team/jacob-highley.png" alt="Jacob Highley" class="team__photo" loading="lazy" />
-          </div>
-          <h4 class="team__name">Jacob Highley</h4>
-          <p class="team__title">Marketing Specialist</p>
-          <p class="team__location">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Idaho, USA
-          </p>
-        </div>
-
-        <div class="team__member animate-fade-in-up stagger-5" id="team-catherine">
-          <div class="team__photo-wrap">
-            <img src="/team/catherine-jacobs.png" alt="Catherine Jacobs" class="team__photo" loading="lazy" />
-          </div>
-          <h4 class="team__name">Catherine Jacobs</h4>
-          <p class="team__title">Business Development</p>
-          <p class="team__location">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            London, UK
-          </p>
-        </div>
-
-        <div class="team__member animate-fade-in-up stagger-6" id="team-marcus">
-          <div class="team__photo-wrap">
-            <img src="/team/marcus-gerlach.jpg" alt="Marcus Gerlach" class="team__photo" loading="lazy" />
-          </div>
-          <h4 class="team__name">Marcus Gerlach</h4>
-          <p class="team__title">Marketing Director</p>
-          <p class="team__location">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Munich, Germany
-          </p>
-        </div>
-
-        <div class="team__member animate-fade-in-up stagger-7" id="team-sofia">
-          <div class="team__photo-wrap">
-            <img src="/team/sofia-reyes.png" alt="Sofia Reyes" class="team__photo" loading="lazy" />
-          </div>
-          <h4 class="team__name">Sofia Reyes</h4>
-          <p class="team__title">Paid Ads Specialist</p>
-          <p class="team__location">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Miami, FL
-          </p>
-        </div>
-
-        <div class="team__member animate-fade-in-up stagger-8" id="team-liam">
-          <div class="team__photo-wrap">
-            <img src="/team/liam-carter.png" alt="Liam Carter" class="team__photo" loading="lazy" />
-          </div>
-          <h4 class="team__name">Liam Carter</h4>
-          <p class="team__title">Copywriter</p>
-          <p class="team__location">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Toronto, Canada
-          </p>
-        </div>
-
-        <div class="team__member animate-fade-in-up stagger-9" id="team-priya">
-          <div class="team__photo-wrap">
-            <img src="/team/priya-nair.png" alt="Priya Nair" class="team__photo" loading="lazy" />
-          </div>
-          <h4 class="team__name">Priya Nair</h4>
-          <p class="team__title">Graphic Designer</p>
-          <p class="team__location">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Bangalore, India
-          </p>
-        </div>
+      <div class="voices__grid">
+        {testimonials.map((testimonial) => (
+          <figure class="card voices__card animate-fade-in-up">
+            <blockquote class="voices__quote">{testimonial.quote}</blockquote>
+            <figcaption class="voices__author">
+              <div>
+                <p class="voices__name">{testimonial.name}</p>
+                <p class="voices__role">{testimonial.role}</p>
+              </div>
+              <span class="voices__tag">{testimonial.tag}</span>
+            </figcaption>
+          </figure>
+        ))}
       </div>
     </div>
   </section>
 
-
-  <!-- ═══════════ CONTACT CTA ═══════════ -->
   <section class="cta section bg-radial-navy" id="contact">
     <div class="container">
       <div class="cta__content animate-fade-in-up">
-        <h2>Ready to<br/><span class="gradient-text">Grow Faster?</span></h2>
+        <h2>
+          Ready to turn scattered traffic into a <span class="gradient-text">reliable pipeline</span>?
+        </h2>
         <p>
-          Whether you need a full marketing engine or help with a specific channel,
-          we'll build a plan that fits your goals and your budget.
+          Whether you need tighter search intent, cleaner paid acquisition, or automation that
+          actually reduces founder workload, we will build a plan around the bottleneck that
+          matters most.
         </p>
         <div class="cta__actions">
           <a href="mailto:hello@benefactor.cc" class="btn btn--primary btn--large" id="cta-contact-btn">
-            Schedule a Free Strategy Call
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Schedule a Strategy Call
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M3 8h10M9 4l4 4-4 4"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
           </a>
-          <a href="#services" class="btn btn--secondary btn--large" id="cta-services-btn">
-            Explore Services
+          <a href="#results" class="btn btn--secondary btn--large" id="cta-services-btn">
+            Review Client Stories
           </a>
         </div>
       </div>
     </div>
   </section>
-
 </BaseLayout>
 
-
 <style>
-  /* ── Hero ── */
   .hero {
     position: relative;
     overflow: hidden;
@@ -476,7 +416,7 @@ import '../styles/global.css';
   }
 
   .hero__content {
-    max-width: 780px;
+    max-width: 820px;
   }
 
   .hero__title {
@@ -486,7 +426,7 @@ import '../styles/global.css';
 
   .hero__subtitle {
     font-size: 1.2rem;
-    max-width: 640px;
+    max-width: 680px;
     margin-bottom: var(--space-2xl);
   }
 
@@ -537,11 +477,6 @@ import '../styles/global.css';
     transition: all var(--duration-normal) var(--ease-out);
   }
 
-  .hero__capability-badge svg {
-    color: var(--bf-red);
-    opacity: 0.6;
-  }
-
   .hero__capability-badge:hover {
     border-color: var(--bf-border-active);
     color: var(--bf-red);
@@ -569,7 +504,6 @@ import '../styles/global.css';
     animation-delay: -4s;
   }
 
-  /* ── Stats ── */
   .stats {
     padding: var(--space-3xl) 0;
     border-top: 1px solid var(--bf-border);
@@ -579,13 +513,13 @@ import '../styles/global.css';
 
   .stats__grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: var(--space-xl);
     text-align: center;
   }
 
   .stats__number {
-    font-size: 2.5rem;
+    font-size: clamp(1.9rem, 3vw, 2.5rem);
     font-weight: 800;
     background: linear-gradient(135deg, var(--bf-red-light), var(--bf-red));
     -webkit-background-clip: text;
@@ -604,56 +538,34 @@ import '../styles/global.css';
     display: block;
   }
 
-  /* ── Services ── */
-  .services__header {
+  .services__header,
+  .process__header,
+  .portfolio__header,
+  .voices__header {
     text-align: center;
     margin-bottom: var(--space-3xl);
   }
 
-  .services__header h2 {
+  .services__header h2,
+  .process__header h2,
+  .portfolio__header h2,
+  .voices__header h2 {
     margin-top: var(--space-md);
   }
 
-  .services__desc {
-    max-width: 600px;
+  .services__desc,
+  .portfolio__desc,
+  .voices__desc {
+    max-width: 720px;
     margin: var(--space-md) auto 0;
   }
 
-  .services__grid {
+  .services__grid,
+  .portfolio__grid,
+  .voices__grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-xl);
-  }
-
-  .services__icon {
-    width: 52px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-md);
-    background: var(--bf-red-glow);
-    color: var(--bf-red);
-    margin-bottom: var(--space-lg);
-    border: 1px solid rgba(230, 57, 70, 0.15);
-  }
-
-  .services__icon--navy {
-    background: var(--bf-navy-glow);
-    color: var(--bf-navy-light);
-    border-color: rgba(30, 58, 95, 0.25);
-  }
-
-  .services__icon--blue {
-    background: var(--bf-blue-glow);
-    color: var(--bf-blue);
-    border-color: rgba(59, 130, 246, 0.15);
-  }
-
-  .services__icon--gray {
-    background: rgba(148, 163, 184, 0.08);
-    color: #94a3b8;
-    border-color: rgba(148, 163, 184, 0.15);
   }
 
   .services__card h3 {
@@ -666,6 +578,22 @@ import '../styles/global.css';
     margin-bottom: var(--space-lg);
   }
 
+  .services__kicker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-md);
+    background: var(--bf-red-glow);
+    color: var(--bf-red);
+    border: 1px solid rgba(230, 57, 70, 0.15);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: var(--space-lg);
+  }
+
   .services__features {
     display: flex;
     flex-direction: column;
@@ -675,32 +603,27 @@ import '../styles/global.css';
   .services__features li {
     font-size: 0.85rem;
     color: var(--bf-text-secondary);
-    padding-left: 1.2rem;
+    padding-left: 1rem;
     position: relative;
   }
 
   .services__features li::before {
-    content: '✓';
+    content: '+';
     position: absolute;
     left: 0;
     color: var(--bf-red);
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
   }
 
-  /* ── Process ── */
-  .process__header {
-    text-align: center;
-    margin-bottom: var(--space-3xl);
-  }
-
-  .process__header h2 {
-    margin-top: var(--space-md);
+  .process__container {
+    position: relative;
+    z-index: 1;
   }
 
   .process__timeline {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-xl);
   }
 
@@ -733,307 +656,154 @@ import '../styles/global.css';
   }
 
   .process__step-content p {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 
-  /* ── Results ── */
-  .results__header {
-    text-align: center;
-    margin-bottom: var(--space-3xl);
-  }
-
-  .results__header h2 {
-    margin-top: var(--space-md);
-  }
-
-  .results__desc {
-    max-width: 600px;
-    margin: var(--space-md) auto 0;
-  }
-
-  .results__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+  .portfolio__card {
+    display: flex;
+    flex-direction: column;
     gap: var(--space-lg);
   }
 
-  .results__item {
+  .portfolio__top {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: var(--space-2xl) var(--space-lg);
-    background: var(--bf-surface);
-    border: 1px solid var(--bf-border);
-    border-radius: var(--radius-lg);
-    transition: all var(--duration-normal) var(--ease-out);
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-md);
   }
 
-  .results__item:hover {
-    border-color: var(--bf-border-active);
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-glow);
-  }
-
-  .results__item h4 {
-    font-size: 1rem;
-    margin-bottom: 4px;
-  }
-
-  .results__item p {
-    font-size: 0.78rem;
-    color: var(--bf-text-muted);
-  }
-
-  .results__stat {
-    font-size: 2rem !important;
-    font-weight: 800 !important;
-    background: linear-gradient(135deg, var(--bf-red-light), var(--bf-red)) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
-    margin: var(--space-sm) 0 var(--space-xs) !important;
-    color: var(--bf-red) !important;
-  }
-
-  .results__icon-wrap {
-    width: 56px;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-md);
-    background: var(--bf-red-glow);
-    color: var(--bf-red);
-    margin-bottom: var(--space-md);
-    border: 1px solid rgba(230, 57, 70, 0.12);
-  }
-
-  .results__icon-wrap--navy {
-    background: var(--bf-navy-glow);
-    color: var(--bf-navy-light);
-    border-color: rgba(30, 58, 95, 0.2);
-  }
-
-  .results__icon-wrap--blue {
-    background: var(--bf-blue-glow);
-    color: var(--bf-blue);
-    border-color: rgba(59, 130, 246, 0.12);
-  }
-
-  .results__icon-wrap--gray {
-    background: rgba(148, 163, 184, 0.06);
-    color: #94a3b8;
-    border-color: rgba(148, 163, 184, 0.12);
-  }
-
-  /* ── Why Benefactor ── */
-  .why__header {
-    text-align: center;
-    margin-bottom: var(--space-3xl);
-  }
-
-  .why__header h2 {
-    margin-top: var(--space-md);
-  }
-
-  .why__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-xl);
-  }
-
-  .why__item {
-    padding: var(--space-2xl);
-    background: var(--bf-surface);
-    border: 1px solid var(--bf-border);
-    border-radius: var(--radius-lg);
-    transition: all var(--duration-normal) var(--ease-out);
-  }
-
-  .why__item:hover {
-    border-color: var(--bf-border-active);
-  }
-
-  .why__number {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--bf-red);
-    opacity: 0.25;
-    margin-bottom: var(--space-md);
-    font-family: var(--font-mono);
-  }
-
-  .why__item h4 {
-    margin-bottom: var(--space-sm);
-  }
-
-  .why__item p {
-    font-size: 0.95rem;
-  }
-
-  /* ── Testimonial ── */
-  .testimonial__card {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: var(--space-3xl);
-    background: var(--bf-surface);
-    border: 1px solid var(--bf-border);
-    border-radius: var(--radius-xl);
-    text-align: center;
-  }
-
-  .testimonial__quote {
-    position: absolute;
-    top: 28px;
-    left: 28px;
-    color: var(--bf-red);
-  }
-
-  .testimonial__text {
+  .portfolio__name {
     font-size: 1.2rem;
-    color: var(--bf-text-primary);
-    font-weight: 400;
-    line-height: 1.8;
-    font-style: italic;
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-xs);
   }
 
-  .testimonial__author {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-md);
-  }
-
-  .testimonial__avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--bf-navy-dark), var(--bf-navy));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: #fff;
-  }
-
-  .testimonial__name {
-    font-weight: 600;
-    color: var(--bf-text-primary);
-    font-size: 0.95rem;
-  }
-
-  .testimonial__role {
-    font-size: 0.8rem;
+  .portfolio__meta {
+    font-size: 0.88rem;
     color: var(--bf-text-muted);
   }
 
-  /* ── Team ── */
-  .team__header {
-    text-align: center;
-    margin-bottom: var(--space-3xl);
-  }
-
-  .team__header h2 {
-    margin-top: var(--space-md);
-  }
-
-  .team__desc {
-    max-width: 600px;
-    margin: var(--space-md) auto 0;
-  }
-
-  .team__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-md);
-  }
-
-  .team__member {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: var(--space-2xl) var(--space-lg);
-    background: var(--bf-surface);
-    border: 1px solid var(--bf-border);
-    border-radius: var(--radius-lg);
-    transition: all var(--duration-normal) var(--ease-out);
-  }
-
-  .team__member:hover {
-    border-color: var(--bf-border-active);
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-glow);
-  }
-
-  .team__member:hover .team__photo {
-    filter: grayscale(0%);
-  }
-
-  .team__photo-wrap {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: var(--space-lg);
-    border: 3px solid var(--bf-border);
-    transition: border-color var(--duration-normal) var(--ease-out);
-  }
-
-  .team__member:hover .team__photo-wrap {
-    border-color: var(--bf-red);
-  }
-
-  .team__photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    filter: grayscale(100%);
-    transition: filter var(--duration-normal) var(--ease-out);
-  }
-
-  .team__name {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--bf-text-primary);
-    margin-bottom: 4px;
-  }
-
-  .team__title {
-    font-size: 0.85rem;
-    color: var(--bf-red);
-    font-weight: 600;
-    margin-bottom: var(--space-sm);
-  }
-
-  .team__location {
+  .portfolio__pill,
+  .portfolio__metric,
+  .voices__tag {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    font-size: 0.78rem;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--bf-border-hover);
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--bf-text-primary);
+  }
+
+  .portfolio__pill {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .portfolio__metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .portfolio__metric {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.8rem;
+    color: var(--bf-text-secondary);
+  }
+
+  .portfolio__block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .portfolio__label {
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     color: var(--bf-text-muted);
-    font-weight: 500;
   }
 
-  .team__location svg {
-    opacity: 0.5;
+  .portfolio__copy {
+    font-size: 0.95rem;
+    color: var(--bf-text-secondary);
   }
 
-  .stagger-5 { animation-delay: 0.5s; }
-  .stagger-6 { animation-delay: 0.6s; }
-  .stagger-7 { animation-delay: 0.7s; }
-  .stagger-8 { animation-delay: 0.8s; }
-  .stagger-9 { animation-delay: 0.9s; }
+  .portfolio__note {
+    max-width: 820px;
+    margin: var(--space-xl) auto 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--bf-text-muted);
+  }
 
-  /* ── CTA ── */
+  .voices__card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .voices__card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(230, 57, 70, 0.08), transparent 50%);
+    pointer-events: none;
+  }
+
+  .voices__quote {
+    position: relative;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--bf-text-primary);
+    font-style: italic;
+    margin-bottom: var(--space-xl);
+    padding-left: 1.1rem;
+  }
+
+  .voices__quote::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: -0.9rem;
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.14);
+  }
+
+  .voices__author {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-md);
+  }
+
+  .voices__name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--bf-text-primary);
+  }
+
+  .voices__role {
+    font-size: 0.84rem;
+    color: var(--bf-text-muted);
+  }
+
+  .voices__tag {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.72rem;
+    color: var(--bf-text-secondary);
+    white-space: nowrap;
+  }
+
   .cta__content {
     text-align: center;
-    max-width: 650px;
+    max-width: 760px;
     margin: 0 auto;
   }
 
@@ -1053,58 +823,29 @@ import '../styles/global.css';
     flex-wrap: wrap;
   }
 
-  /* ── Responsive ── */
-  @media (max-width: 1024px) {
-    .team__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
   @media (max-width: 768px) {
     .hero {
       min-height: auto;
     }
 
-    .stats__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
+    .stats__grid,
     .services__grid,
     .process__timeline,
-    .why__grid {
+    .portfolio__grid,
+    .voices__grid {
       grid-template-columns: 1fr;
     }
 
-    .results__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .team__grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-lg);
-    }
-
-    .team__photo-wrap {
-      width: 140px;
-      height: 140px;
-    }
-
-    .testimonial__card {
-      padding: var(--space-2xl) var(--space-lg);
-    }
-
-    .testimonial__text {
-      font-size: 1rem;
+    .portfolio__top,
+    .voices__author {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 
   @media (max-width: 480px) {
-    .results__grid {
-      grid-template-columns: 1fr;
-    }
-
-    .team__grid {
-      grid-template-columns: 1fr;
+    .stats__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>
