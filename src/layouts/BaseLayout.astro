@@ -5,6 +5,8 @@ interface Props {
 }
 
 const { title, description = "Benefactor is a full-service growth marketing agency helping startups and scaling companies achieve rapid, sustainable results." } = Astro.props;
+const isHome = Astro.url.pathname === '/';
+const sectionHref = (id: string) => (isHome ? `#${id}` : `/#${id}`);
 ---
 
 <!doctype html>
@@ -26,24 +28,19 @@ const { title, description = "Benefactor is a full-service growth marketing agen
     <nav class="nav" id="main-nav">
       <div class="nav__inner container">
         <a href="/" class="nav__logo" id="nav-logo">
-          <svg class="nav__logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Upward arrow / growth icon -->
-            <rect x="2" y="2" width="28" height="28" rx="6" stroke="currentColor" stroke-width="1.5" fill="currentColor" opacity="0.08"/>
-            <path d="M10 22L16 10L22 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <polygon points="32,32 32,19.07 19.07,32" fill="var(--bf-red, #e63946)"/>
-          </svg>
-          <span class="nav__logo-text">
-            <span class="nav__logo-benefactor">BENEFACTOR</span><span class="nav__logo-marketing">MKT</span>
-          </span>
+          <img
+            src="/benefactor-wordmark.svg"
+            alt="Benefactor Marketing"
+            class="nav__logo-image nav__logo-image--header"
+          />
         </a>
 
         <div class="nav__links" id="nav-links">
-          <a href="#services" class="nav__link" id="nav-services">Services</a>
-          <a href="#process" class="nav__link" id="nav-process">Process</a>
-          <a href="#results" class="nav__link" id="nav-results">Results</a>
-          <a href="#about" class="nav__link" id="nav-about">About</a>
-          <a href="#contact" class="btn btn--primary nav__cta" id="nav-contact">Get Started</a>
+          <a href={sectionHref('services')} class="nav__link" id="nav-services">Services</a>
+          <a href={sectionHref('process')} class="nav__link" id="nav-process">Process</a>
+          <a href={sectionHref('results')} class="nav__link" id="nav-results">Results</a>
+          <a href={sectionHref('team')} class="nav__link" id="nav-about">About</a>
+          <a href={sectionHref('contact')} class="btn btn--primary nav__cta" id="nav-contact">Get Started</a>
         </div>
 
         <button class="nav__mobile-toggle" id="nav-toggle" aria-label="Toggle navigation">
@@ -63,33 +60,32 @@ const { title, description = "Benefactor is a full-service growth marketing agen
         <div class="footer__top">
           <div class="footer__brand">
             <a href="/" class="nav__logo">
-              <svg class="nav__logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="2" width="28" height="28" rx="6" stroke="currentColor" stroke-width="1.5" fill="currentColor" opacity="0.08"/>
-                <path d="M10 22L16 10L22 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <polygon points="32,32 32,19.07 19.07,32" fill="var(--bf-red, #e63946)"/>
-              </svg>
-              <span class="nav__logo-text">
-                <span class="nav__logo-benefactor">BENEFACTOR</span><span class="nav__logo-marketing">MKT</span>
-              </span>
+              <img
+                src="/benefactor-wordmark.svg"
+                alt="Benefactor Marketing"
+                class="nav__logo-image nav__logo-image--footer"
+              />
             </a>
-            <p class="footer__tagline">Growth marketing that<br/>moves metrics for ambitious brands.</p>
+            <p class="footer__tagline">
+              Search, paid, growth systems, and automation built to turn attention into
+              qualified pipeline.
+            </p>
           </div>
 
           <div class="footer__columns">
             <div class="footer__col">
               <h4 class="footer__col-title">Services</h4>
-              <a href="#services" class="footer__link">Brand Strategy</a>
-              <a href="#services" class="footer__link">Digital Advertising</a>
-              <a href="#services" class="footer__link">Content Marketing</a>
-              <a href="#services" class="footer__link">SEO & Analytics</a>
+              <a href={sectionHref('services')} class="footer__link">Search Strategy</a>
+              <a href={sectionHref('services')} class="footer__link">Paid Search</a>
+              <a href={sectionHref('competencies')} class="footer__link">Growth Hacking</a>
+              <a href={sectionHref('competencies')} class="footer__link">Automation</a>
             </div>
             <div class="footer__col">
               <h4 class="footer__col-title">Company</h4>
-              <a href="#about" class="footer__link">About Us</a>
-              <a href="#process" class="footer__link">Our Process</a>
-              <a href="#results" class="footer__link">Results</a>
-              <a href="#contact" class="footer__link">Contact</a>
+              <a href={sectionHref('team')} class="footer__link">About Us</a>
+              <a href={sectionHref('process')} class="footer__link">Our Process</a>
+              <a href={sectionHref('results')} class="footer__link">Results</a>
+              <a href={sectionHref('contact')} class="footer__link">Contact</a>
             </div>
             <div class="footer__col">
               <h4 class="footer__col-title">Connect</h4>
@@ -123,6 +119,7 @@ const { title, description = "Benefactor is a full-service growth marketing agen
       }
 
       .nav__inner {
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -135,24 +132,17 @@ const { title, description = "Benefactor is a full-service growth marketing agen
         gap: 10px;
       }
 
-      .nav__logo-icon {
-        width: 32px;
-        height: 32px;
-        color: var(--bf-red);
+      .nav__logo-image {
+        display: block;
+        height: auto;
       }
 
-      .nav__logo-text {
-        font-size: 0.95rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
+      .nav__logo-image--header {
+        width: 148px;
       }
 
-      .nav__logo-benefactor {
-        color: var(--bf-text-primary);
-      }
-
-      .nav__logo-marketing {
-        color: var(--bf-red);
+      .nav__logo-image--footer {
+        width: 208px;
       }
 
       .nav__links {
@@ -232,6 +222,7 @@ const { title, description = "Benefactor is a full-service growth marketing agen
         font-size: 0.95rem;
         color: var(--bf-text-muted);
         line-height: 1.6;
+        max-width: 26ch;
       }
 
       .footer__columns {
@@ -289,6 +280,26 @@ const { title, description = "Benefactor is a full-service growth marketing agen
       @media (max-width: 768px) {
         .nav__links {
           display: none;
+        }
+
+        .nav__links--open {
+          display: flex;
+          position: absolute;
+          top: calc(100% + 0.75rem);
+          left: var(--space-md);
+          right: var(--space-md);
+          flex-direction: column;
+          align-items: stretch;
+          gap: var(--space-md);
+          padding: var(--space-lg);
+          border: 1px solid var(--bf-border-hover);
+          border-radius: var(--radius-lg);
+          background: rgba(11, 13, 17, 0.96);
+          box-shadow: var(--shadow-lg);
+        }
+
+        .nav__logo-image--header {
+          width: 128px;
         }
 
         .nav__mobile-toggle {

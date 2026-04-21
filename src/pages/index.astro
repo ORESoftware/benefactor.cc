@@ -63,6 +63,33 @@ const focusAreas = [
   },
 ];
 
+const coreCompetencies = [
+  {
+    title: 'Growth hacking',
+    highlight: 'Fast feedback loops',
+    description:
+      'We run disciplined experiments across offers, creatives, landing pages, and channel mix so growth decisions come from real conversion data instead of guesswork.',
+    capabilities: [
+      'Acquisition experiments tied to qualified actions',
+      'Rapid landing page and offer iteration',
+      'Creative testing across search and paid social',
+      'Funnel-level learning shared back into messaging',
+    ],
+  },
+  {
+    title: 'Software scaling and automation',
+    highlight: 'Operational leverage',
+    description:
+      'We connect the demand engine to the operating system underneath it so leads, handoffs, reporting, and follow-up scale without adding manual busywork to the team.',
+    capabilities: [
+      'CRM and lifecycle workflow design',
+      'Lead routing, scoring, and follow-up logic',
+      'Reporting pipelines founders can actually trust',
+      'Automated handoffs between marketing, sales, and ops',
+    ],
+  },
+];
+
 const processSteps = [
   {
     number: '01',
@@ -171,6 +198,59 @@ const testimonials = [
     tag: '3PL and Logistics',
   },
 ];
+
+const teamMembers = [
+  {
+    id: 'alex',
+    name: 'Alex Mills',
+    title: 'IT & Operations',
+    location: 'Austin, TX',
+    image: '/team/alex-mills.jpg',
+  },
+  {
+    id: 'katie',
+    name: 'Katie Muntyan',
+    title: 'Marketing Operations',
+    location: 'Moscow, Russia',
+    image: '/team/katie-muntyan.jpg',
+  },
+  {
+    id: 'vinayak',
+    name: 'Vinayak Pandey',
+    title: 'Chief Marketer',
+    location: 'North India',
+    image: '/team/vinayak-pandey.png',
+  },
+  {
+    id: 'jacob',
+    name: 'Jacob Highley',
+    title: 'Marketing Specialist',
+    location: 'Idaho, USA',
+    image: '/team/jacob-highley.png',
+  },
+  {
+    id: 'catherine',
+    name: 'Catherine Jacobs',
+    title: 'Business Development',
+    location: 'London, UK',
+    image: '/team/catherine-jacobs.png',
+  },
+  {
+    id: 'marcus',
+    name: 'Marcus Gerlach',
+    title: 'Marketing Director',
+    location: 'Munich, Germany',
+    image: '/team/marcus-gerlach.jpg',
+  },
+  {
+    id: 'elijah',
+    name: 'Elijah Gizzarelli',
+    title: 'Sales & BizDev',
+    location: 'Providence, RI',
+    image: '/team/elijah-gizzarelli.jpeg',
+    profileUrl: 'https://www.linkedin.com/in/elijah-jon-gizzarelli-b39a87154/',
+  },
+];
 ---
 
 <BaseLayout
@@ -267,6 +347,42 @@ const testimonials = [
     </div>
   </section>
 
+  <section class="competencies section bg-noise" id="competencies">
+    <div class="container competencies__container">
+      <div class="competencies__header">
+        <span class="badge animate-fade-in-up">Core competencies</span>
+        <h2 class="animate-fade-in-up stagger-1">
+          Where strategy meets <span class="gradient-text">execution leverage</span>
+        </h2>
+        <p class="competencies__desc animate-fade-in-up stagger-2">
+          Beyond search and paid, we build the experimentation muscle and operational
+          infrastructure that help small teams scale faster without losing signal.
+        </p>
+      </div>
+
+      <div class="competencies__rows">
+        {coreCompetencies.map((competency, index) => (
+          <article class="card competencies__row animate-fade-in-up">
+            <div class="competencies__index">{String(index + 1).padStart(2, '0')}</div>
+            <div class="competencies__body">
+              <div class="competencies__top">
+                <div>
+                  <span class="competencies__eyebrow">{competency.highlight}</span>
+                  <h3>{competency.title}</h3>
+                </div>
+                <div class="competencies__divider" aria-hidden="true"></div>
+              </div>
+              <p>{competency.description}</p>
+              <ul class="competencies__list">
+                {competency.capabilities.map((capability) => <li>{capability}</li>)}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="process section bg-noise" id="process">
     <div class="container process__container">
       <div class="process__header">
@@ -343,7 +459,46 @@ const testimonials = [
     </div>
   </section>
 
-  <section class="voices section" id="about" aria-labelledby="voices-heading">
+  <section class="team section" id="team" aria-labelledby="team-heading">
+    <div class="container">
+      <div class="team__header">
+        <span class="badge animate-fade-in-up">Our people</span>
+        <h2 id="team-heading" class="animate-fade-in-up stagger-1">
+          A distributed team built to <span class="gradient-text">ship and scale</span>
+        </h2>
+        <p class="team__desc animate-fade-in-up stagger-2">
+          Strategy, operations, marketing execution, and business development under one roof.
+          Elijah joins the grid in slot seven while we keep the current 3-column layout intact.
+        </p>
+      </div>
+
+      <div class="team__grid">
+        {teamMembers.map((member, index) => (
+          <article class="team__member animate-fade-in-up" id={`team-${member.id}`}>
+            <div class="team__photo-wrap">
+              <img src={member.image} alt={member.name} class="team__photo" loading="lazy" />
+            </div>
+            <h3 class="team__name">{member.name}</h3>
+            <p class="team__title">{member.title}</p>
+            <p class="team__location">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              {member.location}
+            </p>
+            {member.profileUrl && (
+              <a href={member.profileUrl} class="team__profile" target="_blank" rel="noreferrer">
+                LinkedIn
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="voices section" id="partners" aria-labelledby="voices-heading">
     <div class="container">
       <div class="voices__header">
         <span class="badge animate-fade-in-up">Voices from our partners</span>
@@ -568,6 +723,108 @@ const testimonials = [
     gap: var(--space-xl);
   }
 
+  .competencies__container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .competencies__header,
+  .team__header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .competencies__header h2,
+  .team__header h2 {
+    margin-top: var(--space-md);
+  }
+
+  .competencies__desc,
+  .team__desc {
+    max-width: 720px;
+    margin: var(--space-md) auto 0;
+  }
+
+  .competencies__rows {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  .competencies__row {
+    display: grid;
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: var(--space-xl);
+    align-items: flex-start;
+  }
+
+  .competencies__index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(230, 57, 70, 0.16), rgba(30, 58, 95, 0.16));
+    border: 1px solid rgba(230, 57, 70, 0.2);
+    color: var(--bf-text-primary);
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .competencies__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .competencies__top {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-lg);
+  }
+
+  .competencies__top h3 {
+    margin-top: var(--space-xs);
+  }
+
+  .competencies__eyebrow {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--bf-red);
+    font-weight: 700;
+  }
+
+  .competencies__divider {
+    flex: 1;
+    min-width: 72px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 0.5rem;
+  }
+
+  .competencies__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-sm) var(--space-lg);
+  }
+
+  .competencies__list li {
+    font-size: 0.92rem;
+    color: var(--bf-text-secondary);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .competencies__list li::before {
+    content: '+';
+    position: absolute;
+    left: 0;
+    color: var(--bf-red);
+    font-weight: 700;
+  }
+
   .services__card h3 {
     margin-bottom: var(--space-sm);
     font-size: 1.25rem;
@@ -742,6 +999,104 @@ const testimonials = [
     color: var(--bf-text-muted);
   }
 
+  .team__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-md);
+  }
+
+  .team__member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-2xl) var(--space-lg);
+    background: var(--bf-surface);
+    border: 1px solid var(--bf-border);
+    border-radius: var(--radius-lg);
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  .team__member:hover {
+    border-color: var(--bf-border-active);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .team__member:hover .team__photo {
+    filter: grayscale(0%);
+  }
+
+  .team__photo-wrap {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: var(--space-lg);
+    border: 3px solid var(--bf-border);
+    transition: border-color var(--duration-normal) var(--ease-out);
+  }
+
+  .team__member:hover .team__photo-wrap {
+    border-color: var(--bf-red);
+  }
+
+  .team__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: grayscale(100%);
+    transition: filter var(--duration-normal) var(--ease-out);
+  }
+
+  .team__name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--bf-text-primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .team__title {
+    font-size: 0.85rem;
+    color: var(--bf-red);
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+  }
+
+  .team__location {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.78rem;
+    color: var(--bf-text-muted);
+    font-weight: 500;
+  }
+
+  .team__location svg {
+    opacity: 0.5;
+  }
+
+  .team__profile {
+    margin-top: var(--space-md);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.45rem 0.9rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--bf-border-hover);
+    color: var(--bf-text-primary);
+    font-size: 0.78rem;
+    font-weight: 600;
+    transition: all var(--duration-fast) var(--ease-out);
+  }
+
+  .team__profile:hover {
+    border-color: var(--bf-red);
+    color: var(--bf-red);
+    background: var(--bf-red-glow);
+  }
+
   .voices__card {
     position: relative;
     overflow: hidden;
@@ -828,10 +1183,30 @@ const testimonials = [
       min-height: auto;
     }
 
+    .competencies__row {
+      grid-template-columns: 1fr;
+    }
+
+    .competencies__index {
+      width: 64px;
+      height: 64px;
+    }
+
+    .competencies__top {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .competencies__divider {
+      display: none;
+    }
+
+    .competencies__list,
     .stats__grid,
     .services__grid,
     .process__timeline,
     .portfolio__grid,
+    .team__grid,
     .voices__grid {
       grid-template-columns: 1fr;
     }
@@ -840,6 +1215,11 @@ const testimonials = [
     .voices__author {
       flex-direction: column;
       align-items: flex-start;
+    }
+
+    .team__photo-wrap {
+      width: 140px;
+      height: 140px;
     }
   }
 
