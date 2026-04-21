@@ -11,6 +11,8 @@ export function getStaticPaths() {
 }
 
 const { page } = Astro.props as { page: ServiceLandingPage };
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
 const strategyCallHref = `mailto:hello@benefactor.cc?subject=${encodeURIComponent(
   `${page.serviceLabel} marketing for ${page.countryLabel}`
 )}`;
@@ -21,7 +23,7 @@ const strategyCallHref = `mailto:hello@benefactor.cc?subject=${encodeURIComponen
     <div class="container landing-hero__container">
       <div class="landing-hero__content">
         <p class="landing-breadcrumb">
-          <a href="/">Benefactor</a>
+          <a href={withBase()}>Benefactor</a>
           <span>/</span>
           <span>{page.countryLabel}</span>
           <span>/</span>
@@ -43,7 +45,7 @@ const strategyCallHref = `mailto:hello@benefactor.cc?subject=${encodeURIComponen
 
         <div class="landing-hero__actions animate-fade-in-up stagger-4">
           <a href={strategyCallHref} class="btn btn--primary btn--large">Book a Strategy Call</a>
-          <a href="/#services" class="btn btn--secondary btn--large">See Core Services</a>
+          <a href={withBase('#services')} class="btn btn--secondary btn--large">See Core Services</a>
         </div>
       </div>
     </div>
@@ -126,7 +128,7 @@ const strategyCallHref = `mailto:hello@benefactor.cc?subject=${encodeURIComponen
         </p>
         <div class="cta__actions">
           <a href={strategyCallHref} class="btn btn--primary btn--large">Start the Conversation</a>
-          <a href="/#team" class="btn btn--secondary btn--large">Meet the Team</a>
+          <a href={withBase('#team')} class="btn btn--secondary btn--large">Meet the Team</a>
         </div>
       </div>
     </div>

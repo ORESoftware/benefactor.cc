@@ -1,6 +1,8 @@
 ---
 import BlogLayout from '../../layouts/BlogLayout.astro';
 import '../../styles/global.css';
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
 
 const frontmatter = {
   title: "Your Data Is the Product: A Deep Guide to Personal Security in Digital Spaces",
@@ -401,7 +403,7 @@ const frontmatter = {
   <div class="blog-cta">
     <h3>Protect Your Brand's Digital Presence</h3>
     <p>Your data security is your brand security. Let Benefactor Marketing audit your digital footprint and build a strategy that protects your reputation while driving growth.</p>
-    <a href="/benefactor.cc/#contact" class="btn btn--primary btn--large" id="blog-cta-security-audit">
+    <a href={withBase('#contact')} class="btn btn--primary btn--large" id="blog-cta-security-audit">
       Schedule a Free Security &amp; Brand Audit →
     </a>
   </div>
