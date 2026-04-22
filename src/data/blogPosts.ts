@@ -11,6 +11,17 @@ export interface BlogPostMeta {
 
 export const blogPosts: BlogPostMeta[] = [
   {
+    slug: 'personal-security-in-digital-spaces',
+    title: 'Your Data Is the Product: A Deep Guide to Personal Security in Digital Spaces',
+    description:
+      'An in-depth look at how personal information is harvested across email, banking, AI tools, phones, and GPS, plus the technologies and habits that help fight back.',
+    date: '2026-03-03',
+    author: 'Benefactor Marketing',
+    readTime: '18 min read',
+    category: 'Digital Security',
+    tags: ['security', 'privacy', 'personal-information', 'digital-safety', 'ai-tools', 'financial-security'],
+  },
+  {
     slug: 'founder-led-b2b-sites-that-stop-leaking-pipeline',
     title: 'How Founder-Led B2B Sites Stop Leaking Pipeline',
     description:
