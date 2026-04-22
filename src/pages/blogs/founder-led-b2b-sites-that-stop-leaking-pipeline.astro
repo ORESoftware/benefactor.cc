@@ -1,0 +1,158 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import '../../styles/global.css';
+import { getBlogPostMeta } from '../../data/blogPosts';
+
+const frontmatter = getBlogPostMeta('founder-led-b2b-sites-that-stop-leaking-pipeline');
+---
+
+<BlogLayout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  date={frontmatter.date}
+  author={frontmatter.author}
+  readTime={frontmatter.readTime}
+  category={frontmatter.category}
+  tags={frontmatter.tags}
+>
+  <p>
+    A surprising number of founder-led B2B websites are not underperforming because the team
+    lacks traffic. They are underperforming because the site drops intent on the floor.
+    Someone arrives with a real problem, scans the page for ten seconds, and leaves without
+    finding a reason to believe, a reason to act, or a next step that feels proportionate to
+    where they are in the buying journey.
+  </p>
+
+  <p>
+    That is what a pipeline leak looks like online. It usually does not feel dramatic. It
+    looks like decent search traffic, respectable ad click-through rates, a steady trickle of
+    form fills, and a founder who still says, "We should be getting more from this site."
+    They are right.
+  </p>
+
+  <h2 id="why-founder-sites-leak">Why founder-led sites leak in the first place</h2>
+
+  <p>
+    Founder-led companies often get early traction through conviction, relationships, and raw
+    speed. The website comes later, and when it does, it often inherits the same bias:
+    everything is compressed into one page that tries to explain the entire company at once.
+    That can work for referrals. It rarely works for colder demand.
+  </p>
+
+  <p>
+    A cold visitor usually needs four things before they will convert:
+  </p>
+
+  <ul>
+    <li>A page that reflects the exact problem they are trying to solve</li>
+    <li>Language that makes them feel understood quickly</li>
+    <li>Signals that the company has solved this kind of problem before</li>
+    <li>A next step that feels specific and low-friction</li>
+  </ul>
+
+  <p>
+    When those ingredients are missing, founders compensate manually. They chase context on
+    calls, rewrite expectations in DMs, and re-qualify leads that the site should have
+    filtered. That manual effort hides the leak because the business still closes deals.
+  </p>
+
+  <h2 id="the-most-common-breakdowns">The most common breakdowns</h2>
+
+  <h3>1. The site is organized around the company, not the buyer</h3>
+
+  <p>
+    Founders naturally talk in terms of offerings, expertise, and capability. Buyers start
+    somewhere else. They search by frustration, initiative, job-to-be-done, competitor
+    category, or outcome they are missing. If the site architecture only mirrors the internal
+    org chart, it will feel vague to the person actually trying to buy.
+  </p>
+
+  <h3>2. Messaging is too broad to feel credible</h3>
+
+  <p>
+    "We help companies grow" is technically true and commercially weak. Broad language may
+    feel safer, but it removes the sharp edges that create trust. Strong messaging narrows the
+    frame. It tells the visitor which situation the team is especially good at handling and
+    which type of buyer will get the fastest win.
+  </p>
+
+  <h3>3. The call to action asks for too much, too early</h3>
+
+  <p>
+    If every page asks for a demo without earning it, response rates will sag. High-intent
+    pages can support a direct conversation. Mid-intent pages often need a lighter bridge:
+    an audit, a teardown, a benchmark, or a short consult framed around a specific problem.
+  </p>
+
+  <h3>4. Follow-up is disconnected from the promise on the page</h3>
+
+  <p>
+    Even when someone converts, the site may still leak pipeline if the handoff into CRM,
+    email, or calendar flow is sloppy. Slow response time, generic confirmation emails, and
+    unclear routing create friction exactly when buyer intent is hottest.
+  </p>
+
+  <h2 id="what-to-fix-first">What to fix first</h2>
+
+  <p>
+    The answer is almost never "redesign the whole site." The fastest gains usually come from
+    tightening one high-intent path end to end. Pick a service, market, or offer that matters
+    commercially, then rebuild that lane completely.
+  </p>
+
+  <p>
+    In practice, that usually means:
+  </p>
+
+  <ul>
+    <li>Create a dedicated page for a specific buyer problem</li>
+    <li>Rewrite the headline around the buyer's situation instead of your features</li>
+    <li>Add proof that matches the type of outcome that buyer wants</li>
+    <li>Shape the CTA around the decision they are ready to make</li>
+    <li>Connect the conversion point to immediate, contextual follow-up</li>
+  </ul>
+
+  <p>
+    This is the part many teams skip. They improve the page, but they do not improve the
+    operational response. A website is not just a front-end asset. It is the opening move in
+    a system.
+  </p>
+
+  <h2 id="what-good-looks-like">What good looks like</h2>
+
+  <p>
+    A high-performing founder-led B2B site does not try to impress everyone. It helps the
+    right visitor self-identify quickly. The page says, in effect, "If this is your situation,
+    we understand the shape of the problem, and here is what the next move should be."
+  </p>
+
+  <p>
+    That kind of clarity has second-order benefits. Paid search improves because landing pages
+    align better with query intent. SEO improves because the site develops stronger topic and
+    service architecture. Sales improves because prospects arrive with cleaner expectations.
+    Even customer success benefits because the promise made before the sale is more precise.
+  </p>
+
+  <h2 id="the-metric-that-matters">The metric that matters</h2>
+
+  <p>
+    If you want to know whether the leak is closing, do not stop at traffic and conversion
+    rate. Watch the percentage of inbound conversations that are truly sales-worthy. Watch
+    response speed. Watch how many leads reach the right rep with the right context. Watch the
+    share of conversations that move to a meaningful second step.
+  </p>
+
+  <p>
+    That is the key shift: move from measuring whether the site captures contact information
+    to measuring whether it creates qualified momentum.
+  </p>
+
+  <div class="blog-cta">
+    <h3>Want help tightening one high-intent lane first?</h3>
+    <p>
+      Benefactor builds service pages, search programs, and follow-up systems that turn
+      scattered interest into cleaner pipeline.
+    </p>
+    <a href="mailto:hello@benefactor.cc" class="btn btn--primary btn--large">Talk to Benefactor</a>
+  </div>
+</BlogLayout>

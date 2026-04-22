@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { blogPosts } from '../../data/blogPosts';
+
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
+---
+
+<BaseLayout
+  title="Blogs"
+  description="Marketing essays from Benefactor on search strategy, growth systems, automation, and founder-led pipeline generation."
+>
+  <section class="blogs-hero section--hero bg-grid bg-radial">
+    <div class="container blogs-hero__container">
+      <span class="badge animate-fade-in-up">Insights</span>
+      <h1 class="blogs-hero__title animate-fade-in-up stagger-1">
+        Essays on search, growth systems, and marketing that compounds.
+      </h1>
+      <p class="blogs-hero__subtitle animate-fade-in-up stagger-2">
+        We write about the parts of growth that usually get hand-waved away: intent,
+        qualification, message-market fit, and the operational details that decide whether
+        demand becomes pipeline.
+      </p>
+    </div>
+  </section>
+
+  <section class="blogs-list section">
+    <div class="container">
+      <div class="blogs-list__grid">
+        {blogPosts.map((post) => (
+          <article class="card blogs-list__card animate-fade-in-up">
+            <div class="blogs-list__meta">
+              <span class="blogs-list__category">{post.category}</span>
+              <span class="blogs-list__meta-separator">·</span>
+              <span>{new Date(post.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}</span>
+              <span class="blogs-list__meta-separator">·</span>
+              <span>{post.readTime}</span>
+            </div>
+            <h2 class="blogs-list__title">
+              <a href={withBase(`blogs/${post.slug}/`)}>{post.title}</a>
+            </h2>
+            <p class="blogs-list__description">{post.description}</p>
+            <div class="blogs-list__tags">
+              {post.tags.map((tag) => (
+                <span class="blogs-list__tag">#{tag}</span>
+              ))}
+            </div>
+            <a href={withBase(`blogs/${post.slug}/`)} class="blogs-list__link">
+              Read article
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blogs-hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .blogs-hero__container {
+    max-width: 860px;
+  }
+
+  .blogs-hero__title {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-lg);
+    max-width: 13ch;
+  }
+
+  .blogs-hero__subtitle {
+    max-width: 720px;
+    font-size: 1.12rem;
+  }
+
+  .blogs-list__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .blogs-list__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    min-height: 100%;
+  }
+
+  .blogs-list__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--bf-text-muted);
+  }
+
+  .blogs-list__category {
+    color: var(--bf-red);
+    font-weight: 700;
+  }
+
+  .blogs-list__meta-separator {
+    color: var(--bf-border-hover);
+  }
+
+  .blogs-list__title {
+    font-size: clamp(1.35rem, 2vw, 1.9rem);
+    line-height: 1.2;
+  }
+
+  .blogs-list__title a {
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .blogs-list__title a:hover {
+    color: var(--bf-red);
+  }
+
+  .blogs-list__description {
+    font-size: 1rem;
+  }
+
+  .blogs-list__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: auto;
+  }
+
+  .blogs-list__tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.7rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--bf-border);
+    color: var(--bf-text-secondary);
+    font-size: 0.78rem;
+  }
+
+  .blogs-list__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--bf-text-primary);
+    font-weight: 600;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .blogs-list__link:hover {
+    color: var(--bf-red);
+  }
+
+  @media (max-width: 980px) {
+    .blogs-list__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

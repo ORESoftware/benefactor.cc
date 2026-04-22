@@ -1,0 +1,172 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import '../../styles/global.css';
+import { getBlogPostMeta } from '../../data/blogPosts';
+
+const frontmatter = getBlogPostMeta('search-intent-mapping-for-lower-cac');
+---
+
+<BlogLayout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  date={frontmatter.date}
+  author={frontmatter.author}
+  readTime={frontmatter.readTime}
+  category={frontmatter.category}
+  tags={frontmatter.tags}
+>
+  <p>
+    Lowering customer acquisition cost through search usually has less to do with clever bid
+    tricks than teams hope. In most cases, CAC drops when the business gets more disciplined
+    about intent. The queries being targeted, the page receiving the click, the promise made
+    in the ad, and the next step after conversion all need to agree on what the searcher is
+    trying to accomplish.
+  </p>
+
+  <p>
+    When those pieces are misaligned, search gets expensive fast. Teams buy broad traffic,
+    send it to generic pages, then blame channel economics for a problem that is actually
+    structural. Search intent mapping fixes the structure first.
+  </p>
+
+  <h2 id="what-intent-mapping-is">What search intent mapping actually is</h2>
+
+  <p>
+    Search intent mapping is the practice of grouping queries by the real decision behind
+    them, then assigning each group the right landing page, proof, offer, and conversion
+    action. It sounds simple. It is not common.
+  </p>
+
+  <p>
+    Most accounts and content calendars are organized around keywords alone. That misses the
+    commercial nuance. Two phrases can look related on paper while representing very different
+    buying states. One person may be comparing approaches. Another may be evaluating vendors.
+    Another may need immediate help in a defined geography. They should not hit the same page.
+  </p>
+
+  <h2 id="the-four-intent-buckets">A practical four-bucket model</h2>
+
+  <h3>Problem-aware intent</h3>
+
+  <p>
+    These searchers know something is wrong but may not know the category of solution yet.
+    Good content here frames the issue, names the hidden costs of inaction, and helps the
+    visitor diagnose themselves without hard-selling too early.
+  </p>
+
+  <h3>Solution-aware intent</h3>
+
+  <p>
+    Here the buyer understands the category and wants to compare approaches. This is where
+    architecture matters. Category pages, methodology explainers, and comparison content work
+    well because they reduce uncertainty while preserving forward motion.
+  </p>
+
+  <h3>Vendor-aware intent</h3>
+
+  <p>
+    These are the highest-leverage commercial queries. The buyer is looking for a provider,
+    agency, firm, platform, or service. If this traffic goes to a generic homepage, you are
+    paying a premium for ambiguity. Vendor-aware searches deserve focused service pages.
+  </p>
+
+  <h3>Urgent or transactional intent</h3>
+
+  <p>
+    Transactional searches tend to be the most unforgiving. The user wants speed, clarity, and
+    a direct next step. Local services, intake-heavy businesses, and problem-now use cases all
+    need conversion paths that minimize friction.
+  </p>
+
+  <h2 id="where-cac-starts-rising">Where CAC starts rising</h2>
+
+  <p>
+    CAC usually rises before teams notice because the waste is distributed. A keyword group is
+    only slightly too broad. A landing page is mostly relevant. A form captures a lead but not
+    enough context. Follow-up is one day too slow. None of those issues individually look
+    catastrophic. Together, they turn search into an expensive guessing machine.
+  </p>
+
+  <p>
+    The common symptoms are familiar:
+  </p>
+
+  <ul>
+    <li>Good click volume with weak qualified conversion rate</li>
+    <li>High bounce on service pages that should feel commercial</li>
+    <li>Paid search leads that sales says are "fine, but not really it"</li>
+    <li>SEO content producing traffic but not pipeline influence</li>
+    <li>Constant pressure to increase spend because efficiency is deteriorating</li>
+  </ul>
+
+  <h2 id="how-to-rebuild">How to rebuild around intent</h2>
+
+  <p>
+    Start by pulling your core search terms, not just from paid campaigns but also from search
+    console and high-performing pages. Then label each term by the decision being made, not
+    only the phrase itself. Ask: what would a person expect to find after typing this?
+  </p>
+
+  <p>
+    Once you have that, the next steps become much clearer:
+  </p>
+
+  <ol>
+    <li>Create or refine landing pages for each major intent cluster</li>
+    <li>Match ad copy and titles to the promise of the destination page</li>
+    <li>Use proof that fits the intent level, not proof chosen at random</li>
+    <li>Adjust CTA depth so the ask matches buyer readiness</li>
+    <li>Track which clusters produce qualified pipeline, not just leads</li>
+  </ol>
+
+  <p>
+    This is where SEO and SEM stop competing. They become part of one demand system. Organic
+    pages build authority and capture longer-tail evaluation traffic. Paid search narrows in on
+    the highest-value decision moments. Both improve when they share the same intent map.
+  </p>
+
+  <h2 id="the-role-of-proof">Proof matters more than teams think</h2>
+
+  <p>
+    Search intent mapping is not just a keyword exercise. It also changes what evidence should
+    appear on the page. A vendor-aware visitor does not just want social proof. They want proof
+    that you can solve their version of the problem. Relevant proof beats impressive proof.
+  </p>
+
+  <p>
+    A B2B buyer searching for a legal marketing partner will trust one sharp case study about
+    intake improvement more than five vague logos. A plumbing prospect searching for emergency
+    service visibility will respond better to proof around booked jobs and response handling
+    than to generic statements about "growth."
+  </p>
+
+  <h2 id="what-to-measure">What to measure if CAC is the goal</h2>
+
+  <p>
+    Teams that do this well graduate from measuring search at the click or lead layer only.
+    They look at:
+  </p>
+
+  <ul>
+    <li>Qualified conversion rate by intent cluster</li>
+    <li>Pipeline or revenue influence by landing page group</li>
+    <li>Speed to follow-up for high-intent submissions</li>
+    <li>Sales acceptance rate by source and query theme</li>
+    <li>Cost per qualified conversation, not just cost per form fill</li>
+  </ul>
+
+  <p>
+    Once those metrics are visible, budget decisions become easier. You stop funding search
+    because it "drives traffic" and start funding it because specific intent clusters are
+    reliably producing the right kind of demand.
+  </p>
+
+  <div class="blog-cta">
+    <h3>Need help restructuring search around intent?</h3>
+    <p>
+      Benefactor builds the pages, campaigns, and follow-up systems that make search more
+      efficient and easier to scale.
+    </p>
+    <a href="mailto:hello@benefactor.cc" class="btn btn--primary btn--large">Book a Strategy Call</a>
+  </div>
+</BlogLayout>

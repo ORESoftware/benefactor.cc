@@ -1,7 +1,7 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import '../../styles/global.css';
-import { serviceLandingPages, type ServiceLandingPage } from '../../data/servicePages';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import '../../../styles/global.css';
+import { serviceLandingPages, type ServiceLandingPage } from '../../../data/servicePages';
 
 export function getStaticPaths() {
   return serviceLandingPages.map((page) => ({
