@@ -1,0 +1,133 @@
+---
+import InternalLayout from '../../layouts/InternalLayout.astro';
+---
+
+<InternalLayout
+  title="Payments and Ad Spend Handling"
+  description="Internal reference for how clients should pay Benefactor and how controlled client-funded ad spend can be handled safely."
+  eyebrow="Payments"
+  intro="This page covers the practical mechanics behind getting paid by clients and handling ad spend on their behalf. The goal is to preserve budget control, auditability, and clean accounting while still giving Benefactor enough flexibility to execute."
+  backHref="internal/"
+>
+  <section class="internal-section">
+    <div class="container">
+      <div class="internal-section__header">
+        <span class="internal-section__eyebrow">Short Answer</span>
+        <h2>Can a client give Benefactor a spend-limited card?</h2>
+        <p>
+          Yes, but the professional version is not a loose physical prepaid debit card. The
+          better answer is a client-controlled virtual card or other controlled funding method
+          with hard limits, reporting, and an agreement that makes the boundaries explicit.
+        </p>
+      </div>
+
+      <div class="internal-grid internal-grid--2">
+        <article class="internal-card">
+          <h3>Best practice</h3>
+          <p>
+            The client issues Benefactor a virtual corporate card with spending controls,
+            expiration rules, and a fixed budget ceiling. That card is used only for agreed
+            ad-spend or tool expenses.
+          </p>
+          <ul class="internal-list">
+            <li>Hard monthly or campaign-level caps</li>
+            <li>Real-time visibility for the client</li>
+            <li>Ability to shut off immediately if needed</li>
+            <li>Cleaner audit trail than a prepaid debit card</li>
+          </ul>
+        </article>
+
+        <article class="internal-card">
+          <h3>Why not a physical prepaid card?</h3>
+          <ul class="internal-list">
+            <li>Weaker controls and worse reporting</li>
+            <li>More accounting ambiguity</li>
+            <li>Higher risk if the card is reused or misapplied</li>
+            <li>Less flexibility for setting category-level restrictions</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="internal-section">
+    <div class="container">
+      <div class="internal-section__header">
+        <span class="internal-section__eyebrow">Funding Options</span>
+        <h2>Ways clients can fund spend while controlling budget</h2>
+      </div>
+
+      <table class="internal-table">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>How It Works</th>
+            <th>Internal Take</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Virtual cards</td>
+            <td>The client issues Benefactor controlled virtual cards for ad platforms or approved tools, with hard ceilings and restrictions.</td>
+            <td>Preferred default for ad spend and controlled pass-through costs.</td>
+          </tr>
+          <tr>
+            <td>Prepaid retainer drawdown</td>
+            <td>The client prepays a spend pool and Benefactor draws against it under contract-defined limits and approval rules.</td>
+            <td>Workable, but requires tighter internal reporting and trust.</td>
+          </tr>
+          <tr>
+            <td>Escrow or managed wallet</td>
+            <td>Funds sit in a managed account and are released based on approvals or milestones.</td>
+            <td>Better for larger or more complex engagements, but slower and heavier operationally.</td>
+          </tr>
+          <tr>
+            <td>Reimbursement</td>
+            <td>Benefactor fronts costs and the client reimburses later.</td>
+            <td>Least attractive unless the amounts are small and timing is short.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="internal-section">
+    <div class="container">
+      <div class="internal-section__header">
+        <span class="internal-section__eyebrow">Recommended Payment Logic</span>
+        <h2>How Benefactor should approach ad spend on behalf of clients</h2>
+      </div>
+
+      <div class="internal-grid internal-grid--2">
+        <article class="internal-card">
+          <h3>Preferred operating model</h3>
+          <ul class="internal-list">
+            <li>Client owns the ad account or billing profile whenever possible.</li>
+            <li>Client funds spend directly through a virtual card or billing method they control.</li>
+            <li>Benefactor manages execution, optimization, and reporting on top of that.</li>
+            <li>Any increase above the agreed ceiling requires explicit approval.</li>
+          </ul>
+        </article>
+
+        <article class="internal-card">
+          <h3>If Benefactor must pay first</h3>
+          <ul class="internal-list">
+            <li>Keep the float small and time-bounded.</li>
+            <li>Use a written reimbursement cap and cadence.</li>
+            <li>Do not let float become an unpriced financing service.</li>
+            <li>Escalate anything that could materially impact agency cash flow.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="internal-note" style="margin-top: var(--space-xl);">
+        <p>
+          <strong>Default recommendation:</strong> pair a contract-defined budget with
+          client-issued virtual cards and written reporting cadence. That gives the client a
+          real-time hard cap and gives Benefactor enough flexibility to execute without taking
+          unnecessary financial risk.
+        </p>
+      </div>
+    </div>
+  </section>
+</InternalLayout>

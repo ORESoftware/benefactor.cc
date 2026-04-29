@@ -1,0 +1,83 @@
+---
+import InternalLayout from '../../layouts/InternalLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
+---
+
+<InternalLayout
+  title="Internal Affairs"
+  description="Private working pages for Benefactor operations, commercial policy, client payment structures, and internal reference material."
+  eyebrow="Private Index"
+  intro="This is the internal index for private Benefactor operating notes. It is meant to hold working pages for retainers, payment mechanics, ad-spend handling, and other internal reference material that should not be surfaced in the public navigation."
+>
+  <section class="internal-section">
+    <div class="container">
+      <div class="internal-section__header">
+        <span class="internal-section__eyebrow">Current Pages</span>
+        <h2>Private operating references</h2>
+        <p>
+          Start here when we need to reference how Benefactor structures commercial agreements,
+          receives payment, or handles pass-through spend on behalf of clients.
+        </p>
+      </div>
+
+      <div class="internal-grid internal-grid--2">
+        <article class="internal-card">
+          <h3>Retainer Model</h3>
+          <p>
+            The working view on monthly retainers, what gets billed in advance, how scope and
+            approvals should be handled, and how agency fees stay separate from pass-through
+            media spend.
+          </p>
+          <a href={withBase('internal/retainer/')} class="internal-card__link">
+            Open retainer notes
+            <span aria-hidden="true">→</span>
+          </a>
+        </article>
+
+        <article class="internal-card">
+          <h3>Payments and Ad Spend</h3>
+          <p>
+            Reference for how clients can pay Benefactor, how virtual cards or controlled
+            budgets can be used, and how we should think about managing ad spend on behalf of
+            clients without losing control or auditability.
+          </p>
+          <a href={withBase('internal/payments/')} class="internal-card__link">
+            Open payment notes
+            <span aria-hidden="true">→</span>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="internal-section">
+    <div class="container">
+      <div class="internal-section__header">
+        <span class="internal-section__eyebrow">Working Principles</span>
+        <h2>Default internal stance</h2>
+      </div>
+
+      <div class="internal-grid internal-grid--2">
+        <article class="internal-card">
+          <h3>Commercial discipline</h3>
+          <ul class="internal-list">
+            <li>Agency fees and pass-through spend should be treated as separate budget lines.</li>
+            <li>Any client-funded media or software spend should have a hard ceiling and explicit ownership.</li>
+            <li>Anything likely to create reimbursement confusion should be documented before kickoff.</li>
+          </ul>
+        </article>
+
+        <article class="internal-card">
+          <h3>Operational preference</h3>
+          <ul class="internal-list">
+            <li>Client-owned ad accounts are preferred whenever practical.</li>
+            <li>Client-issued virtual cards are preferred over shared physical prepaid cards.</li>
+            <li>Approval thresholds and reporting cadence should be written into the commercial agreement.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+</InternalLayout>

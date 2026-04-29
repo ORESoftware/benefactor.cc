@@ -1,0 +1,499 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import '../../../../styles/global.css';
+import { serviceLandingPages, type ServiceLandingPage } from '../../../../data/servicePages';
+
+export function getStaticPaths() {
+  return serviceLandingPages.map((page) => ({
+    params: { country: page.country, service: page.service },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props as { page: ServiceLandingPage };
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
+const strategyCallHref = `mailto:hello@benefactor.cc?subject=${encodeURIComponent(
+  `${page.serviceLabel} marketing for ${page.countryLabel}`
+)}`;
+---
+
+<BaseLayout title={page.pageTitle} description={page.metaDescription}>
+  <section class="landing-hero section--hero bg-grid bg-radial">
+    <div class="container landing-hero__container">
+      <div class="landing-hero__content">
+        <p class="landing-breadcrumb">
+          <a href={withBase()}>Benefactor</a>
+          <span>/</span>
+          <span>{page.countryLabel}</span>
+          <span>/</span>
+          <span>{page.serviceLabel}</span>
+        </p>
+
+        <div class="badge animate-fade-in-up">Country + service landing page</div>
+
+        <h1 class="landing-hero__title animate-fade-in-up stagger-1">{page.heroTitle}</h1>
+
+        <p class="landing-hero__subtitle animate-fade-in-up stagger-2">
+          {page.heroDescription}
+        </p>
+
+        <div class="landing-hero__notes animate-fade-in-up stagger-3">
+          <span>{page.audience}</span>
+          <span>{page.outcome}</span>
+        </div>
+
+        <div class="landing-hero__actions animate-fade-in-up stagger-4">
+          <a href={strategyCallHref} class="btn btn--primary btn--large">Book a Strategy Call</a>
+          <a href={withBase('#services')} class="btn btn--secondary btn--large">See Core Services</a>
+        </div>
+      </div>
+
+      <div class="landing-hero__visual animate-fade-in-up stagger-4">
+        <div class="landing-hero__visual-frame">
+          <img
+            src={withBase(page.illustrationSrc.slice(1))}
+            alt={page.illustrationAlt}
+            class="landing-hero__image"
+            loading="eager"
+          />
+        </div>
+        <p class="landing-hero__visual-caption">
+          Fantasy campaign illustration for {page.serviceLabel.toLowerCase()} growth in {page.countryLabel}.
+        </p>
+      </div>
+    </div>
+
+    <div class="landing-hero__orb" aria-hidden="true"></div>
+    <div class="landing-hero__orb landing-hero__orb--2" aria-hidden="true"></div>
+  </section>
+
+  <section class="landing-stats">
+    <div class="container">
+      <div class="landing-stats__grid">
+        {page.stats.map((stat) => (
+          <div class="landing-stats__item animate-fade-in-up">
+            <span class="landing-stats__value">{stat.value}</span>
+            <span class="landing-stats__label">{stat.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-pillars section" id="services">
+    <div class="container">
+      <div class="landing-section__header">
+        <span class="badge animate-fade-in-up">What we would build</span>
+        <h2 class="animate-fade-in-up stagger-1">
+          A sharper growth system for {page.serviceLabel.toLowerCase()} teams in {page.countryLabel}
+        </h2>
+        <p class="animate-fade-in-up stagger-2">
+          Each engagement is tailored to the market, but these are the layers we would
+          typically tighten first.
+        </p>
+      </div>
+
+      <div class="landing-pillars__grid">
+        {page.pillars.map((pillar, index) => (
+          <article class="card landing-pillars__card animate-fade-in-up">
+            <div class="landing-pillars__kicker">{String(index + 1).padStart(2, '0')}</div>
+            <h3>{pillar.title}</h3>
+            <p>{pillar.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-advantages section bg-noise">
+    <div class="container landing-advantages__container">
+      <div class="landing-section__header landing-section__header--left">
+        <span class="badge animate-fade-in-up">Why it works</span>
+        <h2 class="animate-fade-in-up stagger-1">
+          Growth infrastructure that respects how {page.serviceLabel.toLowerCase()} buyers actually decide
+        </h2>
+        <p class="animate-fade-in-up stagger-2">
+          We focus on search intent, trust, offer clarity, and operational follow-through so
+          marketing keeps helping after the first conversion.
+        </p>
+      </div>
+
+      <div class="landing-advantages__grid">
+        {page.advantages.map((advantage) => (
+          <div class="landing-advantages__item animate-fade-in-up">
+            <span class="landing-advantages__plus">+</span>
+            <p>{advantage}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta section bg-radial-navy" id="contact">
+    <div class="container">
+      <div class="cta__content animate-fade-in-up">
+        <h2>
+          Need a {page.serviceLabel.toLowerCase()} growth plan for {page.countryLabel}?
+        </h2>
+        <p>
+          We can turn this market into a practical roadmap: pages to build, campaigns to run,
+          offers to test, and automation to wire up first.
+        </p>
+        <div class="cta__actions">
+          <a href={strategyCallHref} class="btn btn--primary btn--large">Start the Conversation</a>
+          <a href={withBase('#team')} class="btn btn--secondary btn--large">Meet the Team</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .landing-hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 82vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .landing-hero__container {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  .landing-hero__content {
+    max-width: 860px;
+  }
+
+  .landing-hero__visual {
+    position: relative;
+    justify-self: end;
+    width: 30vw;
+    min-width: 20vw;
+    max-width: 40vw;
+  }
+
+  .landing-hero__visual-frame {
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015)),
+      rgba(9, 11, 16, 0.88);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    transition:
+      transform var(--duration-normal) var(--ease-out),
+      border-color var(--duration-normal) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out);
+  }
+
+  .landing-hero__visual-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(135deg, rgba(230, 57, 70, 0.24), rgba(230, 57, 70, 0.08));
+    mix-blend-mode: color;
+    opacity: 0;
+    transition: opacity var(--duration-normal) var(--ease-out);
+  }
+
+  .landing-hero__visual-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 24%);
+  }
+
+  .landing-hero__image {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.04) brightness(0.92);
+    transition:
+      filter var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
+  }
+
+  .landing-hero__visual:hover .landing-hero__visual-frame {
+    transform: translateY(-4px);
+    border-color: rgba(230, 57, 70, 0.2);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.42);
+  }
+
+  .landing-hero__visual:hover .landing-hero__visual-frame::before {
+    opacity: 0.88;
+  }
+
+  .landing-hero__visual:hover .landing-hero__image {
+    transform: scale(1.02);
+    filter: grayscale(1) contrast(1.08) brightness(0.98);
+  }
+
+  .landing-hero__visual-caption {
+    margin-top: var(--space-md);
+    font-size: 0.88rem;
+    color: var(--bf-text-muted);
+    max-width: 32ch;
+  }
+
+  .landing-breadcrumb {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: var(--space-lg);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--bf-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .landing-breadcrumb a {
+    color: var(--bf-text-secondary);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .landing-breadcrumb a:hover {
+    color: var(--bf-red);
+  }
+
+  .landing-hero__title {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-lg);
+    max-width: 14ch;
+  }
+
+  .landing-hero__subtitle {
+    font-size: 1.15rem;
+    max-width: 720px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .landing-hero__notes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .landing-hero__notes span {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.55rem 0.95rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--bf-border);
+    color: var(--bf-text-secondary);
+    font-size: 0.88rem;
+  }
+
+  .landing-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .landing-hero__orb {
+    position: absolute;
+    width: 540px;
+    height: 540px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(230, 57, 70, 0.07), transparent 68%);
+    top: -12%;
+    right: -10%;
+    animation: float 8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .landing-hero__orb--2 {
+    width: 360px;
+    height: 360px;
+    background: radial-gradient(circle, rgba(30, 58, 95, 0.1), transparent 72%);
+    top: auto;
+    bottom: 6%;
+    right: 18%;
+    animation-delay: -4s;
+  }
+
+  .landing-stats {
+    padding: var(--space-3xl) 0;
+    background: var(--bf-surface);
+    border-top: 1px solid var(--bf-border);
+    border-bottom: 1px solid var(--bf-border);
+  }
+
+  .landing-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .landing-stats__item {
+    text-align: center;
+  }
+
+  .landing-stats__value {
+    display: block;
+    font-size: clamp(1.6rem, 2.6vw, 2.35rem);
+    font-weight: 800;
+    color: var(--bf-text-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .landing-stats__label {
+    font-size: 0.84rem;
+    color: var(--bf-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .landing-section__header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .landing-section__header--left {
+    text-align: left;
+    max-width: 760px;
+  }
+
+  .landing-section__header h2 {
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .landing-section__header p {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .landing-section__header--left p {
+    margin: 0;
+  }
+
+  .landing-pillars__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .landing-pillars__card {
+    height: 100%;
+  }
+
+  .landing-pillars__kicker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: var(--space-lg);
+    border-radius: var(--radius-md);
+    background: var(--bf-red-glow);
+    border: 1px solid rgba(230, 57, 70, 0.16);
+    color: var(--bf-red);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .landing-pillars__card h3 {
+    margin-bottom: var(--space-sm);
+    font-size: 1.2rem;
+  }
+
+  .landing-pillars__card p {
+    font-size: 0.96rem;
+  }
+
+  .landing-advantages__container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .landing-advantages__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .landing-advantages__item {
+    display: flex;
+    gap: var(--space-md);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--bf-border);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .landing-advantages__plus {
+    color: var(--bf-red);
+    font-size: 1.2rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-top: 0.15rem;
+  }
+
+  .landing-advantages__item p {
+    font-size: 0.96rem;
+  }
+
+  .cta__content {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .cta__content h2 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .cta__content p {
+    font-size: 1.05rem;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .cta__actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 960px) {
+    .landing-hero__container,
+    .landing-pillars__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .landing-hero__visual {
+      justify-self: start;
+      width: min(68vw, 420px);
+      min-width: 0;
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .landing-hero {
+      min-height: auto;
+    }
+
+    .landing-stats__grid,
+    .landing-advantages__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

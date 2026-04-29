@@ -3,6 +3,8 @@ export interface ServiceLandingPage {
   countryLabel: string;
   service: string;
   serviceLabel: string;
+  illustrationSrc: string;
+  illustrationAlt: string;
   pageTitle: string;
   metaDescription: string;
   heroTitle: string;
@@ -20,6 +22,9 @@ export const serviceLandingPages: ServiceLandingPage[] = [
     countryLabel: 'USA',
     service: 'plumbing',
     serviceLabel: 'Plumbing',
+    illustrationSrc: '/service-illustrations/plumbing-fantasy.png',
+    illustrationAlt:
+      'Fantasy-style illustration of a plumber studying a drafting board with glowing planning overlays.',
     pageTitle: 'Plumbing Marketing Services in the USA',
     metaDescription:
       'Benefactor builds plumbing marketing systems in the USA with local SEO, paid search, lead routing, and follow-up automation for service businesses that need booked jobs, not empty clicks.',
@@ -62,6 +67,9 @@ export const serviceLandingPages: ServiceLandingPage[] = [
     countryLabel: 'India',
     service: 'nail-salon',
     serviceLabel: 'Nail Salon',
+    illustrationSrc: '/service-illustrations/nail-salon-fantasy.png',
+    illustrationAlt:
+      'Fantasy-style illustration of a nail artist reviewing a beauty strategy board in an elegant studio.',
     pageTitle: 'Nail Salon Marketing Services in India',
     metaDescription:
       'Benefactor helps nail salons in India grow bookings with local discovery, Instagram-ready campaigns, retention offers, and appointment automation that keeps chairs full.',
@@ -104,6 +112,9 @@ export const serviceLandingPages: ServiceLandingPage[] = [
     countryLabel: 'Russia',
     service: 'electrical',
     serviceLabel: 'Electrical',
+    illustrationSrc: '/service-illustrations/electrical-fantasy.png',
+    illustrationAlt:
+      'Fantasy-style illustration of an electrician on a ladder with a clipboard and glowing schematic lines.',
     pageTitle: 'Electrical Marketing Services in Russia',
     metaDescription:
       'Benefactor helps electrical businesses in Russia capture more qualified inquiries with local search, service landing pages, quote workflows, and automation that supports growth.',
@@ -146,6 +157,9 @@ export const serviceLandingPages: ServiceLandingPage[] = [
     countryLabel: 'Russia',
     service: 'carpentry',
     serviceLabel: 'Carpentry',
+    illustrationSrc: '/service-illustrations/carpentry-fantasy.png',
+    illustrationAlt:
+      'Fantasy-style illustration of a carpenter reviewing plans beside a custom wood project.',
     pageTitle: 'Carpentry Marketing Services in Russia',
     metaDescription:
       'Benefactor helps carpentry businesses in Russia market custom work, renovation projects, and local craftsmanship through stronger positioning, search visibility, and lead automation.',
@@ -188,6 +202,9 @@ export const serviceLandingPages: ServiceLandingPage[] = [
     countryLabel: 'USA',
     service: 'legal',
     serviceLabel: 'Legal',
+    illustrationSrc: '/service-illustrations/legal-fantasy.png',
+    illustrationAlt:
+      'Fantasy-style illustration of an attorney strategist reviewing a case board in a law library war room.',
     pageTitle: 'Legal Marketing Services in the USA',
     metaDescription:
       'Benefactor builds legal marketing systems in the USA with local SEO, trust-based paid search, intake routing, and conversion-focused service pages for firms that need better case flow.',
@@ -230,6 +247,9 @@ export const serviceLandingPages: ServiceLandingPage[] = [
     countryLabel: 'USA',
     service: 'medical',
     serviceLabel: 'Medical',
+    illustrationSrc: '/service-illustrations/medical-fantasy.png',
+    illustrationAlt:
+      'Fantasy-style illustration of a medical professional reviewing patient-flow and growth diagrams.',
     pageTitle: 'Medical Marketing Services in the USA',
     metaDescription:
       'Benefactor helps medical practices in the USA grow patient demand with service-line pages, local search, compliant acquisition systems, and automation that improves follow-up.',
@@ -272,6 +292,9 @@ export const serviceLandingPages: ServiceLandingPage[] = [
     countryLabel: 'USA',
     service: 'dentist',
     serviceLabel: 'Dentist',
+    illustrationSrc: '/service-illustrations/dentist-fantasy.png',
+    illustrationAlt:
+      'Fantasy-style illustration of a dental specialist reviewing treatment and growth diagrams in a premium clinic.',
     pageTitle: 'Dental Marketing Services in the USA',
     metaDescription:
       'Benefactor helps dentists in the USA grow patient acquisition with local search, offer design, paid search, and automated recall systems that increase booking efficiency.',

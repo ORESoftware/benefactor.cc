@@ -1,0 +1,126 @@
+---
+import InternalLayout from '../../layouts/InternalLayout.astro';
+---
+
+<InternalLayout
+  title="Retainer Structure"
+  description="Internal reference for how Benefactor should structure retainers, pass-through media budgets, approvals, and scope controls."
+  eyebrow="Commercial Policy"
+  intro="This page captures the default Benefactor model for retainers: agency fees billed in advance, clear scope boundaries, and separate handling for pass-through spend such as ad budget, software, or third-party tools."
+  backHref="internal/"
+>
+  <section class="internal-section">
+    <div class="container">
+      <div class="internal-section__header">
+        <span class="internal-section__eyebrow">Default Model</span>
+        <h2>How Benefactor should get paid on retainer</h2>
+        <p>
+          For recurring engagements, the cleanest setup is a monthly retainer billed in advance
+          for Benefactor's labor, strategy, execution, reporting, and operating cadence. That
+          retainer is separate from any spend that flows to ad platforms, tools, or third-party
+          vendors.
+        </p>
+      </div>
+
+      <table class="internal-table">
+        <thead>
+          <tr>
+            <th>Budget Line</th>
+            <th>What It Covers</th>
+            <th>How It Should Work</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Agency Retainer</td>
+            <td>Strategy, campaign management, landing pages, reporting, meetings, optimization, and internal execution.</td>
+            <td>Billed monthly in advance, due before the service month begins.</td>
+          </tr>
+          <tr>
+            <td>Pass-Through Ad Spend</td>
+            <td>Google Ads, Meta, LinkedIn, programmatic, or other direct media costs.</td>
+            <td>Should remain separate from the retainer and tied to a client-owned or client-controlled funding method.</td>
+          </tr>
+          <tr>
+            <td>Third-Party Tools</td>
+            <td>Creative tools, call tracking, landing page software, data enrichers, and platform subscriptions.</td>
+            <td>Either billed directly to the client or approved as reimbursable with a documented ceiling.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="internal-section">
+    <div class="container">
+      <div class="internal-section__header">
+        <span class="internal-section__eyebrow">Scope Control</span>
+        <h2>What the retainer should explicitly define</h2>
+      </div>
+
+      <div class="internal-grid internal-grid--2">
+        <article class="internal-card">
+          <h3>Commercial guardrails</h3>
+          <ul class="internal-list">
+            <li>Monthly retainer amount and billing date</li>
+            <li>Included channels, deliverables, and cadence</li>
+            <li>Approval threshold for out-of-scope work</li>
+            <li>Who owns ad accounts, data, creatives, and landing pages</li>
+            <li>What happens if spend needs to increase mid-cycle</li>
+          </ul>
+        </article>
+
+        <article class="internal-card">
+          <h3>Operating guardrails</h3>
+          <ul class="internal-list">
+            <li>Reporting cadence, usually weekly or biweekly with a monthly review</li>
+            <li>Named approvers on the client side</li>
+            <li>Expected response windows for launch approvals or creative signoff</li>
+            <li>What counts as urgent work vs scheduled optimization</li>
+            <li>What happens if approvals delay media execution</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="internal-section">
+    <div class="container">
+      <div class="internal-section__header">
+        <span class="internal-section__eyebrow">Recommended Position</span>
+        <h2>Preferred retainer stance for Benefactor</h2>
+      </div>
+
+      <div class="internal-note">
+        <p>
+          <strong>Preferred structure:</strong> Benefactor charges a monthly retainer for the
+          work, while the client separately funds media spend and third-party platform costs.
+          That keeps agency revenue clean, avoids muddling labor fees with pass-through spend,
+          and gives both sides clearer reporting.
+        </p>
+      </div>
+
+      <div class="internal-grid internal-grid--2" style="margin-top: var(--space-xl);">
+        <article class="internal-card">
+          <h3>Why this is cleaner</h3>
+          <ul class="internal-list">
+            <li>It simplifies accounting and tax treatment.</li>
+            <li>It avoids the agency accidentally financing media with its own cash flow.</li>
+            <li>It gives the client visibility into actual media and platform costs.</li>
+            <li>It makes overages and approvals easier to govern.</li>
+          </ul>
+        </article>
+
+        <article class="internal-card">
+          <h3>What to avoid</h3>
+          <ul class="internal-list">
+            <li>Bundling large ad budgets into the retainer without separate controls.</li>
+            <li>Letting reimbursable spend accumulate without a written ceiling.</li>
+            <li>Fronting large media budgets unless there is a clear commercial reason.</li>
+            <li>Using vague language about "miscellaneous marketing costs."</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+</InternalLayout>
