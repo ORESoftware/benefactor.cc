@@ -37,6 +37,7 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
+                timeZone: 'UTC',
               })}</span>
               <span class="blogs-list__meta-separator">·</span>
               <span>{post.readTime}</span>

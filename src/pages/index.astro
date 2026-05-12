@@ -203,49 +203,56 @@ const teamMembers = [
   {
     id: 'alex',
     name: 'Alex Mills',
-    title: 'IT & Operations',
+    role: 'Operations Specialist',
+    specialty: 'IT & Systems',
     location: 'Austin, TX',
     image: '/team/alex-mills.jpg',
   },
   {
     id: 'katie',
-    name: 'Katie Muntyan',
-    title: 'Marketing Operations',
+    name: 'Kate Muntyan',
+    role: 'Marketing Specialist',
+    specialty: 'Strategy',
     location: 'Moscow, Russia',
     image: '/team/katie-muntyan.jpg',
   },
   {
     id: 'vinayak',
     name: 'Vinayak Pandey',
-    title: 'Chief Marketer',
+    role: 'Marketing Specialist',
+    specialty: 'SEO',
     location: 'North India',
     image: '/team/vinayak-pandey.png',
   },
   {
     id: 'jacob',
     name: 'Jacob Highley',
-    title: 'Marketing Specialist',
+    role: 'Marketing Specialist',
+    specialty: 'SEO',
     location: 'Idaho, USA',
     image: '/team/jacob-highley.png',
   },
   {
     id: 'catherine',
     name: 'Catherine Jacobs',
-    title: 'Business Development',
+    role: 'Marketing Specialist',
+    specialty: 'Design & PR',
     location: 'London, UK',
     image: '/team/catherine-jacobs.png',
   },
   {
     id: 'marcus',
     name: 'Marcus Gerlach',
-    title: 'Marketing Director',
+    role: 'Marketing Specialist',
+    specialty: 'SEO, AEO & Strategy',
     location: 'Munich, Germany',
     image: '/team/marcus-gerlach.jpg',
   },
   {
     id: 'elijah',
     name: 'Elijah Gizzarelli',
-    title: 'Sales & BizDev',
+    role: 'Marketing Specialist',
+    specialty: 'Ads & Business Development',
     location: 'Providence, RI',
     image: '/team/elijah-gizzarelli.jpeg',
     profileUrl: 'https://www.linkedin.com/in/elijah-jon-gizzarelli-b39a87154/',
@@ -253,7 +260,8 @@ const teamMembers = [
   {
     id: 'lucia',
     name: 'Lucia Balzano',
-    title: 'Marketing Specialist - Social Media Reach',
+    role: 'Social Media Specialist',
+    specialty: 'Social Visibility',
     location: 'Remote',
     image: '/team/lucia-balzano.jpeg',
   },
@@ -476,9 +484,8 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
           A distributed team built to <span class="gradient-text">ship and scale</span>
         </h2>
         <p class="team__desc animate-fade-in-up stagger-2">
-          Strategy, operations, marketing execution, and business development under one roof.
-          Elijah anchors slot seven and Lucia expands the bench in social media reach while we
-          keep the grid balanced.
+          Strategy, SEO, AEO, paid acquisition, design, PR, social visibility, and business
+          development under one roof.
         </p>
       </div>
 
@@ -489,7 +496,10 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
               <img src={withBase(member.image.slice(1))} alt={member.name} class="team__photo" loading="lazy" />
             </div>
             <h3 class="team__name">{member.name}</h3>
-            <p class="team__title">{member.title}</p>
+            <p class="team__title">
+              <span class="team__role">{member.role}</span>
+              <span class="team__specialty">{member.specialty}</span>
+            </p>
             <p class="team__location">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
@@ -1068,10 +1078,29 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
   }
 
   .team__title {
-    font-size: 0.85rem;
-    color: var(--bf-red);
-    font-weight: 600;
+    display: flex;
+    min-height: 2.75rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.25rem;
     margin-bottom: var(--space-sm);
+    line-height: 1.25;
+  }
+
+  .team__role {
+    color: var(--bf-red);
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .team__specialty {
+    max-width: 18ch;
+    color: var(--bf-text-secondary);
+    font-size: 0.88rem;
+    font-weight: 600;
   }
 
   .team__location {

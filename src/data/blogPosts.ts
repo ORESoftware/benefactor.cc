@@ -11,6 +11,17 @@ export interface BlogPostMeta {
 
 export const blogPosts: BlogPostMeta[] = [
   {
+    slug: 'email-marketing-that-turns-visibility-into-customers',
+    title: 'Email Marketing That Turns Visibility Into Customers',
+    description:
+      'How Benefactor connects email, SEO, Yelp, reputation, and social visibility so more leads become qualified conversations and paying customers.',
+    date: '2026-05-12',
+    author: 'Benefactor Marketing',
+    readTime: '7 min read',
+    category: 'Email Marketing',
+    tags: ['email-marketing', 'seo', 'yelp', 'reputation', 'social-media', 'lead-conversion'],
+  },
+  {
     slug: 'personal-security-in-digital-spaces',
     title: 'Your Data Is the Product: A Deep Guide to Personal Security in Digital Spaces',
     description:
