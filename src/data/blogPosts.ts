@@ -1,3 +1,5 @@
+import { localSeoCaseStudyBlogPosts } from './localSeoCaseStudies';
+
 export interface BlogPostMeta {
   slug: string;
   title: string;
@@ -10,6 +12,7 @@ export interface BlogPostMeta {
 }
 
 export const blogPosts: BlogPostMeta[] = [
+  ...localSeoCaseStudyBlogPosts,
   {
     slug: 'email-marketing-that-turns-visibility-into-customers',
     title: 'Email Marketing That Turns Visibility Into Customers',

@@ -1,0 +1,61 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import '../../styles/global.css';
+import { getBlogPostMeta } from '../../data/blogPosts';
+import { getLocalSeoCaseStudy, localSeoCaseStudies } from '../../data/localSeoCaseStudies';
+
+export function getStaticPaths() {
+  return localSeoCaseStudies.map((caseStudy) => ({
+    params: { slug: caseStudy.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  throw new Error('Missing blog slug');
+}
+
+const frontmatter = getBlogPostMeta(slug);
+const caseStudy = getLocalSeoCaseStudy(slug);
+---
+
+<BlogLayout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  date={frontmatter.date}
+  author={frontmatter.author}
+  readTime={frontmatter.readTime}
+  category={frontmatter.category}
+  tags={frontmatter.tags}
+>
+  <p>{caseStudy.story}</p>
+
+  <h2 id="why-this-happened">{caseStudy.whyHeading}</h2>
+
+  <p>{caseStudy.whyIntro}</p>
+
+  <ul>
+    {caseStudy.whyPoints.map((point) => <li>{point}</li>)}
+  </ul>
+
+  <h2 id="what-benefactor-does">{caseStudy.benefactorHeading}</h2>
+
+  <ul>
+    {caseStudy.benefactorPoints.map((point) => <li>{point}</li>)}
+  </ul>
+
+  <p>{caseStudy.close}</p>
+
+  <div class="blog-cta">
+    <h3>{caseStudy.ctaHeading}</h3>
+    <p>{caseStudy.ctaCopy}</p>
+    <a href="mailto:hello@benefactor.cc" class="btn btn--primary btn--large">
+      Get a Local Visibility Breakdown
+    </a>
+  </div>
+
+  <h2 id="current-situation">A question before the next growth push</h2>
+
+  <p>{caseStudy.question}</p>
+</BlogLayout>
