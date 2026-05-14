@@ -47,6 +47,7 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
           <a href={sectionHref('services')} class="nav__link" id="nav-services">Services</a>
           <a href={sectionHref('process')} class="nav__link" id="nav-process">Process</a>
           <a href={sectionHref('results')} class="nav__link" id="nav-results">Results</a>
+          <a href={withBase('case-studies/')} class="nav__link" id="nav-case-studies">Case Studies</a>
           <a href={withBase('blogs/')} class="nav__link" id="nav-blogs">Blogs</a>
           <a href={sectionHref('team')} class="nav__link" id="nav-about">About</a>
           <a href={sectionHref('contact')} class="btn btn--primary nav__cta" id="nav-contact">Get Started</a>
@@ -92,6 +93,7 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
             <div class="footer__col">
               <h4 class="footer__col-title">Company</h4>
               <a href={sectionHref('team')} class="footer__link">About Us</a>
+              <a href={withBase('case-studies/')} class="footer__link">Case Studies</a>
               <a href={withBase('blogs/')} class="footer__link">Blogs</a>
               <a href={sectionHref('process')} class="footer__link">Our Process</a>
               <a href={sectionHref('results')} class="footer__link">Results</a>
@@ -287,7 +289,7 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
         opacity: 0.8;
       }
 
-      @media (max-width: 768px) {
+      @media (max-width: 900px) {
         .nav__links {
           display: none;
         }

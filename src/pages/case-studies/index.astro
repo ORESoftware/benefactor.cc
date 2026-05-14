@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { localSeoCaseStudyBlogPosts } from '../../data/localSeoCaseStudies';
+
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
+---
+
+<BaseLayout
+  title="Local SEO Case Studies"
+  description="Representative Benefactor Marketing case studies for plumbing, roofing, dental, pest control, spas, photography, cleaning, painting, and pool service companies."
+>
+  <section class="case-studies-hero section--hero bg-grid bg-radial">
+    <div class="container case-studies-hero__container">
+      <span class="badge animate-fade-in-up">Case Studies</span>
+      <h1 class="case-studies-hero__title animate-fade-in-up stagger-1">
+        Local SEO stories by service industry.
+      </h1>
+      <p class="case-studies-hero__subtitle animate-fade-in-up stagger-2">
+        Representative examples of how Benefactor turns Google Maps visibility, local SEO,
+        reviews, and tracking into calls, appointments, booked jobs, and profit.
+      </p>
+    </div>
+  </section>
+
+  <section class="case-studies-list section">
+    <div class="container">
+      <div class="case-studies-list__grid">
+        {localSeoCaseStudyBlogPosts.map((post) => (
+          <article class="card case-studies-list__card animate-fade-in-up">
+            <div class="case-studies-list__meta">
+              <span class="case-studies-list__category">{post.category}</span>
+              <span class="case-studies-list__meta-separator">·</span>
+              <span>{new Date(post.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                timeZone: 'UTC',
+              })}</span>
+              <span class="case-studies-list__meta-separator">·</span>
+              <span>{post.readTime}</span>
+            </div>
+            <h2 class="case-studies-list__title">
+              <a href={withBase(`blogs/${post.slug}/`)}>{post.title}</a>
+            </h2>
+            <p class="case-studies-list__description">{post.description}</p>
+            <div class="case-studies-list__tags">
+              {post.tags.map((tag) => (
+                <span class="case-studies-list__tag">#{tag}</span>
+              ))}
+            </div>
+            <a href={withBase(`blogs/${post.slug}/`)} class="case-studies-list__link">
+              Read case study
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .case-studies-hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .case-studies-hero__container {
+    max-width: 900px;
+  }
+
+  .case-studies-hero__title {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-lg);
+    max-width: 12ch;
+  }
+
+  .case-studies-hero__subtitle {
+    max-width: 760px;
+    font-size: 1.12rem;
+  }
+
+  .case-studies-list__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .case-studies-list__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    min-height: 100%;
+  }
+
+  .case-studies-list__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    color: var(--bf-text-muted);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .case-studies-list__category {
+    color: var(--bf-red);
+    font-weight: 700;
+  }
+
+  .case-studies-list__meta-separator {
+    color: var(--bf-border-hover);
+  }
+
+  .case-studies-list__title {
+    font-size: clamp(1.35rem, 2vw, 1.9rem);
+    line-height: 1.2;
+  }
+
+  .case-studies-list__title a {
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .case-studies-list__title a:hover {
+    color: var(--bf-red);
+  }
+
+  .case-studies-list__description {
+    font-size: 1rem;
+  }
+
+  .case-studies-list__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: auto;
+  }
+
+  .case-studies-list__tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--bf-border);
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--bf-text-secondary);
+    font-size: 0.78rem;
+  }
+
+  .case-studies-list__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--bf-text-primary);
+    font-weight: 600;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .case-studies-list__link:hover {
+    color: var(--bf-red);
+  }
+
+  @media (max-width: 980px) {
+    .case-studies-list__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
