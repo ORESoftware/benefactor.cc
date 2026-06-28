@@ -44,7 +44,14 @@ BENEFACTOR_TRACKING_BASE_URL=https://go.benefactor.cc/r/team
 BENEFACTOR_TRACKING_REDIRECT_URL=https://benefactor.cc/team
 SUPABASE_URL=https://<ref>.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=<service-role key>
+SUPABASE_DB_SCHEMA=benefactor-cc
 ```
+
+The table lives in the **`benefactor-cc`** schema (not `public`). Apply the
+migration from `benefactor-backend-rs/supabase/migrations/`, and expose the schema
+in the Supabase project (Project Settings → API → Exposed schemas, i.e.
+`PGRST_DB_SCHEMAS=public,benefactor-cc`) — otherwise PostgREST returns
+`PGRST106` for the `Content-Profile: benefactor-cc` header.
 
 To use the backend endpoint instead of (or as a fallback to) this Worker, set
 `BENEFACTOR_TRACKING_BASE_URL` to `https://<backend-host>/r/team`.

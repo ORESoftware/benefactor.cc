@@ -14,6 +14,7 @@
 // Vars (wrangler.toml [vars]):
 //   REDIRECT_URL                 final landing page (default benefactor.cc/team)
 //   SUPABASE_CLICKS_TABLE        default benefactor_outreach_clicks
+//   SUPABASE_DB_SCHEMA           Postgres schema / Content-Profile (default benefactor-cc)
 
 export default {
   async fetch(request, env, ctx) {
@@ -110,6 +111,9 @@ async function recordClick(claims, request, env) {
       apikey: env.SUPABASE_SERVICE_ROLE_KEY,
       Authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
       "Content-Type": "application/json",
+      // Select the (non-public) target schema for this write. Must be in the
+      // PostgREST exposed schemas list (PGRST_DB_SCHEMAS / Supabase API settings).
+      "Content-Profile": env.SUPABASE_DB_SCHEMA || "benefactor-cc",
       Prefer: "return=minimal",
     },
     body: JSON.stringify(body),
