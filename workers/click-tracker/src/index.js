@@ -14,6 +14,7 @@
 // Vars (wrangler.toml [vars]):
 //   REDIRECT_URL                 final landing page (default benefactor.cc/team)
 //   SUPABASE_CLICKS_TABLE        default benefactor_outreach_clicks
+//   SUPABASE_DB_SCHEMA           Postgres schema / Content-Profile (default benefactor-cc)
 
 export default {
   async fetch(request, env, ctx) {
