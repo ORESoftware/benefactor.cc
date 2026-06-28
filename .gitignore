@@ -23,3 +23,6 @@ pnpm-debug.log*
 
 # env files
 env/
+
+# tmp (git worktrees live under tmp/worktrees/*)
+tmp/
