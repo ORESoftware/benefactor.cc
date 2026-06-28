@@ -1,0 +1,7 @@
+node_modules/
+tmp/
+# Self-contained fallback migrations are generated for review; keep them out of
+# version control (commit the ones you actually adopt under supabase/migrations
+# by force-adding, or use `supabase db diff`).
+/supabase/migrations/
+.DS_Store
