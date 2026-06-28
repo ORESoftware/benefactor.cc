@@ -1,0 +1,18 @@
+name = "benefactor-click-tracker"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+# Bind go.benefactor.cc/r/* to this Worker. Requires the benefactor.cc zone to be
+# on Cloudflare and a (proxied) DNS record for go.benefactor.cc. See README.md.
+routes = [
+  { pattern = "go.benefactor.cc/r/*", zone_name = "benefactor.cc" }
+]
+
+[vars]
+REDIRECT_URL = "https://benefactor.cc/team"
+SUPABASE_CLICKS_TABLE = "benefactor_outreach_clicks"
+
+# Secrets are NOT stored here. Set them with:
+#   wrangler secret put BENEFACTOR_TRACKING_SECRET
+#   wrangler secret put SUPABASE_URL
+#   wrangler secret put SUPABASE_SERVICE_ROLE_KEY
