@@ -1,0 +1,25 @@
+{
+  "name": "@benefactor/interfaces",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Canonical Benefactor Supabase schema + generated Dart/Rust/JSON-Schema adapters.",
+  "scripts": {
+    "generate": "node src/generate.mjs",
+    "check": "node src/generate.mjs --check",
+    "print:sql": "node src/generate.mjs --print-sql",
+    "test": "node --test src/*.test.mjs",
+    "db:migration": "node src/diff.mjs",
+    "db:diff": "node src/diff.mjs --supabase"
+  },
+  "exports": {
+    "./schema": "./schema/schema.sql",
+    "./tables": "./schema/tables.json",
+    "./dart": "./generated/dart/lib/benefactor_interfaces.dart",
+    "./rust": "./generated/rust/src/lib.rs",
+    "./json-schema": "./generated/json-schema/index.json"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
