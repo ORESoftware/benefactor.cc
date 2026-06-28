@@ -12,6 +12,9 @@ routes = [
 [vars]
 REDIRECT_URL = "https://benefactor.cc/team"
 SUPABASE_CLICKS_TABLE = "benefactor_outreach_clicks"
+# Postgres schema the clicks table lives in (sent as Content-Profile). Must be in
+# the Supabase project's Exposed schemas (PGRST_DB_SCHEMAS=public,benefactor-cc).
+SUPABASE_DB_SCHEMA = "benefactor-cc"
 
 # Secrets are NOT stored here. Set them with:
 #   wrangler secret put BENEFACTOR_TRACKING_SECRET
