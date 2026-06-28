@@ -18,9 +18,9 @@ attributed — a random visitor has no token and is simply redirected.
 1. **Supabase table** — apply the migration in
    `../../../ores/k8s-cluster/remote/deployments/benefactor-backend-rs/supabase/migrations/`
    (`benefactor_outreach_clicks`) to the existing project.
-2. **DNS** — the `benefactor.cc` zone must be on Cloudflare. Add a proxied
-   (orange-cloud) DNS record for `go.benefactor.cc` (e.g. `AAAA go 100::`, a
-   common placeholder for Worker-only hostnames).
+2. **DNS** — none needed manually. `wrangler.toml` binds `go.benefactor.cc` as a
+   Cloudflare **custom domain**, so `wrangler deploy` provisions the proxied DNS
+   record automatically (the `benefactor.cc` zone is already on Cloudflare).
 3. **Secrets**:
    ```sh
    cd workers/click-tracker
