@@ -13,7 +13,7 @@ const read = (p) => readFileSync(join(root, p), 'utf8');
 test('tables.json is valid and declares the expected tables', () => {
   const contract = JSON.parse(read('schema/tables.json'));
   const names = contract.tables.map((t) => t.name);
-  assert.deepEqual(names, ['acoustic_events', 'user_consents']);
+  assert.deepEqual(names, ['benefactor_outreach_clicks']);
   for (const table of contract.tables) {
     assert.ok(table.columns.some((c) => c.primaryKey), `${table.name} needs a PK`);
     assert.ok(table.rls?.enable, `${table.name} should enable RLS`);
@@ -25,41 +25,44 @@ test('generated artifacts are up to date (run: node src/generate.mjs)', () => {
   execFileSync('node', ['src/generate.mjs', '--check'], { cwd: root });
 });
 
-test('SQL enables RLS + an owner policy for every table', () => {
+test('SQL enables RLS service-role-only (no anon/auth policy)', () => {
   const sql = read('schema/schema.sql');
-  for (const table of ['acoustic_events', 'user_consents']) {
-    assert.match(sql, new RegExp(`alter table public.${table} enable row level security`));
-    assert.match(sql, new RegExp(`create policy "${table}_owner"`));
-  }
+  assert.match(sql, /alter table public\.benefactor_outreach_clicks enable row level security/);
+  // Service-role-only: RLS on, but no auth.uid()/owner policy is created.
+  assert.match(sql, /service-role only/);
+  assert.doesNotMatch(sql, /create policy/);
 });
 
 test('Dart maps snake_case columns to camelCase fields', () => {
-  const dart = read('generated/dart/lib/sonus_auris_interfaces.dart');
-  assert.match(dart, /final String deviceId;/);
-  assert.match(dart, /deviceId: _reqString\(json, "device_id"\)/);
-  // INSERT shape (first table's toInsertJson) omits server-generated columns.
+  const dart = read('generated/dart/lib/benefactor_interfaces.dart');
+  assert.match(dart, /final String linkKey;/);
+  assert.match(dart, /linkKey: _reqString\(json, "link_key"\)/);
+  // INSERT shape omits server-generated columns (id, clicked_at).
   const afterInsert = dart.slice(dart.indexOf('toInsertJson'));
   const insertReturn = afterInsert.slice(
     afterInsert.indexOf('return {'),
     afterInsert.indexOf('};'),
   );
-  assert.match(insertReturn, /"device_id": deviceId/);
-  assert.doesNotMatch(insertReturn, /"created_at":/);
+  assert.match(insertReturn, /"email": email/);
+  assert.match(insertReturn, /"link_key": linkKey/);
+  assert.doesNotMatch(insertReturn, /"clicked_at":/);
   assert.doesNotMatch(insertReturn, /"id": id/);
 });
 
-test('Rust struct uses serde + serde_json::Value for jsonb', () => {
+test('Rust struct uses serde + exports enum + column constants', () => {
   const rust = read('generated/rust/src/lib.rs');
-  assert.match(rust, /pub struct AcousticEvent/);
-  assert.match(rust, /pub details: serde_json::Value,/);
-  assert.match(rust, /ACOUSTIC_EVENTS_KIND_VALUES/);
+  assert.match(rust, /pub struct OutreachClick/);
+  assert.match(rust, /pub email: String,/);
+  assert.match(rust, /pub source: Option<String>,/);
+  assert.match(rust, /BENEFACTOR_OUTREACH_CLICKS_SOURCE_VALUES/);
 });
 
 test('insert JSON Schema drops server-generated columns', () => {
-  const insert = JSON.parse(read('generated/json-schema/acoustic_events.insert.schema.json'));
+  const insert = JSON.parse(read('generated/json-schema/benefactor_outreach_clicks.insert.schema.json'));
   assert.ok(!('id' in insert.properties));
-  assert.ok(!('user_id' in insert.properties));
-  assert.ok('device_id' in insert.properties);
-  const row = JSON.parse(read('generated/json-schema/acoustic_events.row.schema.json'));
+  assert.ok(!('clicked_at' in insert.properties));
+  assert.ok('email' in insert.properties);
+  assert.ok('link_key' in insert.properties);
+  const row = JSON.parse(read('generated/json-schema/benefactor_outreach_clicks.row.schema.json'));
   assert.ok('id' in row.properties);
 });
