@@ -35,7 +35,7 @@ const gmailCompose = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
       <div class="contact__grid">
         <article class="contact__card">
           <h2 class="contact__card-title">Email</h2>
-          <a href={`mailto:${email}`} class="contact__link">{email}</a>
+          <a href={gmailCompose} target="_blank" rel="noopener" class="contact__link">{email}</a>
           <p class="contact__hint">We reply within one business day.</p>
         </article>
         <article class="contact__card">
