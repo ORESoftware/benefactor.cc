@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/global.css';
+
+const calendlyUrl = 'https://calendly.com/hello-benefactor/30min';
+const email = 'hello@benefactor.cc';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with Benefactor Marketing — book a free 30-minute strategy call or email our team about search, paid acquisition, and automation for founder-led B2B."
+>
+  <section class="contact-hero section--hero bg-grid bg-radial">
+    <div class="container contact-hero__container">
+      <span class="badge animate-fade-in-up">Get in touch</span>
+      <h1 class="contact-hero__title animate-fade-in-up stagger-1">
+        Let's build your <span class="gradient-text">pipeline</span>
+      </h1>
+      <p class="contact-hero__subtitle animate-fade-in-up stagger-2">
+        Book a free 30-minute strategy call or send us a note. We'll map where your
+        growth is leaking and whether Benefactor can help.
+      </p>
+      <div class="contact-hero__actions animate-fade-in-up stagger-3">
+        <a href={calendlyUrl} target="_blank" rel="noopener" class="btn btn--primary btn--large">Book a Strategy Call</a>
+        <a href={`mailto:${email}`} class="btn btn--secondary btn--large">Email Us</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact section">
+    <div class="container">
+      <div class="contact__grid">
+        <article class="contact__card">
+          <h2 class="contact__card-title">Email</h2>
+          <a href={`mailto:${email}`} class="contact__link">{email}</a>
+          <p class="contact__hint">We reply within one business day.</p>
+        </article>
+        <article class="contact__card">
+          <h2 class="contact__card-title">Book a call</h2>
+          <a href={calendlyUrl} target="_blank" rel="noopener" class="contact__link">calendly.com/hello-benefactor/30min</a>
+          <p class="contact__hint">Free 30-minute strategy session.</p>
+        </article>
+        <article class="contact__card">
+          <h2 class="contact__card-title">Office</h2>
+          <address class="contact__address">120 East 82nd St<br />New York, NY 10028</address>
+          <a href="https://linkedin.com/company/benefactor-marketing" target="_blank" rel="noopener" class="contact__link">LinkedIn ↗</a>
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-hero {
+    text-align: center;
+  }
+
+  .contact-hero__container {
+    max-width: 760px;
+  }
+
+  .contact-hero__title {
+    margin-top: var(--space-md);
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    line-height: 1.05;
+  }
+
+  .contact-hero__subtitle {
+    max-width: 620px;
+    margin: var(--space-lg) auto 0;
+    color: var(--bf-text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .contact-hero__actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-top: var(--space-2xl);
+    flex-wrap: wrap;
+  }
+
+  .contact__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-md);
+  }
+
+  .contact__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: var(--space-2xl) var(--space-lg);
+    background: var(--bf-surface);
+    border: 1px solid var(--bf-border);
+    border-radius: var(--radius-lg);
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  .contact__card:hover {
+    border-color: var(--bf-border-active);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .contact__card-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--bf-text-muted);
+  }
+
+  .contact__link {
+    font-size: 1.05rem;
+    color: var(--bf-text-primary);
+    text-decoration: none;
+    word-break: break-word;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .contact__link:hover {
+    color: var(--bf-accent);
+  }
+
+  .contact__hint {
+    font-size: 0.9rem;
+    color: var(--bf-text-muted);
+    line-height: 1.5;
+  }
+
+  .contact__address {
+    font-style: normal;
+    font-size: 1.05rem;
+    color: var(--bf-text-primary);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .contact__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
