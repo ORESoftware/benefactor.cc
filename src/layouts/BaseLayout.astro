@@ -101,7 +101,7 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
               <a href={withBase('blogs/')} class="footer__link">Blogs</a>
               <a href={sectionHref('process')} class="footer__link">Our Process</a>
               <a href={sectionHref('results')} class="footer__link">Results</a>
-              <a href={sectionHref('contact')} class="footer__link">Contact</a>
+              <a href={withBase('contact/')} class="footer__link">Contact</a>
             </div>
             <div class="footer__col">
               <h4 class="footer__col-title">Connect</h4>
