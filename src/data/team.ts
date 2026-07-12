@@ -39,7 +39,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'jacob',
     name: 'Jacob Highley',
-    role: 'Marketing Specialist',
+    role: 'SEO Strategist',
     specialty: 'SEO',
     location: 'Idaho, USA',
     image: '/team/jacob-highley.png',
