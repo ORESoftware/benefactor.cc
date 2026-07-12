@@ -4,6 +4,9 @@ import '../styles/global.css';
 
 const calendlyUrl = 'https://calendly.com/hello-benefactor/30min';
 const email = 'hello@benefactor.cc';
+// Open a Gmail compose window in a new tab instead of a mailto: link (which
+// depends on a configured OS mail client and often silently does nothing).
+const gmailCompose = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
 ---
 
 <BaseLayout
@@ -22,7 +25,7 @@ const email = 'hello@benefactor.cc';
       </p>
       <div class="contact-hero__actions animate-fade-in-up stagger-3">
         <a href={calendlyUrl} target="_blank" rel="noopener" class="btn btn--primary btn--large">Book a Strategy Call</a>
-        <a href={`mailto:${email}`} class="btn btn--secondary btn--large">Email Us</a>
+        <a href={gmailCompose} target="_blank" rel="noopener" class="btn btn--secondary btn--large">Email Us</a>
       </div>
     </div>
   </section>
@@ -32,7 +35,7 @@ const email = 'hello@benefactor.cc';
       <div class="contact__grid">
         <article class="contact__card">
           <h2 class="contact__card-title">Email</h2>
-          <a href={`mailto:${email}`} class="contact__link">{email}</a>
+          <a href={gmailCompose} target="_blank" rel="noopener" class="contact__link">{email}</a>
           <p class="contact__hint">We reply within one business day.</p>
         </article>
         <article class="contact__card">
