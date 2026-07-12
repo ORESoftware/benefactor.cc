@@ -75,7 +75,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'lucia',
     name: 'Lucia Balzano',
-    role: 'Social Media Specialist',
+    role: 'Social Media Strategist',
     specialty: 'Social Visibility',
     location: 'Miami, FL',
     image: '/team/lucia-balzano.jpeg',
