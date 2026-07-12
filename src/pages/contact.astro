@@ -4,6 +4,9 @@ import '../styles/global.css';
 
 const calendlyUrl = 'https://calendly.com/hello-benefactor/30min';
 const email = 'hello@benefactor.cc';
+// Open a Gmail compose window in a new tab instead of a mailto: link (which
+// depends on a configured OS mail client and often silently does nothing).
+const gmailCompose = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
 ---
 
 <BaseLayout
