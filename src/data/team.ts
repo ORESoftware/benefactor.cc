@@ -21,7 +21,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'katie',
     name: 'Kate Muntyan',
-    role: 'Branding Specialist',
+    role: 'B2B Growth Strategist',
     specialty: 'Strategy',
     location: 'Moscow, Russia',
     image: '/team/katie-muntyan.jpg',
