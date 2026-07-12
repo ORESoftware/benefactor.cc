@@ -48,7 +48,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'catherine',
     name: 'Catherine Jacobs',
-    role: 'Marketing Specialist',
+    role: 'Brand & Communications Strategist',
     specialty: 'Design & PR',
     location: 'London, UK',
     image: '/team/catherine-jacobs.png',
