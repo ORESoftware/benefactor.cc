@@ -78,7 +78,7 @@ export const teamMembers: TeamMember[] = [
     role: 'Social Media Specialist',
     specialty: 'Social Visibility',
     location: 'Miami, FL',
-    image: '/team/lucia-balzano.jpei',
+    image: '/team/lucia-balzano.jpeg',
     profileUrl: 'https://www.linkedin.com/in/lucia-balzano1/',
   },
   {
