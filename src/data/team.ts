@@ -57,8 +57,8 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'marcus',
     name: 'Marcus Gerlach',
-    role: 'Marketing Specialist',
-    specialty: 'SEO, AEO & Strategy',
+    role: 'Search & AI Visibility Strategist',
+    specialty: 'SEO · AEO · Growth Strategy',
     location: 'Munich, Germany',
     image: '/team/marcus-gerlach.jpg',
     profileUrl: 'https://linkedin.com/in/alexanderdmills',
