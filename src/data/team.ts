@@ -66,7 +66,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'elijah',
     name: 'Elijah Gizzarelli',
-    role: 'Marketing Specialist',
+    role: 'Paid Acquisition & Partnerships Lead',
     specialty: 'Ads & Business Development',
     location: 'Providence, RI',
     image: '/team/elijah-gizzarelli.jpeg',
