@@ -49,7 +49,7 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
           <a href={sectionHref('services')} class="nav__link" id="nav-services">Services</a>
           <a href={sectionHref('process')} class="nav__link" id="nav-process">Process</a>
           <a href={sectionHref('results')} class="nav__link" id="nav-results">Results</a>
-          <a href={sectionHref('contact')} class="nav__link" id="nav-contact-link">Contact</a>
+          <a href={withBase('contact/')} class="nav__link" id="nav-contact-link">Contact</a>
           <a href={withBase('case-studies/')} class="nav__link" id="nav-case-studies">Case Studies</a>
           <a href={withBase('blogs/')} class="nav__link" id="nav-blogs">Blogs</a>
           <a href={sectionHref('team')} class="nav__link" id="nav-team">Team</a>
