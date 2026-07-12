@@ -49,6 +49,7 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
           <a href={sectionHref('services')} class="nav__link" id="nav-services">Services</a>
           <a href={sectionHref('process')} class="nav__link" id="nav-process">Process</a>
           <a href={sectionHref('results')} class="nav__link" id="nav-results">Results</a>
+          <a href={withBase('contact/')} class="nav__link" id="nav-contact-link">Contact</a>
           <a href={withBase('case-studies/')} class="nav__link" id="nav-case-studies">Case Studies</a>
           <a href={withBase('blogs/')} class="nav__link" id="nav-blogs">Blogs</a>
           <a href={sectionHref('team')} class="nav__link" id="nav-team">Team</a>
@@ -82,6 +83,7 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
               Search, paid, growth systems, and automation built to turn attention into
               qualified pipeline.
             </p>
+            <address class="footer__address">120 East 82nd St, New York, NY 10028</address>
           </div>
 
           <div class="footer__columns">
@@ -99,12 +101,11 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
               <a href={withBase('blogs/')} class="footer__link">Blogs</a>
               <a href={sectionHref('process')} class="footer__link">Our Process</a>
               <a href={sectionHref('results')} class="footer__link">Results</a>
-              <a href={sectionHref('contact')} class="footer__link">Contact</a>
+              <a href={withBase('contact/')} class="footer__link">Contact</a>
             </div>
             <div class="footer__col">
               <h4 class="footer__col-title">Connect</h4>
               <a href="https://linkedin.com/company/benefactor-marketing" target="_blank" class="footer__link">LinkedIn ↗</a>
-              <a href="https://dancingdragons.cc" target="_blank" class="footer__link">Dancing Dragons ↗</a>
               <a href="mailto:hello@benefactor.cc" class="footer__link">hello@benefactor.cc</a>
             </div>
           </div>
@@ -112,7 +113,6 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
 
         <div class="footer__bottom">
           <p class="footer__copy">&copy; {new Date().getFullYear()} Benefactor Marketing. All rights reserved.</p>
-          <p class="footer__copy">A <a href="https://dancingdragons.cc" target="_blank" class="footer__link--inline">Dancing Dragons</a> company.</p>
         </div>
       </div>
     </footer>
@@ -237,6 +237,14 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
         color: var(--bf-text-muted);
         line-height: 1.6;
         max-width: 26ch;
+      }
+
+      .footer__address {
+        margin-top: var(--space-md);
+        font-size: 0.95rem;
+        font-style: normal;
+        color: var(--bf-text-muted);
+        line-height: 1.6;
       }
 
       .footer__columns {
