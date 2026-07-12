@@ -12,7 +12,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'alex',
     name: 'Alex Mills',
-    role: 'Operations Specialist',
+    role: 'Operations & Systems Lead',
     specialty: 'IT & Systems',
     location: 'Austin, TX',
     image: '/team/alex-mills.jpg',
