@@ -29,3 +29,6 @@ tmp/
 
 # benefactor-interfaces is its own repo (github.com/benefactor-cc/benefactor-interfaces)
 /benefactor-interfaces/
+
+# build output (generated; deploy via `npm run deploy`)
+dist/

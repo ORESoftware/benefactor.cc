@@ -12,7 +12,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'alex',
     name: 'Alex Mills',
-    role: 'Operations Specialist',
+    role: 'Operations & Systems Lead',
     specialty: 'IT & Systems',
     location: 'Austin, TX',
     image: '/team/alex-mills.jpg',
@@ -21,7 +21,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'katie',
     name: 'Kate Muntyan',
-    role: 'Branding Specialist',
+    role: 'B2B Growth Strategist',
     specialty: 'Strategy',
     location: 'Moscow, Russia',
     image: '/team/katie-muntyan.jpg',
@@ -30,7 +30,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'vinayak',
     name: 'Vinayak Pandey',
-    role: 'Marketing Specialist',
+    role: 'SEO Strategist',
     specialty: 'SEO',
     location: 'Varanasi, India',
     image: '/team/vinayak-pandey.png',
@@ -39,7 +39,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'jacob',
     name: 'Jacob Highley',
-    role: 'Marketing Specialist',
+    role: 'SEO Strategist',
     specialty: 'SEO',
     location: 'Idaho, USA',
     image: '/team/jacob-highley.png',
@@ -48,7 +48,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'catherine',
     name: 'Catherine Jacobs',
-    role: 'Marketing Specialist',
+    role: 'Brand & Communications Strategist',
     specialty: 'Design & PR',
     location: 'London, UK',
     image: '/team/catherine-jacobs.png',
@@ -57,8 +57,8 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'marcus',
     name: 'Marcus Gerlach',
-    role: 'Marketing Specialist',
-    specialty: 'SEO, AEO & Strategy',
+    role: 'Search & AI Visibility Strategist',
+    specialty: 'SEO · AEO · Growth Strategy',
     location: 'Munich, Germany',
     image: '/team/marcus-gerlach.jpg',
     profileUrl: 'https://linkedin.com/in/alexanderdmills',
@@ -66,7 +66,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'elijah',
     name: 'Elijah Gizzarelli',
-    role: 'Marketing Specialist',
+    role: 'Paid Acquisition & Partnerships Lead',
     specialty: 'Ads & Business Development',
     location: 'Providence, RI',
     image: '/team/elijah-gizzarelli.jpeg',
@@ -75,7 +75,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'lucia',
     name: 'Lucia Balzano',
-    role: 'Social Media Specialist',
+    role: 'Social Media Strategist',
     specialty: 'Social Visibility',
     location: 'Miami, FL',
     image: '/team/lucia-balzano.jpeg',

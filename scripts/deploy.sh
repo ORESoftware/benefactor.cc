@@ -17,6 +17,11 @@
 #
 set -euo pipefail
 
+# Non-interactive SSH so the clone/push can never hang on a host-key or auth
+# prompt (accept-new trusts github.com's key on first use, BatchMode fails fast
+# instead of blocking on a password prompt).
+export GIT_SSH_COMMAND="${GIT_SSH_COMMAND:-ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new}"
+
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PROD_REMOTE="git@github.com:benefactor-cc/benefactor-cc.github.io.git"
 WORKDIR="$(mktemp -d)"
