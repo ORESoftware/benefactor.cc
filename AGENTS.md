@@ -3,6 +3,19 @@
 Durable operating context for coding agents in this repo. Read this first, then
 read any nested `AGENTS.md` in the subdirectory you are working in.
 
+## Sibling org repos — use `~/codes/benefactor-cc/`
+
+All repos of the GitHub org
+[benefactor-cc](https://github.com/orgs/benefactor-cc/repositories) are checked
+out side by side in `/Users/maca5/codes/benefactor-cc/` (**hyphen** — distinct
+from this folder's dot). Use that checkout from now on; read its `AGENTS.md`
+for the repo map and shared tooling (e.g. the `dd-web-scraper` service).
+
+This repo (Astro site source, `ORESoftware/benefactor.cc` — personal account,
+not the org) stays here. Do **not** clone org repos inside it: a nested
+`benefactor-interfaces/` working copy lived here until 2026-07-12 and has been
+removed — use the org checkout instead.
+
 ## Worktrees
 
 Git worktrees go under the repo's `tmp/` folder, which is gitignored:
