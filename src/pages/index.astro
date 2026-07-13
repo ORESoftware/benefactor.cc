@@ -118,85 +118,85 @@ const processSteps = [
   },
 ];
 
-const clientStories = [
+const workStreams = [
   {
-    name: 'Signalboard',
-    meta: 'B2B SaaS · Revenue operations analytics · New York',
-    pill: 'SEO + Demand Gen',
-    metrics: ['+118% organic demo requests', '3x blog-to-pipeline attribution'],
+    name: 'Search intent architecture',
+    meta: 'SEO · Service pages · Content systems',
+    pill: 'Owned Demand',
+    metrics: ['Keyword-to-page mapping', 'Decision-stage content'],
     challenge:
-      'Signalboard had a strong product and a handful of champion customers, but search traffic and inbound demos were flat. Content was insightful but misaligned with high-intent keywords and decision-maker pain.',
+      'Founder-led teams often have useful expertise spread across thin pages, scattered posts, and campaigns that do not match how buyers search when they are ready to act.',
     built:
-      'We rebuilt their SEO strategy around revenue leaders\' real search behavior, shipped a new pillar-cluster architecture, and wired HubSpot to attribute content to closed-won deals.',
+      'We map high-intent queries to service pages, comparison content, local pages, and supporting articles so each search has a clear destination and next step.',
     result:
-      'Within 5 months, Signalboard doubled organic demos from search and could see exactly which pages moved revenue, not just sessions.',
+      'The site becomes easier to crawl, easier for buyers to understand, and easier for the team to connect to qualified conversations.',
   },
   {
-    name: 'Northline Advisory',
-    meta: 'B2B consulting · Leadership and strategy · Remote, US',
-    pill: 'Funnels + Automation',
-    metrics: ['40%+ calendar fill from inbound', '3-step nurture replacing manual follow-up'],
+    name: 'Paid search alignment',
+    meta: 'SEM · Landing pages · Offer testing',
+    pill: 'Efficient Acquisition',
+    metrics: ['Intent-led campaigns', 'Landing-page fit'],
     challenge:
-      'The founder\'s personal brand drove referrals, but there was no consistent way to turn podcast appearances, events, and LinkedIn content into a predictable pipeline.',
+      'Paid search gets expensive when campaigns point broad queries at generic pages and leave the sales promise disconnected from the buyer\'s problem.',
     built:
-      'We designed a simple insight-to-lead-magnet-to-consult-call funnel, layered in behavior-based email sequences, and connected everything to a single source of truth in their CRM.',
+      'We group campaigns by job-to-be-done, tighten ad-to-page message match, and test offers against the actions the business actually wants.',
     result:
-      'Northline went from chasing follow-ups in spreadsheets to waking up to qualified strategy calls booked automatically each week.',
+      'Budgets move toward clearer intent, better-qualified clicks, and landing pages that make the next action obvious.',
   },
   {
-    name: 'Launchpad OS',
-    meta: 'PLG SaaS · Founder tooling · Austin',
-    pill: 'SEO + Paid Search',
-    metrics: ['-52% cost per trial', '+73% trial-to-activation rate'],
+    name: 'Lifecycle automation',
+    meta: 'CRM · Email · Follow-up workflows',
+    pill: 'Revenue Operations',
+    metrics: ['Behavior-based nurture', 'Clean handoffs'],
     challenge:
-      'Search campaigns and landing pages were built quickly during launch, leading to broad targeting, generic messaging, and a mismatch between keywords and onboarding.',
+      'Many teams collect leads faster than they can route, qualify, and follow up, which turns good traffic into slow replies and lost context.',
     built:
-      'We rebuilt campaigns around problem-aware queries, matched landing pages to specific jobs-to-be-done, and designed an onboarding flow that nudged users to their first "aha moment" in under 15 minutes.',
+      'We connect forms, CRM stages, email, calendars, and routing rules so qualified prospects get the right next step without manual chasing.',
     result:
-      'Paid acquisition became profitable, and the team could confidently scale budgets into channels that consistently turned clicks into activated accounts.',
+      'Follow-up becomes faster, reporting becomes cleaner, and founders spend less time stitching together the funnel by hand.',
   },
   {
-    name: 'Fieldnote Logistics',
-    meta: 'B2B services · Warehousing and 3PL · Midwest',
-    pill: 'Local SEO + Inbound',
-    metrics: ['5x qualified RFQs from search', 'New markets opened from inbound'],
+    name: 'Measurement and review loops',
+    meta: 'Dashboards · Attribution · Weekly decisions',
+    pill: 'Operating Rhythm',
+    metrics: ['Pipeline-facing reporting', 'Funnel leak review'],
     challenge:
-      'Sales relied on trade shows and cold outreach. Decision-makers were increasingly researching 3PL partners online before ever talking to a rep.',
+      'Traffic reports are not enough when the business needs to know which pages, campaigns, and handoffs actually support revenue.',
     built:
-      'We optimized core service pages for geo-intent, overhauled their Google Business Profile, and launched decision-focused content answering the exact questions operations leaders asked before sending an RFP.',
+      'We build reporting around calls, forms, booked meetings, pipeline movement, content influence, and the operational gaps that need attention.',
     result:
-      'Within one quarter, inbound RFQs became a meaningful pipeline source, often with higher deal sizes than outbound.',
+      'The team gets a practical weekly view of what changed, what is stuck, and what should ship next.',
   },
 ];
 
-const testimonials = [
+const operatingStandards = [
   {
     quote:
-      'Before Benefactor, growth felt like a series of one-off experiments. Within a quarter we had a clear SEO strategy, a working funnel, and a dashboard that finally let us see which levers were actually moving pipeline.',
-    name: 'Elena Ruiz',
-    role: 'Co-founder and CEO, Signalboard',
-    tag: 'RevOps SaaS',
+      'We separate strategy from guesswork by tying each recommendation to search intent, buyer behavior, conversion friction, or operational follow-up.',
+    name: 'Evidence before scale',
+    role: 'Research, analytics, and funnel diagnosis before larger channel bets',
+    tag: 'Discovery',
   },
   {
     quote:
-      'I did not want another agency sending vanity metrics. Benefactor plugged into our team, owned the numbers, and built systems that keep my calendar full without me living inside a marketing tool.',
-    name: 'Marcus Lee',
-    role: 'Founder, Northline Advisory',
-    tag: 'B2B Consulting',
+      'We prefer shipping small, measurable improvements quickly: cleaner pages, tighter campaigns, sharper forms, better routing, and clearer reporting.',
+    name: 'Useful work every sprint',
+    role: 'Execution that a founder-led team can inspect and keep using',
+    tag: 'Delivery',
   },
   {
     quote:
-      'What I appreciated most was the focus on compounding wins. Every sprint, we shipped something small but meaningful: better onboarding, tighter campaigns, cleaner data. Six months later, our acquisition economics look completely different.',
-    name: 'Jordan Patel',
-    role: 'Head of Growth, Launchpad OS',
-    tag: 'PLG SaaS',
+      'We make handoffs explicit so marketing, sales, and operations can see who owns the next step and which signals should trigger follow-up.',
+    name: 'Operational clarity',
+    role: 'CRM, lifecycle, and reporting structures built for repeated use',
+    tag: 'Systems',
   },
   {
     quote:
-      'Benefactor helped us translate decades of offline expertise into a digital presence that actually brings the right operators to our door. We now treat inbound as seriously as our biggest trade shows.',
-    name: 'Christina Ward',
-    role: 'VP Sales, Fieldnote Logistics',
-    tag: '3PL and Logistics',
+      'We report on decisions, not theater: what moved, what did not, what evidence changed, and what the next practical action should be.',
+    name: 'Decision-ready reporting',
+    role: 'Weekly signal review focused on pipeline and conversion movement',
+    tag: 'Measurement',
   },
 ];
 
@@ -213,7 +213,7 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
       <div class="hero__content">
         <div class="badge animate-fade-in-up">
           <span class="badge__dot"></span>
-          Selected client stories
+          Search, paid, and automation systems
         </div>
 
         <h1 class="hero__title animate-fade-in-up stagger-1">
@@ -240,7 +240,7 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
             </svg>
           </a>
           <a href="#results" class="btn btn--secondary btn--large" id="hero-cta-secondary">
-            See Client Portfolio
+            See Workstreams
           </a>
         </div>
 
@@ -360,18 +360,19 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
   <section class="portfolio section" id="results" aria-labelledby="portfolio-heading">
     <div class="container">
       <div class="portfolio__header">
-        <span class="badge animate-fade-in-up">Client portfolio</span>
+        <span class="badge animate-fade-in-up">What becomes real</span>
         <h2 id="portfolio-heading" class="animate-fade-in-up stagger-1">
-          Selected client stories
+          Four workstreams that move from idea to operating system
         </h2>
         <p class="portfolio__desc animate-fade-in-up stagger-2">
-          A sample of founder-led teams we support across SaaS, consulting, and education. Names
-          and details are anonymized, and results are representative of our typical work.
+          No invented client logos, no pretend testimonials. These are the concrete systems
+          Benefactor builds for founder-led teams that need demand generation to connect with
+          follow-up and measurement.
         </p>
       </div>
 
       <div class="portfolio__grid">
-        {clientStories.map((story) => (
+        {workStreams.map((story) => (
           <article class="card portfolio__card animate-fade-in-up">
             <div class="portfolio__top">
               <div>
@@ -404,8 +405,8 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
       </div>
 
       <p class="portfolio__note">
-        Client stories on this page use fictional names and anonymized details while reflecting
-        the kinds of outcomes and engagements Benefactor creates for founder-led B2B teams.
+        This section describes live service workstreams. Public client proof should only be
+        added here when the source, permission, and numbers are ready to publish.
       </p>
     </div>
   </section>
@@ -459,18 +460,18 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
   <section class="voices section" id="partners" aria-labelledby="voices-heading">
     <div class="container">
       <div class="voices__header">
-        <span class="badge animate-fade-in-up">Voices from our partners</span>
+        <span class="badge animate-fade-in-up">Operating standards</span>
         <h2 id="voices-heading" class="animate-fade-in-up stagger-1">
-          We work best with founders who want a thinking partner, not a task-taker
+          How we keep growth work grounded in real evidence
         </h2>
         <p class="voices__desc animate-fade-in-up stagger-2">
-          Here is how partners describe the shift after Benefactor tightened their messaging,
-          funnels, and growth systems.
+          These are internal commitments that define what clients should expect before any
+          public testimonial is added.
         </p>
       </div>
 
       <div class="voices__grid">
-        {testimonials.map((testimonial) => (
+        {operatingStandards.map((testimonial) => (
           <figure class="card voices__card animate-fade-in-up">
             <blockquote class="voices__quote">{testimonial.quote}</blockquote>
             <figcaption class="voices__author">
@@ -511,7 +512,7 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
             </svg>
           </a>
           <a href="#results" class="btn btn--secondary btn--large" id="cta-services-btn">
-            Review Client Stories
+            Review Workstreams
           </a>
         </div>
       </div>

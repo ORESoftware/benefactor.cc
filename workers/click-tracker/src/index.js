@@ -16,13 +16,18 @@
 //   SUPABASE_CLICKS_TABLE        default benefactor_outreach_clicks
 //   SUPABASE_DB_SCHEMA           Postgres schema / Content-Profile (default benefactor-cc)
 
+const DEFAULT_REDIRECT_URL = "https://benefactor.cc/team";
+const TRACKING_PATHS = new Set(["/r/team", "/r/team/"]);
+const MAX_TOKEN_BYTES = 4096;
+const MAX_CLAIM_LENGTH = 512;
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    const redirectTo = env.REDIRECT_URL || "https://benefactor.cc/team";
+    const redirectTo = safeRedirectUrl(env.REDIRECT_URL);
     const token = url.searchParams.get("t");
 
-    if (token) {
+    if (TRACKING_PATHS.has(url.pathname) && token) {
       const claims = await verifyToken(token, env.BENEFACTOR_TRACKING_SECRET);
       if (claims) {
         // Best-effort: don't block the redirect on the Supabase insert.
@@ -40,7 +45,18 @@ export default {
   },
 };
 
+function safeRedirectUrl(value) {
+  if (!value) return DEFAULT_REDIRECT_URL;
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" ? url.toString() : DEFAULT_REDIRECT_URL;
+  } catch {
+    return DEFAULT_REDIRECT_URL;
+  }
+}
+
 function base64urlToBytes(input) {
+  if (!/^[A-Za-z0-9_-]+$/.test(input)) throw new Error("invalid base64url");
   const pad = input.length % 4 === 0 ? "" : "=".repeat(4 - (input.length % 4));
   const b64 = input.replace(/-/g, "+").replace(/_/g, "/") + pad;
   const bin = atob(b64);
@@ -51,10 +67,20 @@ function base64urlToBytes(input) {
 
 async function verifyToken(token, secret) {
   if (!secret) return null;
+  if (token.length > MAX_TOKEN_BYTES) return null;
   const parts = token.split(".");
   if (parts.length !== 3) return null;
   const [headerB64, payloadB64, sigB64] = parts;
+  if (!headerB64 || !payloadB64 || !sigB64) return null;
   const enc = new TextEncoder();
+  let header;
+  try {
+    header = JSON.parse(new TextDecoder().decode(base64urlToBytes(headerB64)));
+  } catch {
+    return null;
+  }
+  if (header.alg !== "HS256") return null;
+  if (header.typ && header.typ !== "JWT") return null;
 
   const key = await crypto.subtle.importKey(
     "raw",
@@ -77,8 +103,33 @@ async function verifyToken(token, secret) {
   } catch {
     return null;
   }
-  if (claims.exp && Date.now() / 1000 > claims.exp) return null;
+  if (!isValidClaims(claims)) return null;
   return claims;
+}
+
+function isValidClaims(claims) {
+  if (!claims || typeof claims !== "object" || Array.isArray(claims)) return false;
+  const now = Date.now() / 1000;
+  if (claims.exp !== undefined && (!Number.isFinite(claims.exp) || now > claims.exp)) return false;
+  if (claims.nbf !== undefined && (!Number.isFinite(claims.nbf) || now < claims.nbf)) return false;
+  if (!isBoundedString(claims.email) || !claims.email.includes("@")) return false;
+  if (!isBoundedString(claims.lid)) return false;
+  for (const optional of ["cmp", "lk"]) {
+    if (claims[optional] !== undefined && claims[optional] !== null && !isBoundedString(claims[optional])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function isBoundedString(value, max = MAX_CLAIM_LENGTH) {
+  return typeof value === "string" && value.length > 0 && value.length <= max;
+}
+
+function boundedHeader(request, name, max = MAX_CLAIM_LENGTH) {
+  const value = request.headers.get(name);
+  if (!value) return null;
+  return value.slice(0, max);
 }
 
 async function recordClick(claims, request, env) {
@@ -95,14 +146,14 @@ async function recordClick(claims, request, env) {
     null;
 
   const body = {
-    lead_id: claims.lid || null,
+    lead_id: claims.lid,
     email: claims.email,
     campaign: claims.cmp || null,
     link_key: claims.lk || "team",
     source: "cloudflare-worker",
     ip_address: ip,
-    user_agent: request.headers.get("user-agent"),
-    referer: request.headers.get("referer"),
+    user_agent: boundedHeader(request, "user-agent"),
+    referer: boundedHeader(request, "referer", 2048),
   };
 
   const res = await fetch(endpoint, {

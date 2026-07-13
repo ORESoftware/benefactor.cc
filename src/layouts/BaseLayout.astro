@@ -23,6 +23,11 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0f1117" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; upgrade-insecure-requests"
+    />
     <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
     <link rel="icon" type="image/x-icon" href={withBase('favicon.ico')} />
     <link rel="apple-touch-icon" href={withBase('apple-touch-icon.png')} />
@@ -50,7 +55,7 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
           <a href={sectionHref('process')} class="nav__link" id="nav-process">Process</a>
           <a href={sectionHref('results')} class="nav__link" id="nav-results">Results</a>
           <a href={withBase('contact/')} class="nav__link" id="nav-contact-link">Contact</a>
-          <a href={withBase('case-studies/')} class="nav__link" id="nav-case-studies">Case Studies</a>
+          <a href={withBase('case-studies/')} class="nav__link" id="nav-case-studies">Playbooks</a>
           <a href={withBase('blogs/')} class="nav__link" id="nav-blogs">Blogs</a>
           <a href={sectionHref('team')} class="nav__link" id="nav-team">Team</a>
           <a href={sectionHref('contact')} class="btn btn--primary nav__cta" id="nav-contact">Get Started</a>
@@ -97,7 +102,7 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
             <div class="footer__col">
               <h4 class="footer__col-title">Company</h4>
               <a href={sectionHref('team')} class="footer__link">About Us</a>
-              <a href={withBase('case-studies/')} class="footer__link">Case Studies</a>
+              <a href={withBase('case-studies/')} class="footer__link">Playbooks</a>
               <a href={withBase('blogs/')} class="footer__link">Blogs</a>
               <a href={sectionHref('process')} class="footer__link">Our Process</a>
               <a href={sectionHref('results')} class="footer__link">Results</a>
@@ -105,7 +110,7 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
             </div>
             <div class="footer__col">
               <h4 class="footer__col-title">Connect</h4>
-              <a href="https://linkedin.com/company/benefactor-marketing" target="_blank" class="footer__link">LinkedIn ↗</a>
+              <a href="https://linkedin.com/company/benefactor-marketing" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn ↗</a>
               <a href="mailto:hello@benefactor.cc" class="footer__link">hello@benefactor.cc</a>
             </div>
           </div>
