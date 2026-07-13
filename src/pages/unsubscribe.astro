@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const email = 'hello@benefactor.cc';
+const mailto = `mailto:${email}?subject=${encodeURIComponent('Unsubscribe')}`;
+---
+
+<BaseLayout
+  title="Unsubscribe | Benefactor"
+  description="Stop Benefactor marketing outreach."
+>
+  <main class="unsubscribe-page">
+    <section class="unsubscribe-panel" aria-labelledby="unsubscribe-title">
+      <p class="eyebrow">Email preferences</p>
+      <h1 id="unsubscribe-title">Stop marketing emails</h1>
+      <p>
+        Send an unsubscribe request from the address that received our message. Our reply processor
+        marks the address as opted out and suppresses future Benefactor outreach.
+      </p>
+      <a class="button" href={mailto}>Email unsubscribe request</a>
+      <p class="note">
+        You can also reply to any Benefactor message with <strong>Unsubscribe</strong> in the subject
+        or body.
+      </p>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .unsubscribe-page {
+    min-height: 68vh;
+    display: grid;
+    place-items: center;
+    padding: 6rem 1.25rem;
+    background: #f4f7f8;
+  }
+
+  .unsubscribe-panel {
+    width: min(100%, 42rem);
+    border-left: 4px solid #c93d3d;
+    padding: 1.5rem 0 1.5rem 2rem;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.75rem;
+    color: #a13030;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0 0 1rem;
+    color: #142d3d;
+    font-size: 3.25rem;
+    line-height: 1.05;
+  }
+
+  p {
+    max-width: 38rem;
+    color: #344c59;
+    line-height: 1.7;
+  }
+
+  .button {
+    display: inline-flex;
+    margin-top: 1rem;
+    padding: 0.85rem 1.1rem;
+    border: 1px solid #142d3d;
+    background: #142d3d;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .button:hover,
+  .button:focus-visible {
+    background: #fff;
+    color: #142d3d;
+  }
+
+  .note {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 640px) {
+    .unsubscribe-panel {
+      padding-left: 1.25rem;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+    }
+  }
+</style>
