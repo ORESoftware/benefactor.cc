@@ -52,7 +52,6 @@ export const teamMembers: TeamMember[] = [
     specialty: 'Design & PR',
     location: 'London, UK',
     image: '/team/catherine-jacobs.png',
-    profileUrl: 'https://www.linkedin.com/in/ekaterina-muntian',
   },
   {
     id: 'marcus',
@@ -61,7 +60,6 @@ export const teamMembers: TeamMember[] = [
     specialty: 'SEO · AEO · Growth Strategy',
     location: 'Munich, Germany',
     image: '/team/marcus-gerlach.jpg',
-    profileUrl: 'https://linkedin.com/in/alexanderdmills',
   },
   {
     id: 'elijah',
