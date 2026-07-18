@@ -14,6 +14,20 @@ const baseUrl = import.meta.env.BASE_URL;
 const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
 const isHome = Astro.url.pathname === '/' || Astro.url.pathname === baseUrl;
 const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
+const telemetryUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const telemetryKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+let telemetryConnectSources = '';
+try {
+  if (telemetryUrl) {
+    const origin = new URL(telemetryUrl);
+    if (origin.protocol === 'https:') {
+      telemetryConnectSources = ` ${origin.origin} ${origin.origin.replace(/^https:/, 'wss:')}`;
+    }
+  }
+} catch {
+  // Invalid optional telemetry configuration simply leaves transport disabled.
+}
+const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self'${telemetryConnectSources}; upgrade-insecure-requests`;
 ---
 
 <!doctype html>
@@ -26,7 +40,7 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; upgrade-insecure-requests"
+      content={securityPolicy}
     />
     <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
     <link rel="icon" type="image/x-icon" href={withBase('favicon.ico')} />
@@ -40,6 +54,23 @@ const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
   </head>
   <body>
+    <script
+      id="client-telemetry-config"
+      type="application/json"
+      data-supabase-url={telemetryUrl ?? ''}
+      data-publishable-key={telemetryKey ?? ''}
+    ></script>
+    <script>
+      import { installClientTelemetry } from '../lib/client-observability';
+
+      const telemetryConfig = document.getElementById('client-telemetry-config');
+      installClientTelemetry({
+        app: 'benefactor-web',
+        platform: 'browser',
+        supabaseUrl: telemetryConfig?.dataset.supabaseUrl,
+        publishableKey: telemetryConfig?.dataset.publishableKey,
+      });
+    </script>
     <nav class="nav" id="main-nav">
       <div class="nav__inner container">
         <a href={withBase()} class="nav__logo" id="nav-logo">

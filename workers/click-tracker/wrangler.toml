@@ -18,5 +18,7 @@ SUPABASE_DB_SCHEMA = "benefactor-cc"
 
 # Secrets are NOT stored here. Set them with:
 #   wrangler secret put BENEFACTOR_TRACKING_SECRET
+#   wrangler secret put BENEFACTOR_TRACKING_PREVIOUS_SECRET  # planned rollover only
 #   wrangler secret put SUPABASE_URL
-#   wrangler secret put SUPABASE_SERVICE_ROLE_KEY
+#   wrangler secret put SUPABASE_PUBLISHABLE_KEY
+#   wrangler secret put SUPABASE_CLICK_WRITER_TOKEN

@@ -2,15 +2,17 @@
 //
 //   GET https://go.benefactor.cc/r/team?t=<hs256-jwt>
 //
-// Verifies the per-lead signed token, records the click to Supabase (REST API,
-// service-role key), then 302-redirects to the team page. This mirrors the Rust
+// Verifies the per-lead signed token, records the click to Supabase with a
+// dedicated non-bypassing writer role, then 302-redirects to the team page. This mirrors the Rust
 // backend's /r/team endpoint exactly (same token, same table) so the outreach
 // link can point at either host.
 //
 // Secrets (set with `wrangler secret put <NAME>`):
-//   BENEFACTOR_TRACKING_SECRET   HS256 signing secret (must match the backend)
-//   SUPABASE_URL                 https://<ref>.supabase.co
-//   SUPABASE_SERVICE_ROLE_KEY    Supabase service-role key
+//   BENEFACTOR_TRACKING_SECRET           current HS256 signing secret (must match backend)
+//   BENEFACTOR_TRACKING_PREVIOUS_SECRET  optional previous signing secret for a normal rollover
+//   SUPABASE_URL                         https://<ref>.supabase.co
+//   SUPABASE_PUBLISHABLE_KEY             Supabase publishable / legacy anon API key
+//   SUPABASE_CLICK_WRITER_TOKEN          custom JWT with role=benefactor_click_writer
 // Vars (wrangler.toml [vars]):
 //   REDIRECT_URL                 final landing page (default benefactor.cc/team)
 //   SUPABASE_CLICKS_TABLE        default benefactor_outreach_clicks
@@ -20,7 +22,7 @@ const DEFAULT_REDIRECT_URL = "https://benefactor.cc/team";
 const TRACKING_PATHS = new Set(["/r/team", "/r/team/"]);
 const MAX_TOKEN_BYTES = 4096;
 const MAX_CLAIM_LENGTH = 512;
-const TRACKING_TOKEN_TTL_SECONDS = 60 * 60 * 24 * 365 * 2;
+const MAX_TRACKING_TOKEN_TTL_SECONDS = 60 * 60 * 24 * 90;
 const MAX_CAMPAIGN_LENGTH = 256;
 const MAX_LINK_KEY_LENGTH = 128;
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -33,7 +35,11 @@ export default {
     const token = url.searchParams.get("t");
 
     if (request.method === "GET" && TRACKING_PATHS.has(url.pathname) && token) {
-      const claims = await verifyToken(token, env.BENEFACTOR_TRACKING_SECRET);
+      const claims = await verifyToken(
+        token,
+        env.BENEFACTOR_TRACKING_SECRET,
+        env.BENEFACTOR_TRACKING_PREVIOUS_SECRET,
+      );
       if (claims) {
         // Best-effort: don't block the redirect on the Supabase insert.
         ctx.waitUntil(
@@ -48,9 +54,13 @@ export default {
       status: 302,
       headers: {
         Location: redirectTo,
-        "Cache-Control": "no-store",
-        "Referrer-Policy": "no-referrer",
-        "X-Content-Type-Options": "nosniff",
+          "Cache-Control": "no-store",
+          "Content-Security-Policy": "default-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; object-src 'none'",
+          "Permissions-Policy": "camera=(), geolocation=(), microphone=()",
+          "Referrer-Policy": "no-referrer",
+          "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY",
       },
     });
   },
@@ -78,8 +88,7 @@ function base64urlToBytes(input) {
   return bytes;
 }
 
-async function verifyToken(token, secret) {
-  if (!secret || new TextEncoder().encode(secret).length < 32) return null;
+async function verifyToken(token, currentSecret, previousSecret) {
   if (token.length > MAX_TOKEN_BYTES) return null;
   try {
     const parts = token.split(".");
@@ -91,23 +100,27 @@ async function verifyToken(token, secret) {
     if (header.alg !== "HS256") return null;
     if (header.typ && header.typ !== "JWT") return null;
 
-    const key = await crypto.subtle.importKey(
-      "raw",
-      enc.encode(secret),
-      { name: "HMAC", hash: "SHA-256" },
-      false,
-      ["verify"],
-    );
-    const valid = await crypto.subtle.verify(
-      "HMAC",
-      key,
-      base64urlToBytes(sigB64),
-      enc.encode(`${headerB64}.${payloadB64}`),
-    );
-    if (!valid) return null;
-
     const claims = JSON.parse(new TextDecoder().decode(base64urlToBytes(payloadB64)));
-    return isValidClaims(claims) ? claims : null;
+    if (!isValidClaims(claims)) return null;
+
+    for (const secret of [currentSecret, previousSecret]) {
+      if (!secret || new TextEncoder().encode(secret).length < 32) continue;
+      const key = await crypto.subtle.importKey(
+        "raw",
+        enc.encode(secret),
+        { name: "HMAC", hash: "SHA-256" },
+        false,
+        ["verify"],
+      );
+      const valid = await crypto.subtle.verify(
+        "HMAC",
+        key,
+        base64urlToBytes(sigB64),
+        enc.encode(`${headerB64}.${payloadB64}`),
+      );
+      if (valid) return claims;
+    }
+    return null;
   } catch {
     return null;
   }
@@ -118,7 +131,7 @@ function isValidClaims(claims) {
   const now = Date.now() / 1000;
   if (!Number.isFinite(claims.exp) || now > claims.exp) return false;
   if (!Number.isFinite(claims.iat) || claims.iat > now + 300) return false;
-  if (claims.exp < claims.iat || claims.exp - claims.iat > TRACKING_TOKEN_TTL_SECONDS) return false;
+  if (claims.exp < claims.iat || claims.exp - claims.iat > MAX_TRACKING_TOKEN_TTL_SECONDS) return false;
   if (claims.nbf !== undefined && (!Number.isFinite(claims.nbf) || now < claims.nbf)) return false;
   if (!isBoundedString(claims.lid, 36) || !UUID_PATTERN.test(claims.lid)) return false;
   if (claims.cmp !== undefined && claims.cmp !== null && !isBoundedString(claims.cmp, MAX_CAMPAIGN_LENGTH)) return false;
@@ -137,7 +150,7 @@ function boundedHeader(request, name, max = MAX_CLAIM_LENGTH) {
 }
 
 async function recordClick(claims, request, env) {
-  if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) {
+  if (!env.SUPABASE_URL || !env.SUPABASE_PUBLISHABLE_KEY || !env.SUPABASE_CLICK_WRITER_TOKEN) {
     console.warn("supabase not configured; click not recorded");
     return;
   }
@@ -175,8 +188,8 @@ async function recordClick(claims, request, env) {
   const res = await fetch(endpoint, {
     method: "POST",
     headers: {
-      apikey: env.SUPABASE_SERVICE_ROLE_KEY,
-      Authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
+      apikey: env.SUPABASE_PUBLISHABLE_KEY,
+      Authorization: `Bearer ${env.SUPABASE_CLICK_WRITER_TOKEN}`,
       "Content-Type": "application/json",
       // Select the (non-public) target schema for this write. Must be in the
       // PostgREST exposed schemas list (PGRST_DB_SCHEMAS / Supabase API settings).
