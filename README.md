@@ -35,8 +35,24 @@ All commands are run from the root of the project, from a terminal:
 | `npm run dev`             | Starts local dev server at `localhost:4321`      |
 | `npm run build`           | Build your production site to `./dist/`          |
 | `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run deploy`          | Manually publish the root-domain build to the production Pages repository |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+## Deployment
+
+Pull requests run tests, dependency auditing, and a production-shape Astro
+build. A successful push to `main` publishes the generated root-domain build to
+`benefactor-cc/benefactor-cc.github.io`; that repository remains generated
+output and must not be edited directly. Publishing uses the
+`BENEFACTOR_PAGES_TOKEN` Actions secret: a fine-grained token limited to that
+one generated repository with Contents read/write access. Rotate it before
+2026-10-16.
+
+The workflow reads the public Supabase telemetry configuration from repository
+variables `PUBLIC_SUPABASE_URL` and `PUBLIC_SUPABASE_PUBLISHABLE_KEY`. Leave
+both unset together when no benefactor Supabase project is available; the site
+still builds, while the client telemetry emitter remains disabled.
 
 ## 👀 Want to learn more?
 

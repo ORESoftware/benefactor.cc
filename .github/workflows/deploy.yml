@@ -1,4 +1,4 @@
-name: Validate Benefactor source
+name: Frontend CI / production deploy
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: source-ci-${{ github.ref }}
+  group: benefactor-frontend-${{ github.event_name == 'pull_request' && github.ref || 'production' }}
   cancel-in-progress: true
 
 jobs:
@@ -21,10 +21,10 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 22
           cache: npm
@@ -39,4 +39,43 @@ jobs:
         run: npm test
 
       - name: Build Astro site
+        env:
+          CUSTOM_DOMAIN: benefactor.cc
+          PUBLIC_SUPABASE_URL: ${{ vars.PUBLIC_SUPABASE_URL }}
+          PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
         run: npm run build
+
+      - name: Validate the production artifact
+        run: |
+          set -euo pipefail
+          grep -q '^benefactor\.cc$' dist/CNAME
+          test -f dist/.nojekyll
+          grep -q '/_astro/' dist/index.html
+          if grep -q '/benefactor\.cc/_astro/' dist/index.html; then
+            echo 'Production build contains the GitHub project-pages base path.' >&2
+            exit 1
+          fi
+
+      - name: Checkout the generated production repository
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          repository: benefactor-cc/benefactor-cc.github.io
+          ref: main
+          token: ${{ secrets.BENEFACTOR_PAGES_TOKEN }}
+          path: tmp/production
+
+      - name: Publish benefactor.cc
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          rsync -a --delete --exclude=.git dist/ tmp/production/
+          git -C tmp/production config user.name benefactor-release-bot
+          git -C tmp/production config user.email benefactor-release-bot@users.noreply.github.com
+          git -C tmp/production add -A
+          if git -C tmp/production diff --cached --quiet; then
+            echo 'Production already matches this build.'
+            exit 0
+          fi
+          git -C tmp/production commit -m "deploy: publish ${GITHUB_SHA::12}"
+          git -C tmp/production push origin HEAD:main
