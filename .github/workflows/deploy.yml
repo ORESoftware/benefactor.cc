@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          persist-credentials: false
 
       - name: Setup Node
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
@@ -30,10 +32,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
-
-      - name: Audit production dependencies
-        run: npm audit --omit=dev
+        run: npm ci --ignore-scripts
 
       - name: Test
         run: npm test
@@ -56,6 +55,11 @@ jobs:
             exit 1
           fi
 
+      # Keep this after functional validation so an advisory never hides test or
+      # build regressions. It remains blocking, so vulnerable main cannot deploy.
+      - name: Audit production dependencies
+        run: npm audit --omit=dev
+
       - name: Checkout the generated production repository
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
@@ -64,6 +68,7 @@ jobs:
           ref: main
           token: ${{ secrets.BENEFACTOR_PAGES_TOKEN }}
           path: tmp/production
+          persist-credentials: true
 
       - name: Publish benefactor.cc
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
