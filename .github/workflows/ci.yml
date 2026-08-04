@@ -37,8 +37,11 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: Regenerate the lockfile with patched versions
+      - name: Regenerate the lockfile with patched direct versions
         run: npm install --save-exact astro@7.1.0 sharp@0.35.3
+
+      - name: Apply available transitive advisory fixes
+        run: npm audit fix
 
       - name: Require a clean production audit
         run: npm audit --omit=dev
@@ -60,7 +63,7 @@ jobs:
             echo 'Dependency files already match the requested patched versions.'
             exit 0
           fi
-          git commit -m 'fix: upgrade Astro and Sharp past audited advisories'
+          git commit -m 'fix: upgrade audited production dependencies'
           git push origin HEAD:${GITHUB_HEAD_REF}
 
   validate:
