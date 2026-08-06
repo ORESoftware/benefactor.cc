@@ -29,3 +29,7 @@ tmp/
 
 # build output (generated; deploy via `npm run deploy`)
 dist/
+tmp
+temp
+tmp/worktrees
+temp/worktrees
