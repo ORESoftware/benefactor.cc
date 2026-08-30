@@ -1,14 +1,14 @@
 export interface TeamMember {
-  id: string;
-  name: string;
-  role: string;
-  specialty: string;
-  location: string;
-  image: string;
-  profileUrl?: string;
+  readonly id: string;
+  readonly name: string;
+  readonly role: string;
+  readonly specialty: string;
+  readonly location: string;
+  readonly image: string;
+  readonly profileUrl?: string;
 }
 
-export const teamMembers: TeamMember[] = [
+export const teamMembers: readonly TeamMember[] = [
   {
     id: 'alex',
     name: 'Alex Mills',

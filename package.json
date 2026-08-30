@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "test": "node --test workers/**/*.test.js",
+    "test": "node --experimental-strip-types --test tests/**/*.test.mjs workers/**/*.test.js",
     "preview": "astro preview",
     "astro": "astro",
     "deploy": "bash scripts/deploy.sh",

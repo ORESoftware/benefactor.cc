@@ -1,24 +1,24 @@
 export interface LocalSeoCaseStudy {
-  slug: string;
-  title: string;
-  description: string;
-  industry: string;
-  industryPlural: string;
-  category: string;
-  tags: string[];
-  story: string;
-  whyHeading: string;
-  whyIntro: string;
-  whyPoints: string[];
-  benefactorHeading: string;
-  benefactorPoints: string[];
-  close: string;
-  ctaHeading: string;
-  ctaCopy: string;
-  question: string;
+  readonly slug: string;
+  readonly title: string;
+  readonly description: string;
+  readonly industry: string;
+  readonly industryPlural: string;
+  readonly category: string;
+  readonly tags: readonly string[];
+  readonly story: string;
+  readonly whyHeading: string;
+  readonly whyIntro: string;
+  readonly whyPoints: readonly string[];
+  readonly benefactorHeading: string;
+  readonly benefactorPoints: readonly string[];
+  readonly close: string;
+  readonly ctaHeading: string;
+  readonly ctaCopy: string;
+  readonly question: string;
 }
 
-export const localSeoCaseStudies: LocalSeoCaseStudy[] = [
+export const localSeoCaseStudies: readonly LocalSeoCaseStudy[] = [
   {
     slug: 'plumbing-companies-local-seo-case-study',
     title: 'Local SEO Playbook for Plumbing Companies That Need More Service Calls',

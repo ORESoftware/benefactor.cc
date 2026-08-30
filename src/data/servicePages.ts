@@ -1,22 +1,22 @@
 export interface ServiceLandingPage {
-  country: string;
-  countryLabel: string;
-  service: string;
-  serviceLabel: string;
-  illustrationSrc: string;
-  illustrationAlt: string;
-  pageTitle: string;
-  metaDescription: string;
-  heroTitle: string;
-  heroDescription: string;
-  audience: string;
-  outcome: string;
-  stats: Array<{ value: string; label: string }>;
-  pillars: Array<{ title: string; description: string }>;
-  advantages: string[];
+  readonly country: string;
+  readonly countryLabel: string;
+  readonly service: string;
+  readonly serviceLabel: string;
+  readonly illustrationSrc: string;
+  readonly illustrationAlt: string;
+  readonly pageTitle: string;
+  readonly metaDescription: string;
+  readonly heroTitle: string;
+  readonly heroDescription: string;
+  readonly audience: string;
+  readonly outcome: string;
+  readonly stats: readonly Readonly<{ value: string; label: string }>[];
+  readonly pillars: readonly Readonly<{ title: string; description: string }>[];
+  readonly advantages: readonly string[];
 }
 
-export const serviceLandingPages: ServiceLandingPage[] = [
+export const serviceLandingPages: readonly ServiceLandingPage[] = [
   {
     country: 'usa',
     countryLabel: 'USA',

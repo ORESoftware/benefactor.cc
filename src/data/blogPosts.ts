@@ -1,17 +1,17 @@
 import { localSeoCaseStudyBlogPosts } from './localSeoCaseStudies';
 
 export interface BlogPostMeta {
-  slug: string;
-  title: string;
-  description: string;
-  date: string;
-  author: string;
-  readTime: string;
-  category: string;
-  tags: string[];
+  readonly slug: string;
+  readonly title: string;
+  readonly description: string;
+  readonly date: string;
+  readonly author: string;
+  readonly readTime: string;
+  readonly category: string;
+  readonly tags: readonly string[];
 }
 
-export const blogPosts: BlogPostMeta[] = [
+export const blogPosts: readonly BlogPostMeta[] = [
   ...localSeoCaseStudyBlogPosts,
   {
     slug: 'email-marketing-that-turns-visibility-into-customers',

@@ -1,40 +1,33 @@
 import { createClient, type RealtimeChannel, type SupabaseClient } from '@supabase/supabase-js';
-
-type Severity = 'debug' | 'info' | 'warn' | 'error';
-type JsonValue = string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue };
+import {
+  createTelemetryEvent,
+  emptyTelemetryQueue,
+  enqueueTelemetryEvent,
+  requeueTelemetryBatch,
+  safeOrigin,
+  safePath,
+  takeTelemetryBatch,
+  TELEMETRY_QUEUE_POLICY,
+  type TelemetryIdentity,
+  type TelemetryQueueState,
+  type TelemetrySeverity,
+} from './telemetry-core';
 
 export interface ClientTelemetrySession {
-  accessToken: string;
-  userId: string;
+  readonly accessToken: string;
+  readonly userId: string;
 }
 
 export interface ClientTelemetryConfig {
-  app: string;
-  platform: string;
-  supabaseUrl?: string;
-  publishableKey?: string;
-  schema?: string;
-  session?: ClientTelemetrySession;
+  readonly app: string;
+  readonly platform: string;
+  readonly supabaseUrl?: string;
+  readonly publishableKey?: string;
+  readonly schema?: string;
+  readonly session?: ClientTelemetrySession;
 }
 
-interface TelemetryEvent {
-  client_id: string;
-  app: string;
-  platform: string;
-  severity: Severity;
-  event_name: string;
-  message?: string;
-  trace_id: string;
-  context: Record<string, JsonValue>;
-  occurred_at: string;
-}
-
-const MAX_QUEUE = 100;
-const MAX_BATCH = 25;
 const FLUSH_INTERVAL_MS = 2_500;
-const sensitiveKey = /authorization|cookie|password|secret|token|api[_-]?key|session/i;
-const jwtLike = /\beyJ[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+\b/g;
-const emailLike = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi;
 
 declare global {
   interface Window {
@@ -50,14 +43,12 @@ declare global {
  */
 export class ClientTelemetry {
   private readonly config: Required<Pick<ClientTelemetryConfig, 'app' | 'platform'>> & ClientTelemetryConfig;
-  private readonly clientId = crypto.randomUUID();
-  private readonly traceId = crypto.randomUUID();
-  private queue: TelemetryEvent[] = [];
+  private readonly identity: TelemetryIdentity;
+  private queue: TelemetryQueueState = emptyTelemetryQueue();
   private client?: SupabaseClient;
   private channel?: RealtimeChannel;
   private sessionUserId?: string;
   private flushTimer?: number;
-  private dropped = 0;
 
   constructor(config: ClientTelemetryConfig) {
     this.config = {
@@ -65,6 +56,12 @@ export class ClientTelemetry {
       app: config.app,
       platform: config.platform,
       schema: config.schema ?? 'benefactor-cc',
+    };
+    this.identity = {
+      clientId: crypto.randomUUID(),
+      app: this.config.app,
+      platform: this.config.platform,
+      traceId: crypto.randomUUID(),
     };
     this.installGlobalHandlers();
     this.flushTimer = window.setInterval(() => void this.flush(), FLUSH_INTERVAL_MS);
@@ -87,7 +84,9 @@ export class ClientTelemetry {
     if (!this.config.supabaseUrl || !this.config.publishableKey || !session.accessToken || !session.userId) {
       return;
     }
-    if (this.sessionUserId && this.sessionUserId !== session.userId) this.queue = [];
+    if (this.sessionUserId && this.sessionUserId !== session.userId) {
+      this.queue = emptyTelemetryQueue();
+    }
     if (this.channel) await this.client?.removeChannel(this.channel);
     this.client = createClient(this.config.supabaseUrl, this.config.publishableKey, {
       auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
@@ -119,9 +118,14 @@ export class ClientTelemetry {
   }
 
   async flush(): Promise<void> {
-    if (!this.client || !this.channel || this.queue.length === 0) return;
-    const events = this.queue.splice(0, MAX_BATCH);
-    const payload = { trace_id: this.traceId, events };
+    if (!this.client || !this.channel) return;
+
+    const transition = takeTelemetryBatch(this.queue, TELEMETRY_QUEUE_POLICY);
+    if (transition.kind === 'empty') return;
+
+    this.queue = transition.state;
+    const events = [...transition.batch];
+    const payload = { trace_id: this.identity.traceId, events };
     const [broadcast, durable] = await Promise.allSettled([
       this.channel.send({ type: 'broadcast', event: 'client-telemetry', payload }),
       this.client.schema(this.config.schema ?? 'benefactor-cc').rpc('ingest_client_telemetry', {
@@ -130,7 +134,9 @@ export class ClientTelemetry {
     ]);
     // Realtime is a live tail; the constrained RPC is the durable source of
     // truth. Retry only when persistence fails, keeping data bounded.
-    if (durable.status === 'rejected') this.requeue(events);
+    if (durable.status === 'rejected') {
+      this.queue = requeueTelemetryBatch(this.queue, events, TELEMETRY_QUEUE_POLICY);
+    }
     if (broadcast.status === 'rejected') console.debug('client telemetry broadcast unavailable');
   }
 
@@ -141,32 +147,21 @@ export class ClientTelemetry {
   }
 
   private record(
-    severity: Severity,
+    severity: TelemetrySeverity,
     eventName: string,
     message: string | undefined,
-    context: Record<string, unknown>,
+    context: Readonly<Record<string, unknown>>,
   ): void {
-    const event: TelemetryEvent = {
-      client_id: this.clientId,
-      app: bounded(this.config.app, 96),
-      platform: bounded(this.config.platform, 48),
+    const event = createTelemetryEvent(this.identity, {
       severity,
-      event_name: bounded(eventName || 'client.event', 128),
-      message: message ? bounded(redactText(message), 4096) : undefined,
-      trace_id: this.traceId,
-      context: redactObject(context),
-      occurred_at: new Date().toISOString(),
-    };
-    this.queue.push(event);
-    if (this.queue.length > MAX_QUEUE) {
-      this.queue.shift();
-      this.dropped += 1;
-    }
-    if (severity === 'error' || this.queue.length >= MAX_BATCH) void this.flush();
-  }
-
-  private requeue(events: TelemetryEvent[]): void {
-    this.queue = [...events, ...this.queue].slice(0, MAX_QUEUE);
+      eventName,
+      message,
+      context,
+      occurredAt: new Date().toISOString(),
+    });
+    const transition = enqueueTelemetryEvent(this.queue, event, TELEMETRY_QUEUE_POLICY);
+    this.queue = transition.state;
+    if (transition.kind === 'flush') void this.flush();
   }
 
   private installGlobalHandlers(): void {
@@ -187,7 +182,7 @@ export class ClientTelemetry {
       this.info('navigation.complete', undefined, {
         pathname: location.pathname,
         duration_ms: navigation ? Math.round(navigation.duration) : undefined,
-        dropped_events: this.dropped,
+        dropped_events: this.queue.dropped,
       });
     });
   }
@@ -197,39 +192,4 @@ export function installClientTelemetry(config: ClientTelemetryConfig): ClientTel
   const telemetry = new ClientTelemetry(config);
   window.benefactorTelemetry = telemetry;
   return telemetry;
-}
-
-function redactObject(value: unknown, depth = 0): Record<string, JsonValue> {
-  if (!value || typeof value !== 'object' || Array.isArray(value) || depth > 3) return {};
-  const output: Record<string, JsonValue> = {};
-  for (const [key, raw] of Object.entries(value as Record<string, unknown>)) {
-    if (sensitiveKey.test(key)) {
-      output[key] = '[REDACTED]';
-    } else if (typeof raw === 'string') {
-      output[key] = bounded(redactText(raw), 2048);
-    } else if (typeof raw === 'number' || typeof raw === 'boolean' || raw === null) {
-      output[key] = raw;
-    } else if (Array.isArray(raw)) {
-      output[key] = raw.slice(0, 20).map((entry) => typeof entry === 'string' ? bounded(redactText(entry), 512) : String(entry));
-    } else if (typeof raw === 'object') {
-      output[key] = redactObject(raw, depth + 1);
-    }
-  }
-  return output;
-}
-
-function redactText(value: string): string {
-  return value.replace(jwtLike, '[REDACTED_JWT]').replace(emailLike, '[REDACTED_EMAIL]');
-}
-
-function bounded(value: string, max: number): string {
-  return value.length <= max ? value : `${value.slice(0, Math.max(0, max - 1))}…`;
-}
-
-function safeOrigin(value: string): string {
-  try { return value ? new URL(value).origin : ''; } catch { return ''; }
-}
-
-function safePath(value: string): string {
-  try { const url = new URL(value); return url.pathname; } catch { return ''; }
 }
