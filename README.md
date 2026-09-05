@@ -54,6 +54,17 @@ variables `PUBLIC_SUPABASE_URL` and `PUBLIC_SUPABASE_PUBLISHABLE_KEY`. Leave
 both unset together when no benefactor Supabase project is available; the site
 still builds, while the client telemetry emitter remains disabled.
 
+Every page layout also includes the reviewed anonymous ORES Chat footer
+component from `ores-chat.github.io`. With no additional configuration it is a
+safe link to the centralized public chat page. To enable the inline dialog,
+set the public (non-secret) variable `PUBLIC_ORES_CHAT_API_BASE` to exactly an
+HTTPS Benefactor API origin (`https://api.benefactor.cc/...` or
+`https://admin-api.benefactor.cc/...`). The layout allow-lists those hosts,
+adds only the required CSP `connect-src`, and never places a bearer or provider
+credential in browser code. The ORES Chat public route remains anonymous and
+site-scoped; customer/admin chat belongs to their separate authenticated
+surfaces.
+
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

@@ -27,7 +27,27 @@ try {
 } catch {
   // Invalid optional telemetry configuration simply leaves transport disabled.
 }
-const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self'${telemetryConnectSources}; upgrade-insecure-requests`;
+const chatComponentUrl = 'https://ores-chat.github.io/components/v1/ores-chat-footer-link.js';
+const chatPageUrl = 'https://ores-chat.github.io/chat/';
+const configuredChatApiBase = import.meta.env.PUBLIC_ORES_CHAT_API_BASE;
+let chatApiBase = '';
+let chatConnectSources = '';
+try {
+  if (configuredChatApiBase) {
+    const chatOrigin = new URL(configuredChatApiBase);
+    if (
+      chatOrigin.protocol === 'https:' &&
+      ['api.benefactor.cc', 'admin-api.benefactor.cc'].includes(chatOrigin.hostname)
+    ) {
+      chatApiBase = chatOrigin.toString();
+      chatConnectSources = ` ${chatOrigin.origin}`;
+    }
+  }
+} catch {
+  // Invalid optional chat configuration keeps the safe link-only mode.
+}
+const chatMode = chatApiBase ? 'dialog' : 'link';
+const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://ores-chat.github.io; connect-src 'self'${telemetryConnectSources}${chatConnectSources}; upgrade-insecure-requests`;
 ---
 
 <!doctype html>
@@ -71,6 +91,7 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
         publishableKey: telemetryConfig?.dataset.publishableKey,
       });
     </script>
+    <script type="module" src={chatComponentUrl}></script>
     <nav class="nav" id="main-nav">
       <div class="nav__inner container">
         <a href={withBase()} class="nav__logo" id="nav-logo">
@@ -143,6 +164,20 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
               <h4 class="footer__col-title">Connect</h4>
               <a href="https://linkedin.com/company/benefactor-marketing" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn ↗</a>
               <a href="mailto:hello@benefactor.cc" class="footer__link">hello@benefactor.cc</a>
+              <ores-chat-footer-link
+                context-id="benefactor-marketing"
+                chat-url={chatPageUrl}
+                mode={chatMode}
+                api-base={chatApiBase || undefined}
+              >
+                <a
+                  slot="link"
+                  href={`${chatPageUrl}?context=benefactor-marketing`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="footer__link"
+                >Chat with Benefactor</a>
+              </ores-chat-footer-link>
             </div>
           </div>
         </div>
