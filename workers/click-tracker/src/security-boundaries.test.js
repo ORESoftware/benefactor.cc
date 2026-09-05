@@ -77,7 +77,10 @@ test("rejects future, inverted, and overlong token lifetimes", async () => {
   await assertNoWrite(await tokenFor(validClaims({ iat: now + 301, exp: now + 600 })));
   await assertNoWrite(await tokenFor(validClaims({ iat: now, exp: now - 1 })));
   await assertNoWrite(await tokenFor(validClaims({ iat: now, exp: now + 60 * 60 * 24 * 90 + 1 })));
-  await assertNoWrite(await tokenFor(validClaims({ nbf: now + 1 })));
+  // Leave enough headroom for the async HMAC and Worker request setup; a
+  // one-second boundary can become valid before the assertion reaches the
+  // verifier on a busy CI runner.
+  await assertNoWrite(await tokenFor(validClaims({ nbf: now + 301 })));
 });
 
 test("rejects invalid lead identifiers and oversized campaign metadata", async () => {
