@@ -1,0 +1,44 @@
+name: refresh production dependency lock once
+
+on:
+  push:
+    branches: [hardening/ores-lint-effective-hooks]
+    paths:
+      - 'package.json'
+      - '.github/workflows/refresh-production-lock-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+          ref: hardening/ores-lint-effective-hooks
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Refresh exact production lock and verify
+        run: |
+          set -euo pipefail
+          npm install --package-lock-only --ignore-scripts --no-fund
+          npm ci --ignore-scripts
+          npm test
+          npm run build
+          npm audit --omit=dev
+      - name: Commit lock refresh and remove one-shot workflow
+        run: |
+          set -euo pipefail
+          git config user.name ORESoftware
+          git config user.email noreply@github.com
+          git rm .github/workflows/refresh-production-lock-once.yml
+          git add package-lock.json
+          git diff --cached --check
+          git commit -m 'fix: refresh secure production dependency lock'
+          git push origin HEAD:hardening/ores-lint-effective-hooks
