@@ -28,6 +28,7 @@ jobs:
         run: |
           set -euo pipefail
           npm install --package-lock-only --ignore-scripts --no-fund
+          npm audit fix --package-lock-only --ignore-scripts --omit=dev --no-fund
           npm ci --ignore-scripts
           npm test
           npm run build
