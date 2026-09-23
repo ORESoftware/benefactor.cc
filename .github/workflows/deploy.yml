@@ -44,9 +44,10 @@ jobs:
           PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
         run: |
           set -euo pipefail
+          release_date="$(TZ=America/New_York date +%Y-%m-%d)"
           export PUBLIC_BENEFACTOR_GIT_SHA="$GITHUB_SHA"
-          export PUBLIC_BENEFACTOR_RELEASE_DATE="$(date -u +%Y-%m-%d)"
-          export PUBLIC_BENEFACTOR_CALVER="$(date -u +%Y.%m.%d)"
+          export PUBLIC_BENEFACTOR_RELEASE_DATE="$release_date"
+          export PUBLIC_BENEFACTOR_CALVER="${release_date//-/.}"
           npm run build
 
       - name: Validate the production artifact
