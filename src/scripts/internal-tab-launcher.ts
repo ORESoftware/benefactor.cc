@@ -7,10 +7,13 @@ export interface ManagedTabDestination {
 
 export interface ManagedTabLaunchResult {
   opened: number;
+  openedIds: readonly string[];
   reused: number;
   remembered: number;
   blocked: number;
   remaining: number;
+  popupMode: 'bulk' | 'single';
+  nextDestinationId: string | null;
 }
 
 type OpenedTab = {
@@ -24,6 +27,7 @@ type RememberedTabs = Record<string, number>;
 const openedTabs: OpenedTab[] = [];
 const storageKey = 'benefactor.internal.workspace.opened.v1';
 const rememberedTabTtlMs = 12 * 60 * 60 * 1000;
+let popupMode: 'bulk' | 'single' = 'bulk';
 
 export const internalWorkspaceTabs: readonly ManagedTabDestination[] = [
   {
@@ -168,6 +172,7 @@ export const forgetInternalWorkspaceTabs = (): void => {
   }
 
   openedTabs.splice(0, openedTabs.length);
+  popupMode = 'bulk';
 };
 
 const pruneClosedOpenTabs = (): void => {
@@ -188,55 +193,49 @@ const isRemembered = (
   rememberedTabs: RememberedTabs,
 ): boolean => destination.id in rememberedTabs;
 
-const countRemaining = (
+const getMissingDestinations = (
   destinations: readonly ManagedTabDestination[],
-): number => {
-  pruneClosedOpenTabs();
-  const rememberedTabs = pruneRememberedTabs();
-
-  return destinations.filter((destination) => {
+  rememberedTabs: RememberedTabs,
+): ManagedTabDestination[] =>
+  destinations.filter((destination) => {
     if (findOpenTab(destination)) return false;
     return !isRemembered(destination, rememberedTabs);
-  }).length;
-};
+  });
 
 export const openInternalWorkspaceTabs = (
   destinations: readonly ManagedTabDestination[] = internalWorkspaceTabs,
 ): ManagedTabLaunchResult => {
   const result: ManagedTabLaunchResult = {
     opened: 0,
+    openedIds: [],
     reused: 0,
     remembered: 0,
     blocked: 0,
     remaining: 0,
+    popupMode,
+    nextDestinationId: null,
   };
 
   pruneClosedOpenTabs();
   const rememberedTabs = pruneRememberedTabs();
 
   for (const destination of destinations) {
-    const existingTab = findOpenTab(destination);
-
-    if (existingTab) {
-      // Do not focus already-open tabs while bulk-launching. Some browsers consume
-      // the user activation when focus changes, which can make the next popup fail.
+    if (findOpenTab(destination)) {
       result.reused += 1;
-      continue;
-    }
-
-    if (isRemembered(destination, rememberedTabs)) {
+    } else if (isRemembered(destination, rememberedTabs)) {
       result.remembered += 1;
-      continue;
     }
+  }
 
-    // Stable names let the browser reuse tabs opened by this launcher. If the
-    // browser permits only one popup per user gesture, remember that success and
-    // stop after the first blocked popup. The next click then advances to the next
-    // missing destination instead of wasting the gesture on an already-open tab.
+  const missing = getMissingDestinations(destinations, rememberedTabs);
+  const candidates = popupMode === 'single' ? missing.slice(0, 1) : missing;
+
+  for (const destination of candidates) {
     const handle = window.open(destination.url, destinationWindowName(destination));
 
     if (!handle) {
       result.blocked += 1;
+      popupMode = 'single';
       break;
     }
 
@@ -248,8 +247,18 @@ export const openInternalWorkspaceTabs = (
     rememberedTabs[destination.id] = Date.now();
     writeRememberedTabs(rememberedTabs);
     result.opened += 1;
+    result.openedIds = [...result.openedIds, destination.id];
   }
 
-  result.remaining = countRemaining(destinations);
+  // If a browser allowed the first popup but blocked a later one, switch to an
+  // explicit one-tab-per-click queue for the rest of this page session. That avoids
+  // repeatedly wasting each user gesture on a second popup the browser will reject.
+  if (result.opened > 0 && result.blocked > 0) popupMode = 'single';
+
+  const remaining = getMissingDestinations(destinations, rememberedTabs);
+  result.remaining = remaining.length;
+  result.popupMode = popupMode;
+  result.nextDestinationId = remaining[0]?.id ?? null;
+
   return result;
 };
