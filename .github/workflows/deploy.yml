@@ -84,3 +84,34 @@ jobs:
           fi
           git -C tmp/production commit -m "deploy: publish ${GITHUB_SHA::12}"
           git -C tmp/production push origin HEAD:main
+
+      - name: Smoke test live benefactor.cc
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          url="https://benefactor.cc/internal/?deploy=${GITHUB_SHA}"
+          body="$(mktemp)"
+          trap 'rm -f "$body"' EXIT
+
+          for attempt in $(seq 1 12); do
+            echo "Live smoke attempt ${attempt}/12: ${url}"
+            if curl --fail --silent --show-error --location \
+              --connect-timeout 10 --max-time 20 \
+              -H 'Cache-Control: no-cache' \
+              "$url" -o "$body" \
+              && grep -q 'id="open-workspace-tabs"' "$body" \
+              && grep -q 'https://www.instagram.com/benefactor_cc/' "$body" \
+              && grep -q 'https://chatgpt.com/' "$body" \
+              && grep -q 'benefactor_internal_' "$body"; then
+              echo 'Live production smoke test passed.'
+              exit 0
+            fi
+
+            if [ "$attempt" -lt 12 ]; then
+              sleep 5
+            fi
+          done
+
+          echo 'Live production smoke test failed after deployment.' >&2
+          echo 'Expected /internal launcher markers were not all present.' >&2
+          exit 1
