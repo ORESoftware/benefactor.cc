@@ -68,10 +68,10 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
         </ul>
 
         <p class="internal-launcher__note" id="workspace-launcher-note">
-          Browsers may allow only one new tab per click. When that happens, click “Open workspace tabs”
-          again: the launcher remembers tabs that successfully opened and advances to the next missing one.
-          To open all eight from one click, allow pop-ups for benefactor.cc in your browser. You can also
-          open any service directly with the links above.
+          The launcher will try all missing tabs at once. If your browser permits only one new tab per click,
+          it automatically switches to a one-at-a-time queue for the rest of this page session. Each click then
+          opens exactly the next missing service. Allow pop-ups for benefactor.cc if you want all remaining tabs
+          to open from a single click after reloading this page.
         </p>
         <p class="internal-launcher__status" id="workspace-launcher-status" role="status" aria-live="polite"></p>
       </article>
@@ -161,30 +161,67 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
   const forgetButton = document.querySelector<HTMLButtonElement>('#forget-workspace-tabs');
   const status = document.querySelector<HTMLElement>('#workspace-launcher-status');
   const serviceLinks = document.querySelectorAll<HTMLAnchorElement>('[data-workspace-service-id]');
+  const destinationsById = new Map(internalWorkspaceTabs.map((destination) => [destination.id, destination]));
 
   const setStatus = (message: string) => {
     if (status) status.textContent = message;
   };
 
+  const destinationLabel = (id: string | null): string | null =>
+    id ? destinationsById.get(id)?.label ?? null : null;
+
+  const setOpenButtonLabel = (nextId: string | null, remaining: number, popupMode: 'bulk' | 'single') => {
+    if (!openButton) return;
+
+    if (remaining === 0) {
+      openButton.textContent = 'Workspace tabs ready';
+      return;
+    }
+
+    const nextLabel = destinationLabel(nextId);
+    if (popupMode === 'single' && nextLabel) {
+      openButton.textContent = `Open next tab · ${nextLabel} (${remaining} left)`;
+      return;
+    }
+
+    openButton.textContent = 'Open workspace tabs';
+  };
+
   openButton?.addEventListener('click', () => {
     const result = openInternalWorkspaceTabs(internalWorkspaceTabs);
     const alreadyKnown = result.reused + result.remembered;
+    const openedLabels = result.openedIds
+      .map((id) => destinationLabel(id))
+      .filter((label): label is string => Boolean(label));
+    const nextLabel = destinationLabel(result.nextDestinationId);
+
+    setOpenButtonLabel(result.nextDestinationId, result.remaining, result.popupMode);
 
     if (result.remaining === 0) {
       setStatus(
         result.opened > 0
-          ? `Workspace ready: ${result.opened} opened now, ${alreadyKnown} already remembered.`
+          ? `Workspace ready: opened ${openedLabels.join(', ')}; ${alreadyKnown} already remembered.`
           : `Workspace ready: all ${internalWorkspaceTabs.length} tabs are already remembered as open.`,
       );
       return;
     }
 
-    if (result.blocked > 0) {
+    if (result.blocked > 0 && result.opened === 0) {
       setStatus(
-        `Opened ${result.opened} new tab${result.opened === 1 ? '' : 's'}; ${result.remaining} still missing. ` +
-        `Your browser is limiting pop-ups. Click “Open workspace tabs” again to advance to the next tab, ` +
-        `or allow pop-ups for benefactor.cc to open the rest at once.`,
+        `Your browser blocked ${nextLabel ?? 'the next workspace tab'}. Allow pop-ups for benefactor.cc, ` +
+        `or use the individual service links above.`,
       );
+      return;
+    }
+
+    if (result.popupMode === 'single') {
+      const openedNow = openedLabels.length > 0 ? `Opened ${openedLabels.join(', ')}. ` : '';
+      const switchedMode = result.blocked > 0
+        ? 'Your browser allows one new tab per click, so the launcher switched to one-at-a-time mode. '
+        : '';
+      const next = nextLabel ? `Next: ${nextLabel}.` : '';
+
+      setStatus(`${openedNow}${switchedMode}${result.remaining} left. ${next}`.trim());
       return;
     }
 
@@ -195,6 +232,7 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
 
   forgetButton?.addEventListener('click', () => {
     forgetInternalWorkspaceTabs();
+    if (openButton) openButton.textContent = 'Open workspace tabs';
     setStatus('Forgot the saved workspace-tab state. The next launcher click will start from Instagram again.');
   });
 

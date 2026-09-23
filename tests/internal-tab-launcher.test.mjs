@@ -43,10 +43,13 @@ test('repeated clicks advance when the browser permits only one popup per gestur
   const first = launcher.openInternalWorkspaceTabs(destinations);
   assert.deepEqual(first, {
     opened: 1,
+    openedIds: ['instagram'],
     reused: 0,
     remembered: 0,
     blocked: 1,
     remaining: 2,
+    popupMode: 'single',
+    nextDestinationId: 'facebook',
   });
   assert.equal(opened[0].url, destinations[0].url);
 
@@ -54,10 +57,13 @@ test('repeated clicks advance when the browser permits only one popup per gestur
   const second = launcher.openInternalWorkspaceTabs(destinations);
   assert.deepEqual(second, {
     opened: 1,
+    openedIds: ['facebook'],
     reused: 1,
     remembered: 0,
-    blocked: 1,
+    blocked: 0,
     remaining: 1,
+    popupMode: 'single',
+    nextDestinationId: 'tiktok',
   });
   assert.equal(opened[1].url, destinations[1].url);
 
@@ -65,10 +71,13 @@ test('repeated clicks advance when the browser permits only one popup per gestur
   const third = launcher.openInternalWorkspaceTabs(destinations);
   assert.deepEqual(third, {
     opened: 1,
+    openedIds: ['tiktok'],
     reused: 2,
     remembered: 0,
     blocked: 0,
     remaining: 0,
+    popupMode: 'single',
+    nextDestinationId: null,
   });
   assert.equal(opened[2].url, destinations[2].url);
 });
