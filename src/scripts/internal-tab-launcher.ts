@@ -170,23 +170,18 @@ export const forgetInternalWorkspaceTabs = (): void => {
   openedTabs.splice(0, openedTabs.length);
 };
 
-const findOpenTab = (destination: ManagedTabDestination): Window | undefined => {
+const pruneClosedOpenTabs = (): void => {
   for (let index = openedTabs.length - 1; index >= 0; index -= 1) {
     const tab = openedTabs[index];
+    if (!tab.handle.closed) continue;
 
-    if (tab.handle.closed) {
-      forgetDestination(tab.id);
-      openedTabs.splice(index, 1);
-      continue;
-    }
-
-    if (prefixesOverlap(tab.prefixes, destination.prefixes)) {
-      return tab.handle;
-    }
+    forgetDestination(tab.id);
+    openedTabs.splice(index, 1);
   }
-
-  return undefined;
 };
+
+const findOpenTab = (destination: ManagedTabDestination): Window | undefined =>
+  openedTabs.find((tab) => prefixesOverlap(tab.prefixes, destination.prefixes))?.handle;
 
 const isRemembered = (
   destination: ManagedTabDestination,
@@ -195,12 +190,15 @@ const isRemembered = (
 
 const countRemaining = (
   destinations: readonly ManagedTabDestination[],
-  rememberedTabs: RememberedTabs,
-): number =>
-  destinations.filter((destination) => {
+): number => {
+  pruneClosedOpenTabs();
+  const rememberedTabs = pruneRememberedTabs();
+
+  return destinations.filter((destination) => {
     if (findOpenTab(destination)) return false;
     return !isRemembered(destination, rememberedTabs);
   }).length;
+};
 
 export const openInternalWorkspaceTabs = (
   destinations: readonly ManagedTabDestination[] = internalWorkspaceTabs,
@@ -213,6 +211,7 @@ export const openInternalWorkspaceTabs = (
     remaining: 0,
   };
 
+  pruneClosedOpenTabs();
   const rememberedTabs = pruneRememberedTabs();
 
   for (const destination of destinations) {
@@ -251,6 +250,6 @@ export const openInternalWorkspaceTabs = (
     result.opened += 1;
   }
 
-  result.remaining = countRemaining(destinations, pruneRememberedTabs());
+  result.remaining = countRemaining(destinations);
   return result;
 };
