@@ -42,7 +42,12 @@ jobs:
           CUSTOM_DOMAIN: benefactor.cc
           PUBLIC_SUPABASE_URL: ${{ vars.PUBLIC_SUPABASE_URL }}
           PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
-        run: npm run build
+        run: |
+          set -euo pipefail
+          export PUBLIC_BENEFACTOR_GIT_SHA="$GITHUB_SHA"
+          export PUBLIC_BENEFACTOR_RELEASE_DATE="$(date -u +%Y-%m-%d)"
+          export PUBLIC_BENEFACTOR_CALVER="$(date -u +%Y.%m.%d)"
+          npm run build
 
       - name: Validate the production artifact
         run: |
@@ -50,6 +55,9 @@ jobs:
           grep -q '^benefactor\.cc$' dist/CNAME
           test -f dist/.nojekyll
           grep -q '/_astro/' dist/index.html
+          grep -q 'version ' dist/index.html
+          grep -q 'commit ' dist/index.html
+          grep -q "$GITHUB_SHA" dist/index.html
           if grep -q '/benefactor\.cc/_astro/' dist/index.html; then
             echo 'Production build contains the GitHub project-pages base path.' >&2
             exit 1
@@ -102,7 +110,9 @@ jobs:
               && grep -q 'id="open-workspace-tabs"' "$body" \
               && grep -q 'https://www.instagram.com/benefactor_cc/' "$body" \
               && grep -q 'https://chatgpt.com/' "$body" \
-              && grep -q 'benefactor_internal_' "$body"; then
+              && grep -q 'benefactor_internal_' "$body" \
+              && grep -q 'version ' "$body" \
+              && grep -q 'commit ' "$body"; then
               echo 'Live production smoke test passed.'
               exit 0
             fi
@@ -113,5 +123,5 @@ jobs:
           done
 
           echo 'Live production smoke test failed after deployment.' >&2
-          echo 'Expected /internal launcher markers were not all present.' >&2
+          echo 'Expected /internal launcher and release metadata markers were not all present.' >&2
           exit 1
