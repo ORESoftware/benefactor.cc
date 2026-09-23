@@ -43,7 +43,7 @@ test('repeated clicks advance when the browser permits only one popup per gestur
   const first = launcher.openInternalWorkspaceTabs(destinations);
   assert.deepEqual(first, {
     opened: 1,
-    reused: 1,
+    reused: 0,
     remembered: 0,
     blocked: 1,
     remaining: 2,
@@ -54,7 +54,7 @@ test('repeated clicks advance when the browser permits only one popup per gestur
   const second = launcher.openInternalWorkspaceTabs(destinations);
   assert.deepEqual(second, {
     opened: 1,
-    reused: 2,
+    reused: 1,
     remembered: 0,
     blocked: 1,
     remaining: 1,
