@@ -100,10 +100,11 @@ jobs:
           set -euo pipefail
           url="https://benefactor.cc/internal/?deploy=${GITHUB_SHA}"
           body="$(mktemp)"
+          expected_calver="$(TZ=America/New_York date +%Y.%m.%d)"
           trap 'rm -f "$body"' EXIT
 
-          for attempt in $(seq 1 12); do
-            echo "Live smoke attempt ${attempt}/12: ${url}"
+          for attempt in $(seq 1 24); do
+            echo "Live smoke attempt ${attempt}/24: ${url}"
             if curl --fail --silent --show-error --location \
               --connect-timeout 10 --max-time 20 \
               -H 'Cache-Control: no-cache' \
@@ -111,18 +112,19 @@ jobs:
               && grep -q 'id="open-workspace-tabs"' "$body" \
               && grep -q 'https://www.instagram.com/benefactor_cc/' "$body" \
               && grep -q 'https://chatgpt.com/' "$body" \
-              && grep -q 'benefactor_internal_' "$body" \
               && grep -q 'version ' "$body" \
-              && grep -q 'commit ' "$body"; then
-              echo 'Live production smoke test passed.'
+              && grep -q 'commit ' "$body" \
+              && grep -q "$GITHUB_SHA" "$body" \
+              && grep -q "\"calver\":\"${expected_calver}\"" "$body"; then
+              echo "Live production smoke test passed for ${GITHUB_SHA} / ${expected_calver}."
               exit 0
             fi
 
-            if [ "$attempt" -lt 12 ]; then
+            if [ "$attempt" -lt 24 ]; then
               sleep 5
             fi
           done
 
           echo 'Live production smoke test failed after deployment.' >&2
-          echo 'Expected /internal launcher and release metadata markers were not all present.' >&2
+          echo 'Expected /internal launcher plus exact release SHA/CalVer were not all present.' >&2
           exit 1
