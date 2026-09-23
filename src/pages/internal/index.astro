@@ -14,6 +14,57 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
   <section class="internal-section">
     <div class="container">
       <div class="internal-section__header">
+        <span class="internal-section__eyebrow">Workspace Launcher</span>
+        <h2>Open the Benefactor working set</h2>
+        <p>
+          Open the social, CRM, inbox, code, and AI tabs used for day-to-day Benefactor work.
+          Tabs opened by this launcher are reused instead of duplicated.
+        </p>
+      </div>
+
+      <article class="internal-card internal-launcher">
+        <div class="internal-launcher__content">
+          <div>
+            <h3>Benefactor workspace</h3>
+            <p>
+              Instagram, Facebook, TikTok, LinkedIn, Gmail, HubSpot, GitHub, and ChatGPT.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn--primary internal-launcher__button"
+            id="open-workspace-tabs"
+            aria-describedby="workspace-launcher-note workspace-launcher-status"
+          >
+            Open workspace tabs
+          </button>
+        </div>
+
+        <ul class="internal-launcher__services" aria-label="Tabs opened by the workspace launcher">
+          <li>Instagram</li>
+          <li>Facebook</li>
+          <li>TikTok</li>
+          <li>LinkedIn</li>
+          <li>Gmail</li>
+          <li>HubSpot</li>
+          <li>GitHub</li>
+          <li>ChatGPT</li>
+        </ul>
+
+        <p class="internal-launcher__note" id="workspace-launcher-note">
+          The launcher uses stable named tabs and shared URL prefixes, so repeated clicks reuse
+          tabs it already manages. Browser security prevents a web page from enumerating arbitrary
+          cross-origin tabs that were opened manually outside this launcher.
+        </p>
+        <p class="internal-launcher__status" id="workspace-launcher-status" role="status" aria-live="polite"></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="internal-section">
+    <div class="container">
+      <div class="internal-section__header">
         <span class="internal-section__eyebrow">Current Pages</span>
         <h2>Private operating references</h2>
         <p>
@@ -81,3 +132,94 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
     </div>
   </section>
 </InternalLayout>
+
+<script>
+  import {
+    internalWorkspaceTabs,
+    openInternalWorkspaceTabs,
+  } from '../../scripts/internal-tab-launcher';
+
+  const openButton = document.querySelector<HTMLButtonElement>('#open-workspace-tabs');
+  const status = document.querySelector<HTMLElement>('#workspace-launcher-status');
+
+  openButton?.addEventListener('click', () => {
+    const result = openInternalWorkspaceTabs(internalWorkspaceTabs);
+
+    if (!status) return;
+
+    const summary = [
+      result.opened > 0 ? `${result.opened} opened` : null,
+      result.reused > 0 ? `${result.reused} reused` : null,
+      result.blocked > 0 ? `${result.blocked} blocked by the browser` : null,
+    ].filter(Boolean);
+
+    status.textContent = summary.length > 0
+      ? `Workspace tabs: ${summary.join(', ')}.`
+      : 'No workspace tabs were opened.';
+  });
+</script>
+
+<style>
+  .internal-launcher {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  .internal-launcher__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xl);
+  }
+
+  .internal-launcher__content p {
+    max-width: 680px;
+  }
+
+  .internal-launcher__button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .internal-launcher__services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .internal-launcher__services li {
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--bf-border);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.025);
+    color: var(--bf-text-secondary);
+    font-size: 0.85rem;
+    line-height: 1;
+  }
+
+  .internal-launcher__note,
+  .internal-launcher__status {
+    margin: 0;
+    color: var(--bf-text-muted);
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  .internal-launcher__status:not(:empty) {
+    color: var(--bf-text-primary);
+  }
+
+  @media (max-width: 760px) {
+    .internal-launcher__content {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .internal-launcher__button {
+      width: 100%;
+    }
+  }
+</style>
