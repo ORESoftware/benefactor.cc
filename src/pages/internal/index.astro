@@ -19,7 +19,7 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
         <h2>Open the Benefactor working set</h2>
         <p>
           Open the social, CRM, inbox, code, and AI tabs used for day-to-day Benefactor work.
-          Successfully opened tabs are remembered so repeated clicks advance to anything still missing.
+          Successfully opened tabs are remembered so repeated clicks only target anything still missing.
         </p>
       </div>
 
@@ -39,7 +39,16 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
               id="open-workspace-tabs"
               aria-describedby="workspace-launcher-note workspace-launcher-status"
             >
-              Open workspace tabs
+              Open all 8 tabs
+            </button>
+            <button
+              type="button"
+              class="btn internal-launcher__button internal-launcher__fallback"
+              id="open-next-workspace-tab"
+              aria-describedby="workspace-launcher-note workspace-launcher-status"
+              hidden
+            >
+              Open next tab
             </button>
             <button
               type="button"
@@ -68,10 +77,9 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
         </ul>
 
         <p class="internal-launcher__note" id="workspace-launcher-note">
-          The launcher will try all missing tabs at once. If your browser permits only one new tab per click,
-          it automatically switches to a one-at-a-time queue for the rest of this page session. Each click then
-          opens exactly the next missing service. Allow pop-ups for benefactor.cc if you want all remaining tabs
-          to open from a single click after reloading this page.
+          “Open all 8 tabs” always retries every missing service in one click. If your browser blocks multiple
+          pop-ups, allow pop-ups for benefactor.cc and press the bulk button again. The separate “Open next tab”
+          button is only a fallback for browsers that enforce one new tab per user gesture.
         </p>
         <p class="internal-launcher__status" id="workspace-launcher-status" role="status" aria-live="polite"></p>
       </article>
@@ -157,7 +165,8 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
     rememberInternalWorkspaceTab,
   } from '../../scripts/internal-tab-launcher';
 
-  const openButton = document.querySelector<HTMLButtonElement>('#open-workspace-tabs');
+  const openAllButton = document.querySelector<HTMLButtonElement>('#open-workspace-tabs');
+  const openNextButton = document.querySelector<HTMLButtonElement>('#open-next-workspace-tab');
   const forgetButton = document.querySelector<HTMLButtonElement>('#forget-workspace-tabs');
   const status = document.querySelector<HTMLElement>('#workspace-launcher-status');
   const serviceLinks = document.querySelectorAll<HTMLAnchorElement>('[data-workspace-service-id]');
@@ -170,58 +179,53 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
   const destinationLabel = (id: string | null): string | null =>
     id ? destinationsById.get(id)?.label ?? null : null;
 
-  const setOpenButtonLabel = (nextId: string | null, remaining: number, popupMode: 'bulk' | 'single') => {
-    if (!openButton) return;
-
-    if (remaining === 0) {
-      openButton.textContent = 'Workspace tabs ready';
-      return;
-    }
-
-    const nextLabel = destinationLabel(nextId);
-    if (popupMode === 'single' && nextLabel) {
-      openButton.textContent = `Open next tab · ${nextLabel} (${remaining} left)`;
-      return;
-    }
-
-    openButton.textContent = 'Open workspace tabs';
-  };
-
-  openButton?.addEventListener('click', () => {
-    const result = openInternalWorkspaceTabs(internalWorkspaceTabs);
-    const alreadyKnown = result.reused + result.remembered;
-    const openedLabels = result.openedIds
+  const openedLabels = (ids: readonly string[]): string[] =>
+    ids
       .map((id) => destinationLabel(id))
       .filter((label): label is string => Boolean(label));
+
+  const updateButtons = (remaining: number, nextId: string | null, showFallback: boolean) => {
+    if (openAllButton) {
+      openAllButton.textContent = remaining === 0
+        ? 'Workspace tabs ready'
+        : remaining === internalWorkspaceTabs.length
+          ? 'Open all 8 tabs'
+          : `Open all remaining ${remaining} tabs`;
+    }
+
+    if (openNextButton) {
+      const nextLabel = destinationLabel(nextId);
+      openNextButton.hidden = !showFallback || remaining === 0;
+      openNextButton.textContent = nextLabel
+        ? `Open next tab · ${nextLabel} (${remaining} left)`
+        : 'Open next tab';
+    }
+  };
+
+  openAllButton?.addEventListener('click', () => {
+    const result = openInternalWorkspaceTabs(internalWorkspaceTabs, 'all');
+    const alreadyKnown = result.reused + result.remembered;
+    const labels = openedLabels(result.openedIds);
     const nextLabel = destinationLabel(result.nextDestinationId);
 
-    setOpenButtonLabel(result.nextDestinationId, result.remaining, result.popupMode);
+    updateButtons(result.remaining, result.nextDestinationId, result.blocked > 0);
 
     if (result.remaining === 0) {
       setStatus(
         result.opened > 0
-          ? `Workspace ready: opened ${openedLabels.join(', ')}; ${alreadyKnown} already remembered.`
+          ? `Workspace ready: opened ${labels.join(', ')}; ${alreadyKnown} already remembered.`
           : `Workspace ready: all ${internalWorkspaceTabs.length} tabs are already remembered as open.`,
       );
       return;
     }
 
-    if (result.blocked > 0 && result.opened === 0) {
+    if (result.blocked > 0) {
+      const openedNow = labels.length > 0 ? `Opened ${labels.join(', ')}. ` : '';
       setStatus(
-        `Your browser blocked ${nextLabel ?? 'the next workspace tab'}. Allow pop-ups for benefactor.cc, ` +
-        `or use the individual service links above.`,
+        `${openedNow}Your browser blocked additional pop-ups; ${result.remaining} still missing. ` +
+        `Allow pop-ups for benefactor.cc, then press “Open all remaining ${result.remaining} tabs” to retry them together. ` +
+        `Or use the one-tab fallback${nextLabel ? ` starting with ${nextLabel}` : ''}.`,
       );
-      return;
-    }
-
-    if (result.popupMode === 'single') {
-      const openedNow = openedLabels.length > 0 ? `Opened ${openedLabels.join(', ')}. ` : '';
-      const switchedMode = result.blocked > 0
-        ? 'Your browser allows one new tab per click, so the launcher switched to one-at-a-time mode. '
-        : '';
-      const next = nextLabel ? `Next: ${nextLabel}.` : '';
-
-      setStatus(`${openedNow}${switchedMode}${result.remaining} left. ${next}`.trim());
       return;
     }
 
@@ -230,10 +234,33 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
     );
   });
 
+  openNextButton?.addEventListener('click', () => {
+    const result = openInternalWorkspaceTabs(internalWorkspaceTabs, 'next');
+    const labels = openedLabels(result.openedIds);
+    const nextLabel = destinationLabel(result.nextDestinationId);
+
+    updateButtons(result.remaining, result.nextDestinationId, true);
+
+    if (result.remaining === 0) {
+      setStatus(labels.length > 0 ? `Workspace ready: opened ${labels.join(', ')}.` : 'Workspace tabs ready.');
+      return;
+    }
+
+    if (result.blocked > 0) {
+      setStatus(
+        `Your browser blocked ${nextLabel ?? 'the next workspace tab'}. Allow pop-ups for benefactor.cc, ` +
+        `or use the individual service links above.`,
+      );
+      return;
+    }
+
+    setStatus(`${labels.length > 0 ? `Opened ${labels.join(', ')}. ` : ''}${result.remaining} left.${nextLabel ? ` Next: ${nextLabel}.` : ''}`);
+  });
+
   forgetButton?.addEventListener('click', () => {
     forgetInternalWorkspaceTabs();
-    if (openButton) openButton.textContent = 'Open workspace tabs';
-    setStatus('Forgot the saved workspace-tab state. The next launcher click will start from Instagram again.');
+    updateButtons(internalWorkspaceTabs.length, internalWorkspaceTabs[0]?.id ?? null, false);
+    setStatus('Forgot the saved workspace-tab state. The next bulk click will try all eight services again.');
   });
 
   serviceLinks.forEach((link) => {
@@ -271,6 +298,16 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
 
   .internal-launcher__button {
     white-space: nowrap;
+  }
+
+  .internal-launcher__fallback {
+    border: 1px solid var(--bf-border-hover);
+    background: transparent;
+    color: var(--bf-text-primary);
+  }
+
+  .internal-launcher__fallback[hidden] {
+    display: none;
   }
 
   .internal-launcher__reset {
