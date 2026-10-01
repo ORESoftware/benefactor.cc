@@ -5,6 +5,7 @@ import { localSeoCaseStudyBlogPosts } from '../../data/localSeoCaseStudies';
 
 const baseUrl = import.meta.env.BASE_URL;
 const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
+const caseStudyCardTitle = (title: string) => title.replace(/^Local SEO Playbook for\s+/i, '');
 ---
 
 <BaseLayout
@@ -42,7 +43,7 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
               <span>{post.readTime}</span>
             </div>
             <h2 class="case-studies-list__title">
-              <a href={withBase(`blogs/${post.slug}/`)}>{post.title}</a>
+              <a href={withBase(`blogs/${post.slug}/`)}>{caseStudyCardTitle(post.title)}</a>
             </h2>
             <p class="case-studies-list__description">{post.description}</p>
             <div class="case-studies-list__tags">
