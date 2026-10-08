@@ -56,6 +56,18 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
       <div class="team__cta">
         <a href={withBase('#contact')} class="btn btn--primary">Work with us</a>
       </div>
+
+      <figure class="team__motorcycle">
+        <img
+          src={withBase('team/benefactor-motorcycle.jpg')}
+          alt="A black Benefactor-branded motorcycle parked outside a café on a rainy city street."
+          width="512"
+          height="384"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>Built to move. The Benefactor motorcycle.</figcaption>
+      </figure>
     </div>
   </section>
 </BaseLayout>
@@ -202,6 +214,26 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
 
   .team__cta {
     margin-top: var(--space-2xl);
+    text-align: center;
+  }
+
+  .team__motorcycle {
+    max-width: 760px;
+    margin: var(--space-4xl) auto 0;
+  }
+
+  .team__motorcycle img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--bf-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .team__motorcycle figcaption {
+    margin-top: var(--space-md);
+    color: var(--bf-text-muted);
+    font-size: 0.9rem;
     text-align: center;
   }
 
