@@ -30,7 +30,7 @@ export const teamMembers: readonly TeamMember[] = [
   {
     id: 'vinayak',
     name: 'Vinayak Pandey',
-    role: 'SEO Strategist',
+    role: 'SEO Implementation Specialist',
     specialty: 'SEO',
     location: 'Varanasi, India',
     image: '/team/vinayak-pandey.png',
@@ -39,7 +39,7 @@ export const teamMembers: readonly TeamMember[] = [
   {
     id: 'jacob',
     name: 'Jacob Highley',
-    role: 'SEO Strategist',
+    role: 'Technical SEO & Content Lead',
     specialty: 'SEO',
     location: 'Idaho, USA',
     image: '/team/jacob-highley.png',
@@ -56,8 +56,8 @@ export const teamMembers: readonly TeamMember[] = [
   {
     id: 'marcus',
     name: 'Marcus Gerlach',
-    role: 'Search & AI Visibility Strategist',
-    specialty: 'SEO · AEO · Growth Strategy',
+    role: 'Search & AI Visibility Lead',
+    specialty: 'SEO · AEO · Implementation',
     location: 'Munich, Germany',
     image: '/team/marcus-gerlach.jpg',
   },
@@ -73,8 +73,8 @@ export const teamMembers: readonly TeamMember[] = [
   {
     id: 'lucia',
     name: 'Lucia Balzano',
-    role: 'Social Media Strategist',
-    specialty: 'Social Visibility',
+    role: 'Social Media & Community Manager',
+    specialty: 'Content · Publishing · Engagement',
     location: 'Miami, FL',
     image: '/team/lucia-balzano.jpeg',
     profileUrl: 'https://www.linkedin.com/in/lucia-balzano1/',

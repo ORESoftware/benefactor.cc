@@ -96,10 +96,13 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
       <div class="nav__inner container">
         <a href={withBase()} class="nav__logo" id="nav-logo">
           <img
-            src={withBase('benefactor-wordmark.svg')}
-            alt="Benefactor Marketing"
+            src={withBase('benefactor-logo.png')}
+            alt=""
+            width="512"
+            height="512"
             class="nav__logo-image nav__logo-image--header"
           />
+          <span class="nav__brand-name">Benefactor<span>Marketing</span></span>
         </a>
 
         <div class="nav__links" id="nav-links">
@@ -131,10 +134,13 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
           <div class="footer__brand">
             <a href={withBase()} class="nav__logo">
               <img
-                src={withBase('benefactor-wordmark.svg')}
-                alt="Benefactor Marketing"
+                src={withBase('benefactor-logo.png')}
+                alt=""
+                width="512"
+                height="512"
                 class="nav__logo-image nav__logo-image--footer"
               />
+              <span class="nav__brand-name">Benefactor<span>Marketing</span></span>
             </a>
             <p class="footer__tagline">
               Search, paid, growth systems, and automation built to turn attention into
@@ -223,11 +229,29 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
       }
 
       .nav__logo-image--header {
-        width: 148px;
+        width: 52px;
       }
 
       .nav__logo-image--footer {
-        width: 208px;
+        width: 72px;
+      }
+
+      .nav__brand-name {
+        color: var(--bf-text-primary);
+        font-size: 1.15rem;
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+      }
+
+      .nav__brand-name span {
+        display: block;
+        margin-top: 0.3rem;
+        color: var(--bf-text-secondary);
+        font-size: 0.58rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
       }
 
       .nav__links {
@@ -392,7 +416,7 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
         }
 
         .nav__logo-image--header {
-          width: 128px;
+          width: 48px;
         }
 
         .nav__mobile-toggle {

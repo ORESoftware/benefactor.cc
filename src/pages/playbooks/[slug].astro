@@ -1,0 +1,41 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import '../../styles/global.css';
+import { marketingPlaybooks } from '../../data/marketingPlaybooks';
+
+export function getStaticPaths() {
+  return marketingPlaybooks.map((playbook) => ({
+    params: { slug: playbook.slug },
+    props: { playbook },
+  }));
+}
+
+const { playbook } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
+---
+
+<BlogLayout title={playbook.title} description={playbook.description} category={playbook.category}>
+  <p><a href={withBase('case-studies/')}>← All marketing playbooks</a></p>
+  <h2>The outcome</h2>
+  <p>{playbook.outcome}</p>
+  <p>Use this 90-day plan as a starting point. Adjust the scope to your sales cycle, customer demand, and delivery capacity.</p>
+  {playbook.steps.map((step) => (
+    <section>
+      <h2>{step.title}</h2>
+      <ul>{step.actions.map((action) => <li>{action}</li>)}</ul>
+    </section>
+  ))}
+  <h2>What to measure</h2>
+  <ul>{playbook.measures.map((measure) => <li>{measure}</li>)}</ul>
+  <h2>What to avoid</h2>
+  <p>{playbook.avoid}</p>
+  {playbook.source && (
+    <p>Further reading: <a href={playbook.source.url}>{playbook.source.title}</a>.</p>
+  )}
+  <div class="blog-cta">
+    <h3>Get this plan into production.</h3>
+    <p>Tell us about your audience, current channels, and growth goals. We can help prioritize the work and implement it with your team.</p>
+    <a href={withBase('contact/')} class="btn btn--primary btn--large">Build your marketing plan</a>
+  </div>
+</BlogLayout>
