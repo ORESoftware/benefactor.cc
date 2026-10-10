@@ -10,13 +10,13 @@ const pages = await Promise.all([
 
 test('Utkarsh Shukla is the sole Social Media Wizard with the local portrait', () => {
   assert.equal((directory.match(/id: 'utkarsh'/g) ?? []).length, 1);
-  assert.match(directory, /name: 'Utkarsh Shukla',[\\s\\S]*?role: 'Social Media Wizard'/);
-  assert.match(directory, /image: '\\/team\\/utkarsh-shukla\\.webp'/);
+  assert.match(directory, /name: 'Utkarsh Shukla',[\s\S]*?role: 'Social Media Wizard'/);
+  assert.match(directory, /image: '\/team\/utkarsh-shukla\.webp'/);
 });
 
 test('unknown team member locations may be omitted without placeholders', () => {
-  assert.match(directory, /readonly location\\?: string;/);
-  for (const page of pages) assert.match(page, /member\\.location && \\(/);
+  assert.match(directory, /readonly location\?: string;/);
+  for (const page of pages) assert.match(page, /member\.location && \(/);
 });
 
 test('Utkarsh portrait is a local WebP file', async () => {
