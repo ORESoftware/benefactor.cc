@@ -3,7 +3,7 @@ export interface TeamMember {
   readonly name: string;
   readonly role: string;
   readonly specialty: string;
-  readonly location: string;
+  readonly location?: string;
   readonly image: string;
   readonly profileUrl?: string;
 }
@@ -78,6 +78,13 @@ export const teamMembers: readonly TeamMember[] = [
     location: 'Miami, FL',
     image: '/team/lucia-balzano.jpeg',
     profileUrl: 'https://www.linkedin.com/in/lucia-balzano1/',
+  },
+  {
+    id: 'utkarsh',
+    name: 'Utkarsh Shukla',
+    role: 'Social Media Wizard',
+    specialty: 'Social Media · Content · Community',
+    image: '/team/utkarsh-shukla.webp',
   },
   {
     id: 'brian',
