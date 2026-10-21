@@ -59,6 +59,21 @@ jobs:
           grep -q 'version ' dist/index.html
           grep -q 'commit ' dist/index.html
           grep -q "$GITHUB_SHA" dist/index.html
+          test -s dist/sitemap.xml
+          test -s dist/robots.txt
+          grep -Fq 'Sitemap: https://benefactor.cc/sitemap.xml' dist/robots.txt
+          grep -Fq '<loc>https://benefactor.cc/</loc>' dist/sitemap.xml
+          grep -Fq '<loc>https://benefactor.cc/blogs/</loc>' dist/sitemap.xml
+          grep -Fq '<loc>https://benefactor.cc/blogs/dentists-local-seo-case-study/</loc>' dist/sitemap.xml
+          grep -Fq '<loc>https://benefactor.cc/c/usa/s/legal/</loc>' dist/sitemap.xml
+          if grep -Eq '<loc>https://benefactor.cc/(internal|unsubscribe)/' dist/sitemap.xml; then
+            echo 'Sitemap exposes an internal or noindex utility page.' >&2
+            exit 1
+          fi
+          if grep -q 'oresoftware.github.io' dist/sitemap.xml; then
+            echo 'Sitemap contains the stale GitHub project Pages host.' >&2
+            exit 1
+          fi
           if grep -q '/benefactor\.cc/_astro/' dist/index.html; then
             echo 'Production build contains the GitHub project-pages base path.' >&2
             exit 1
@@ -127,4 +142,29 @@ jobs:
 
           echo 'Live production smoke test failed after deployment.' >&2
           echo 'Expected /internal launcher plus exact release SHA/CalVer were not all present.' >&2
+          exit 1
+
+      - name: Smoke test live sitemap and robots
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          sitemap="$(mktemp)"
+          robots="$(mktemp)"
+          trap 'rm -f "$sitemap" "$robots"' EXIT
+          for attempt in $(seq 1 24); do
+            if curl --fail --silent --show-error --location --max-time 20 \
+                -H 'Cache-Control: no-cache' \
+                "https://benefactor.cc/sitemap.xml?deploy=${GITHUB_SHA}" -o "$sitemap" \
+              && curl --fail --silent --show-error --location --max-time 20 \
+                -H 'Cache-Control: no-cache' \
+                "https://benefactor.cc/robots.txt?deploy=${GITHUB_SHA}" -o "$robots" \
+              && grep -Fq '<loc>https://benefactor.cc/blogs/dentists-local-seo-case-study/</loc>' "$sitemap" \
+              && grep -Fq '<loc>https://benefactor.cc/c/usa/s/legal/</loc>' "$sitemap" \
+              && grep -Fq 'Sitemap: https://benefactor.cc/sitemap.xml' "$robots"; then
+              echo 'Live sitemap and robots.txt are available.'
+              exit 0
+            fi
+            sleep 5
+          done
+          echo 'Live sitemap/robots smoke test failed.' >&2
           exit 1

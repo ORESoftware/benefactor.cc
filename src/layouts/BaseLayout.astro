@@ -12,6 +12,7 @@ const {
 } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
 const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
 const isHome = Astro.url.pathname === '/' || Astro.url.pathname === baseUrl;
 const sectionHref = (id: string) => (isHome ? `#${id}` : withBase(`#${id}`));
 const telemetryUrl = import.meta.env.PUBLIC_SUPABASE_URL;
@@ -66,6 +67,7 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
     <link rel="icon" type="image/x-icon" href={withBase('favicon.ico')} />
     <link rel="apple-touch-icon" href={withBase('apple-touch-icon.png')} />
     <title>{title} | Benefactor Marketing</title>
+    {!noIndex && <link rel="canonical" href={canonicalUrl} />}
 
     <!-- Open Graph -->
     <meta property="og:title" content={`${title} | Benefactor Marketing`} />

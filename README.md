@@ -68,3 +68,20 @@ surfaces.
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## Sitemap and Google Search Console
+
+The Astro source of truth is this repo. Every production build automatically
+generates `dist/sitemap.xml` from emitted HTML, covering every published blog
+article, blog index, playbook, country/service landing page, and other indexable
+page. Internal/noindex pages and unsubscribe utility URLs are excluded;
+`dist/robots.txt` advertises the sitemap. Only the deploy workflow publishes
+these artifacts to `benefactor-cc/benefactor-cc.github.io`, the Pages repository
+that actually serves `https://benefactor.cc/`. Do not hand-edit that generated
+repository. XML `lastmod` is omitted rather than misrepresenting build time as
+content modification.
+
+After deployment, submit `https://benefactor.cc/sitemap.xml` in the verified
+Google Search Console property for `benefactor.cc`. Verify both sitemap and
+robots.txt resolve with HTTP 200 on the public domain, and review the Search
+Console Sitemaps and Pages reports. Indexing is not immediate or guaranteed.
