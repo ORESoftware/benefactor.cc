@@ -38,18 +38,21 @@ GitHub Pages. Topology:
 | **Live site** | `benefactor-cc/benefactor-cc.github.io` (`production`) | Legacy Pages, serves the **built** site from `main` **root**. Custom domain `benefactor.cc` (CNAME), fronted by Cloudflare. |
 | Stale/decoy | `oresoftware.github.io/benefactor.cc` | Historical project Pages target. `benefactor.cc` does **not** point here. |
 
-Pushing a validated change to `origin/main` runs the frontend CI workflow and
-publishes through the `BENEFACTOR_PAGES_TOKEN` Actions secret, a fine-grained
-token scoped to the production repository with Contents read/write only. The
-current token expires 2026-10-16 and must be rotated before then. `npm run
-deploy` (see `scripts/deploy.sh`) is the manual recovery path. Both
-paths build with `CUSTOM_DOMAIN=benefactor.cc` so output is root-based
-(`base=/`) and carries `CNAME` + `.nojekyll`; guardrails reject a wrong-base
-build.
+Pushing source changes to `origin/main` runs tests, vulnerability auditing,
+and a full production-shape sitemap/canonical parity check. The GitHub Pages
+production repository has its own scheduled (twice-hourly) and manually
+dispatchable Actions workflow, which checks out this **public** source by
+exact Git SHA and publishes with its own scoped `GITHUB_TOKEN`, using the
+official GitHub Pages OIDC artifact deployment action. There is no need
+for the expired `BENEFACTOR_PAGES_TOKEN` cross-repository credential.
+`npm run deploy` (see `scripts/deploy.sh`) remains a manual recovery
+path. Both paths build with `CUSTOM_DOMAIN=benefactor.cc` so output is
+root-based (`base=/`) and carries `CNAME` + `.nojekyll`.
 
-Do **not** hand-edit the `production` repo — it holds generated output only;
-edit source here and let CI deploy (or use the manual recovery command). Live
-changes flush through Pages + Cloudflare in about a minute.
+Do **not** hand-edit generated static site files in `production`. Only its
+`.github/workflows/sync-public-source.yml` is retained infrastructure;
+all other site output originates from the validated source build. Updates can
+lag until the next sync, and Cloudflare caches can outlive publication.
 
 <!-- ore-primary-branch-policy:begin -->
 ## Primary branch and concurrent-agent policy
