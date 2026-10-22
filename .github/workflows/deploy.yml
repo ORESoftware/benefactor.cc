@@ -1,4 +1,4 @@
-name: Frontend CI / production deploy
+name: Frontend CI / production artifact
 
 on:
   push:
@@ -87,87 +87,7 @@ jobs:
       - name: Verify sitemap-to-page parity
         run: node --test tests/site-discovery.buildcheck.mjs
 
-      - name: Checkout the generated production repository
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
-        with:
-          repository: benefactor-cc/benefactor-cc.github.io
-          ref: main
-          token: ${{ secrets.BENEFACTOR_PAGES_TOKEN }}
-          path: tmp/production
-          persist-credentials: true
-
-      - name: Publish benefactor.cc
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          set -euo pipefail
-          rsync -a --delete --exclude=.git dist/ tmp/production/
-          git -C tmp/production config user.name benefactor-release-bot
-          git -C tmp/production config user.email benefactor-release-bot@users.noreply.github.com
-          git -C tmp/production add -A
-          if git -C tmp/production diff --cached --quiet; then
-            echo 'Production already matches this build.'
-            exit 0
-          fi
-          git -C tmp/production commit -m "deploy: publish ${GITHUB_SHA::12}"
-          git -C tmp/production push origin HEAD:main
-
-      - name: Smoke test live benefactor.cc
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          set -euo pipefail
-          url="https://benefactor.cc/internal/?deploy=${GITHUB_SHA}"
-          body="$(mktemp)"
-          expected_calver="$(TZ=America/New_York date +%Y.%m.%d)"
-          trap 'rm -f "$body"' EXIT
-
-          for attempt in $(seq 1 24); do
-            echo "Live smoke attempt ${attempt}/24: ${url}"
-            if curl --fail --silent --show-error --location \
-              --connect-timeout 10 --max-time 20 \
-              -H 'Cache-Control: no-cache' \
-              "$url" -o "$body" \
-              && grep -q 'id="open-workspace-tabs"' "$body" \
-              && grep -q 'https://www.instagram.com/benefactor_cc/' "$body" \
-              && grep -q 'https://chatgpt.com/' "$body" \
-              && grep -q 'version ' "$body" \
-              && grep -q 'commit ' "$body" \
-              && grep -q "$GITHUB_SHA" "$body" \
-              && grep -q "\"calver\":\"${expected_calver}\"" "$body"; then
-              echo "Live production smoke test passed for ${GITHUB_SHA} / ${expected_calver}."
-              exit 0
-            fi
-
-            if [ "$attempt" -lt 24 ]; then
-              sleep 5
-            fi
-          done
-
-          echo 'Live production smoke test failed after deployment.' >&2
-          echo 'Expected /internal launcher plus exact release SHA/CalVer were not all present.' >&2
-          exit 1
-
-      - name: Smoke test live sitemap and robots
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          set -euo pipefail
-          sitemap="$(mktemp)"
-          robots="$(mktemp)"
-          trap 'rm -f "$sitemap" "$robots"' EXIT
-          for attempt in $(seq 1 24); do
-            if curl --fail --silent --show-error --location --max-time 20 \
-                -H 'Cache-Control: no-cache' \
-                "https://benefactor.cc/sitemap.xml?deploy=${GITHUB_SHA}" -o "$sitemap" \
-              && curl --fail --silent --show-error --location --max-time 20 \
-                -H 'Cache-Control: no-cache' \
-                "https://benefactor.cc/robots.txt?deploy=${GITHUB_SHA}" -o "$robots" \
-              && grep -Fq '<loc>https://benefactor.cc/blogs/dentists-local-seo-case-study/</loc>' "$sitemap" \
-              && grep -Fq '<loc>https://benefactor.cc/c/usa/s/legal/</loc>' "$sitemap" \
-              && grep -Fq 'Sitemap: https://benefactor.cc/sitemap.xml' "$robots"; then
-              echo 'Live sitemap and robots.txt are available.'
-              exit 0
-            fi
-            sleep 5
-          done
-          echo 'Live sitemap/robots smoke test failed.' >&2
-          exit 1
+      # Production publication is exclusively handled by
+      # benefactor-cc/benefactor-cc.github.io/.github/workflows/sync-public-source.yml.
+      # Its own GITHUB_TOKEN is scoped to that repository; no cross-repo PAT
+      # is required to read the public Astro source or publish Pages.
