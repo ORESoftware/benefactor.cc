@@ -11,7 +11,9 @@
 #     `deploy.yml` workflow) is a STALE project-pages build. benefactor.cc does
 #     NOT point at it. Pushing to `origin` alone does NOT update the live site.
 #
-# The only correct way to ship the live site is this script (or the same steps):
+# The normal no-secret production workflow builds and deploys the public source.
+# This script is a manual recovery fallback; preserve production .github workflows.
+# A recovery publication must follow the same canonical build and test rules:
 # build with CUSTOM_DOMAIN so the output is root-based (base=/) and carries the
 # CNAME, then publish dist/ to the live repo's main branch.
 #
@@ -47,7 +49,7 @@ grep -q '/_astro/' dist/index.html \
 
 echo "==> Publishing dist/ to $PROD_REMOTE (main)"
 git clone --depth 1 "$PROD_REMOTE" "$WORKDIR" >/dev/null 2>&1
-rsync -a --delete --exclude='.git' dist/ "$WORKDIR"/
+rsync -a --delete --exclude='.git' --exclude='.github' dist/ "$WORKDIR"/
 cd "$WORKDIR"
 git add -A
 if git diff --cached --quiet; then
