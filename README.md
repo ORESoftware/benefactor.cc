@@ -41,13 +41,16 @@ All commands are run from the root of the project, from a terminal:
 
 ## Deployment
 
-Pull requests run tests, dependency auditing, and a production-shape Astro
-build. A successful push to `main` publishes the generated root-domain build to
-`benefactor-cc/benefactor-cc.github.io`; that repository remains generated
-output and must not be edited directly. Publishing uses the
-`BENEFACTOR_PAGES_TOKEN` Actions secret: a fine-grained token limited to that
-one generated repository with Contents read/write access. Rotate it before
-2026-10-16.
+Pull requests and `main` pushes run Node 22/24 builds, dependency audits,
+and exact sitemap/canonical parity checks for the **production domain**.
+The public source is picked up on a twice-hourly schedule (or manually)
+by `benefactor-cc/benefactor-cc.github.io`'s `sync-public-source.yml`
+workflow. It checks out the exact source SHA with read-only permissions,
+runs the source tests and dependency audit, and publishes the validated
+artifact using the production repository's `GITHUB_TOKEN` and official
+GitHub Pages OIDC deployment action. No cross-repository PAT is needed.
+Only the production repository's `.github/workflows` directory is retained
+as control-plane code; never edit generated website output by hand.
 
 The workflow reads the public Supabase telemetry configuration from repository
 variables `PUBLIC_SUPABASE_URL` and `PUBLIC_SUPABASE_PUBLISHABLE_KEY`. Leave
@@ -75,10 +78,9 @@ The Astro source of truth is this repo. Every production build automatically
 generates `dist/sitemap.xml` from emitted HTML, covering every published blog
 article, blog index, playbook, country/service landing page, and other indexable
 page. Internal/noindex pages and unsubscribe utility URLs are excluded;
-`dist/robots.txt` advertises the sitemap. Only the deploy workflow publishes
+`dist/robots.txt` advertises the sitemap. Only the production Pages sync workflow publishes
 these artifacts to `benefactor-cc/benefactor-cc.github.io`, the Pages repository
-that actually serves `https://benefactor.cc/`. Do not hand-edit that generated
-repository. XML `lastmod` is omitted rather than misrepresenting build time as
+that actually serves `https://benefactor.cc/`. Do not hand-edit generated files in that repository. XML `lastmod` is omitted rather than misrepresenting build time as
 content modification.
 
 After deployment, submit `https://benefactor.cc/sitemap.xml` in the verified
