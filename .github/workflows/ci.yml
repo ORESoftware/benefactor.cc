@@ -41,7 +41,12 @@ jobs:
         run: npm test
 
       - name: Build canonical Astro site
+        env:
+          CUSTOM_DOMAIN: benefactor.cc
         run: npm run build
+
+      - name: Verify sitemap-to-page parity
+        run: node --test tests/site-discovery.buildcheck.mjs
 
   dependency-audit:
     runs-on: ubuntu-latest
