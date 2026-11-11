@@ -28,6 +28,12 @@ try {
 } catch {
   // Invalid optional telemetry configuration simply leaves transport disabled.
 }
+// The quote form posts only to the first-party API origin; all other pages
+// retain their narrower connect-src policy. This permits the request but does
+// not claim that the remote endpoint or its CORS/persistence gates are live.
+const quoteConnectSources = Astro.url.pathname.endsWith('/quote/')
+  ? ' https://api.benefactor.cc'
+  : '';
 const chatComponentUrl = 'https://ores-chat.github.io/components/v1/ores-chat-footer-link.js';
 const chatPageUrl = 'https://ores-chat.github.io/chat/';
 const configuredChatApiBase = import.meta.env.PUBLIC_ORES_CHAT_API_BASE;
@@ -48,7 +54,7 @@ try {
   // Invalid optional chat configuration keeps the safe link-only mode.
 }
 const chatMode = chatApiBase ? 'dialog' : 'link';
-const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://ores-chat.github.io; connect-src 'self'${telemetryConnectSources}${chatConnectSources}; upgrade-insecure-requests`;
+const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://ores-chat.github.io; connect-src 'self'${telemetryConnectSources}${chatConnectSources}${quoteConnectSources}; upgrade-insecure-requests`;
 ---
 
 <!doctype html>
