@@ -14,6 +14,9 @@ test('public site exposes pricing and a B2B SaaS-specific buyer path', async () 
     source('src/pages/b2b-saas.astro'),
   ]);
   assert.match(layout, /id="nav-pricing-link"/);
+  assert.ok(layout.includes("Astro.url.pathname.endsWith('/quote/')"));
+  assert.ok(layout.includes("https://api.benefactor.cc"));
+  assert.ok(layout.includes('quoteConnectSources'));
   assert.match(layout, /withBase\('quote\/'\)/);
   assert.match(home, /withBase\('b2b-saas\/'\)/);
   assert.match(home, /Diagnostic Sprint/);
