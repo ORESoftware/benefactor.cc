@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { quoteTiers } from '../data/quoteTiers';
+import '../styles/global.css';
+
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (path = '') => (baseUrl + path).replace(/\/{2,}/g, '/');
+const diagnostic = quoteTiers.find((tier) => tier.id === 'diagnostic');
+const calendly = 'https://calendly.com/hello-benefactor/30min';
+const bottlenecks = [
+  {
+    name: 'High-intent search',
+    detail: 'Map problem-aware and comparison queries to clear offers and landing pages, not traffic totals alone.',
+  },
+  {
+    name: 'Lead capture and conversion',
+    detail: 'Review page-to-form friction, qualification questions, appointment routing, and next-step clarity.',
+  },
+  {
+    name: 'CRM and follow-up',
+    detail: 'Inspect ownership, response handoffs, idempotent automation, and how opportunities move through the pipeline.',
+  },
+  {
+    name: 'Attribution and decisions',
+    detail: 'Define a small scorecard spanning qualified conversations, proposals, wins, acquisition cost, and margin.',
+  },
+];
+---
+
+<BaseLayout
+  title="B2B SaaS Growth Systems"
+  description="Benefactor helps founder-led B2B SaaS teams connect search intent, acquisition, conversion, and CRM follow-up. Start with a scoped, one-week diagnostic."
+>
+  <section class="saas-hero section--hero bg-grid bg-radial">
+    <div class="container saas-hero__inner">
+      <span class="badge">For founder-led B2B SaaS teams</span>
+      <h1>More qualified conversations.<br /><span class="gradient-text">Fewer disconnected tools.</span></h1>
+      <p class="saas-lead">
+        Good search traffic is not the same as pipeline. We help small B2B SaaS teams
+        connect the buyer's search, the landing page, the CRM, and the follow-up.
+      </p>
+      <div class="saas-actions">
+        <a class="btn btn--primary btn--large" href={calendly} target="_blank" rel="noopener noreferrer" data-conversion-target="strategy">
+          Book a strategy call
+        </a>
+        <a class="btn btn--secondary btn--large" href={withBase('quote/')} data-conversion-target="diagnostic">
+          Explore the diagnostic
+        </a>
+      </div>
+      <p class="saas-fit">Typical engagement: founder-led B2B teams with 2–20 people · 90–180-day delivery after scoping</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="bottlenecks-title">
+    <div class="container">
+      <span class="badge">The bottlenecks</span>
+      <h2 id="bottlenecks-title">Four connections to audit before scaling spend</h2>
+      <div class="saas-grid">
+        {bottlenecks.map((item, index) => (
+          <article class="card saas-card">
+            <span class="saas-number">0{index + 1}</span>
+            <h3>{item.name}</h3>
+            <p>{item.detail}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section saas-diagnostic" aria-labelledby="diagnostic-title">
+    <div class="container saas-diagnostic__inner">
+      <div>
+        <span class="badge">Start small</span>
+        <h2 id="diagnostic-title">One-week Diagnostic Sprint</h2>
+        <p>Before committing to a monthly engagement, review what's measurable and what needs to change.</p>
+        <p class="saas-price">
+          <strong>{diagnostic?.price ?? 'Price on request'}</strong>
+          <span> one-time starting price; final statement of work controls scope and price</span>
+        </p>
+        <p class="saas-disclosure">
+          This is a proposed service scope, not a promised revenue outcome or a published client case study.
+        </p>
+      </div>
+      <div class="saas-deliverables">
+        <h3>Proposed deliverables</h3>
+        <ul>
+          <li>Search-intent, conversion, and lead-flow audit</li>
+          <li>Measurement and attribution sanity check</li>
+          <li>Prioritized 30-day opportunity map</li>
+          <li>Readout with owners and next-step decisions</li>
+        </ul>
+        <a class="btn btn--primary" href={withBase('quote/')} data-conversion-target="diagnostic">See pricing and request scope</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="process-title">
+    <div class="container saas-process">
+      <span class="badge">What happens next</span>
+      <h2 id="process-title">A clear path from diagnosis to delivery</h2>
+      <ol>
+        <li><strong>Discovery.</strong> Discuss your funnel, buyer, and constraints; decide whether a diagnostic is appropriate.</li>
+        <li><strong>Scope.</strong> Agree on deliverables, access, timeline, and commercial terms in writing.</li>
+        <li><strong>Audit.</strong> Map high-intent acquisition, conversions, follow-up, and measurement gaps.</li>
+        <li><strong>Decision.</strong> Review the opportunity map and optionally scope ongoing work.</li>
+      </ol>
+      <p>Not a fit yet? A strategy call is available without purchasing a sprint.</p>
+      <a class="btn btn--secondary" href={calendly} target="_blank" rel="noopener noreferrer" data-conversion-target="strategy">Discuss your funnel</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .saas-hero__inner { max-width: 980px; }
+  .saas-hero h1 { margin: var(--space-lg) 0; font-size: clamp(2.7rem, 6vw, 5.3rem); line-height: 1.05; }
+  .saas-lead { max-width: 730px; color: var(--bf-text-secondary); font-size: 1.2rem; line-height: 1.7; }
+  .saas-actions { display: flex; flex-wrap: wrap; gap: var(--space-md); margin-top: var(--space-xl); }
+  .saas-fit { margin-top: var(--space-lg); color: var(--bf-text-muted); line-height: 1.6; }
+  h2 { max-width: 900px; margin: var(--space-md) 0 var(--space-xl); font-size: clamp(2.1rem, 4.5vw, 3.4rem); line-height: 1.2; }
+  .saas-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-lg); }
+  .saas-card { padding: var(--space-xl); }
+  .saas-number { display: block; color: var(--bf-red); font-weight: 700; margin-bottom: var(--space-md); }
+  .saas-card h3 { font-size: 1.3rem; }
+  .saas-card p { margin-top: var(--space-sm); color: var(--bf-text-secondary); line-height: 1.65; }
+  .saas-diagnostic { background: var(--bf-surface); }
+  .saas-diagnostic__inner { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3xl); align-items: start; }
+  .saas-diagnostic p, .saas-process p { color: var(--bf-text-secondary); line-height: 1.65; }
+  .saas-price { display: flex; gap: var(--space-sm); flex-wrap: wrap; align-items: baseline; margin-top: var(--space-lg); }
+  .saas-price strong { color: var(--bf-text-primary); font-size: 2rem; }
+  .saas-disclosure { font-size: .9rem; }
+  .saas-deliverables { padding: var(--space-xl); border: 1px solid var(--bf-border); border-radius: var(--radius-lg); background: var(--bf-bg); }
+  .saas-deliverables h3 { margin-bottom: var(--space-lg); }
+  .saas-deliverables ul, .saas-process ol { padding-left: 1.4rem; line-height: 1.7; color: var(--bf-text-secondary); }
+  .saas-deliverables li, .saas-process li { margin-bottom: var(--space-md); }
+  .saas-process { max-width: 920px; }
+  .saas-process .btn { margin-top: var(--space-md); }
+  @media (max-width: 760px) {
+    .saas-grid, .saas-diagnostic__inner { grid-template-columns: 1fr; }
+    .saas-actions { flex-direction: column; align-items: stretch; }
+    .saas-actions .btn { justify-content: center; }
+  }
+</style>
