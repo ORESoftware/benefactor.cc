@@ -244,6 +244,10 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
             systems that turn scattered traffic into a reliable pipeline of sales conversations.
           </p>
 
+          <p class="hero__diagnostic animate-fade-in-up stagger-2">
+            Start with a one-week <a href={withBase('quote/')} data-conversion-target="diagnostic">Diagnostic Sprint</a> — $1,500 one-time, with a prioritized 30-day opportunity map.
+          </p>
+
           <div class="hero__actions animate-fade-in-up stagger-3">
             <a href="https://calendly.com/hello-benefactor/30min" target="_blank" rel="noopener" class="btn btn--primary btn--large" id="hero-cta-primary">
               Book a Strategy Call
@@ -257,8 +261,8 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
                 ></path>
               </svg>
             </a>
-            <a href="#results" class="btn btn--secondary btn--large" id="hero-cta-secondary">
-              See Workstreams
+            <a href={withBase('b2b-saas/')} class="btn btn--secondary btn--large" id="hero-cta-secondary" data-conversion-target="saas">
+              For B2B SaaS teams
             </a>
           </div>
 
@@ -594,6 +598,19 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
     font-size: 1.2rem;
     max-width: 680px;
     margin-bottom: var(--space-2xl);
+  }
+
+  .hero__diagnostic {
+    max-width: 48rem;
+    color: var(--bf-text-secondary);
+    line-height: 1.6;
+    font-size: 0.98rem;
+  }
+
+  .hero__diagnostic a {
+    color: var(--bf-text-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .hero__actions {
