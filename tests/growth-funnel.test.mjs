@@ -17,6 +17,10 @@ test('public site exposes pricing and a B2B SaaS-specific buyer path', async () 
   assert.ok(layout.includes("Astro.url.pathname.endsWith('/quote/')"));
   assert.ok(layout.includes("https://api.benefactor.cc"));
   assert.ok(layout.includes('quoteConnectSources'));
+  assert.ok(layout.includes('quoteScriptSources'));
+  assert.ok(layout.includes('quoteFramePolicy'));
+  assert.ok(layout.includes('https://challenges.cloudflare.com'));
+
   assert.match(layout, /withBase\('quote\/'\)/);
   assert.match(home, /withBase\('b2b-saas\/'\)/);
   assert.match(home, /Diagnostic Sprint/);
@@ -45,6 +49,13 @@ test('all five quote tiers use one shared website pricing authority', async () =
 test('quote form has human fallback and safe retry on uncertain API outcomes', async () => {
   const quote = await source('src/pages/quote.astro');
   assert.ok(quote.includes('data-api-origin="https://api.benefactor.cc"'));
+  assert.ok(quote.includes('PUBLIC_BENEFACTOR_TURNSTILE_SITE_KEY'));
+  assert.ok(quote.includes('name="turnstile_token"'));
+  assert.ok(quote.includes('https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'));
+  assert.ok(quote.includes("action: 'quote'"));
+  assert.ok(quote.includes('Complete verification before submitting.'));
+  assert.ok(quote.includes('Online quote submissions are not enabled yet.'));
+
   assert.ok(quote.includes("'idempotency-key':"));
   assert.ok(quote.includes('public-quote:'));
   assert.ok(quote.includes('same submission ID is safe to reuse'));
