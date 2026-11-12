@@ -28,6 +28,15 @@ try {
 } catch {
   // Invalid optional telemetry configuration simply leaves transport disabled.
 }
+// The quote form posts only to the first-party API origin; all other pages
+// retain their narrower connect-src policy. This permits the request but does
+// not claim that the remote endpoint or its CORS/persistence gates are live.
+const quoteRoute = Astro.url.pathname.endsWith('/quote/');
+const quoteConnectSources = quoteRoute
+  ? ' https://api.benefactor.cc https://challenges.cloudflare.com'
+  : '';
+const quoteScriptSources = quoteRoute ? ' https://challenges.cloudflare.com' : '';
+const quoteFramePolicy = quoteRoute ? ' frame-src https://challenges.cloudflare.com;' : '';
 const chatComponentUrl = 'https://ores-chat.github.io/components/v1/ores-chat-footer-link.js';
 const chatPageUrl = 'https://ores-chat.github.io/chat/';
 const configuredChatApiBase = import.meta.env.PUBLIC_ORES_CHAT_API_BASE;
@@ -48,7 +57,7 @@ try {
   // Invalid optional chat configuration keeps the safe link-only mode.
 }
 const chatMode = chatApiBase ? 'dialog' : 'link';
-const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://ores-chat.github.io; connect-src 'self'${telemetryConnectSources}${chatConnectSources}; upgrade-insecure-requests`;
+const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://ores-chat.github.io${quoteScriptSources}; connect-src 'self'${telemetryConnectSources}${chatConnectSources}${quoteConnectSources};${quoteFramePolicy} upgrade-insecure-requests`;
 ---
 
 <!doctype html>
@@ -112,6 +121,7 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
           <a href={sectionHref('process')} class="nav__link" id="nav-process">Process</a>
           <a href={sectionHref('results')} class="nav__link" id="nav-results">Results</a>
           <a href={withBase('contact/')} class="nav__link" id="nav-contact-link">Contact</a>
+          <a href={withBase('quote/')} class="nav__link" id="nav-pricing-link" data-conversion-target="pricing">Pricing</a>
           <a href={withBase('case-studies/')} class="nav__link" id="nav-case-studies">Playbooks</a>
           <a href={withBase('blogs/')} class="nav__link" id="nav-blogs">Blogs</a>
           <a href={sectionHref('team')} class="nav__link" id="nav-team">Team</a>
@@ -167,6 +177,7 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
               <a href={sectionHref('process')} class="footer__link">Our Process</a>
               <a href={sectionHref('results')} class="footer__link">Results</a>
               <a href={withBase('contact/')} class="footer__link">Contact</a>
+              <a href={withBase('quote/')} class="footer__link">Pricing and diagnostic</a>
             </div>
             <div class="footer__col">
               <h4 class="footer__col-title">Connect</h4>

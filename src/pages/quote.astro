@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { quoteTiers } from '../data/quoteTiers';
 import '../styles/global.css';
+
+const turnstileSiteKey = import.meta.env.PUBLIC_BENEFACTOR_TURNSTILE_SITE_KEY;
 ---
 
 <BaseLayout
@@ -28,7 +30,7 @@ import '../styles/global.css';
               <p>{tier.description}</p>
             </div>
             <ul>{tier.includes.map((item) => <li>{item}</li>)}</ul>
-            <a class="btn btn--secondary" href={`#quote-form?tier=${tier.id}`} data-tier-link={tier.id}>Request {tier.name}</a>
+            <a class="btn btn--secondary" href="#quote-form" data-tier-link={tier.id}>Request {tier.name}</a>
           </article>
         ))}
       </div>
@@ -44,6 +46,7 @@ import '../styles/global.css';
       </div>
       <form class="quote-form" data-quote-form data-api-origin="https://api.benefactor.cc">
         <input type="hidden" name="submission_id" />
+        <input type="hidden" name="turnstile_token" />
         <label><span>Name</span><input name="name" autocomplete="name" maxlength="160" required /></label>
         <label><span>Work email</span><input type="email" name="email" autocomplete="email" maxlength="320" required /></label>
         <label><span>Company</span><input name="company" autocomplete="organization" maxlength="200" required /></label>
@@ -58,8 +61,14 @@ import '../styles/global.css';
         <label><span>What should improve in the next 90 days?</span><textarea name="goals" minlength="30" maxlength="4000" rows="6" required></textarea></label>
         <label><span>Current monthly marketing / acquisition spend (optional)</span><input name="current_monthly_spend" maxlength="100" placeholder="$5,000 / month" /></label>
         <label><span>Anything we should know about timing, systems, or constraints?</span><textarea name="constraints" maxlength="4000" rows="5"></textarea></label>
-        <button class="btn btn--primary btn--large" type="submit">Request quote</button>
-        <p class="quote-form__status" role="status" aria-live="polite" data-quote-status></p>
+        <div class="quote-form__verification" data-turnstile-container data-sitekey={turnstileSiteKey ?? ''} aria-label="Human verification"></div>
+        <button class="btn btn--primary btn--large" type="submit" disabled>Request quote</button>
+        <p class="quote-form__status" role="status" aria-live="polite" data-quote-status>{!turnstileSiteKey ? 'Online quote submissions are not enabled yet. Book a strategy call or email us instead.' : 'Complete verification to submit your quote.'}</p>
+        <p class="quote-form__fallback">
+          Prefer to talk first, or having trouble submitting?
+          <a href="https://calendly.com/hello-benefactor/30min" target="_blank" rel="noopener noreferrer" data-conversion-target="strategy">Book a strategy call</a>
+          or email <a href="mailto:hello@benefactor.cc">hello@benefactor.cc</a>.
+        </p>
       </form>
     </div>
   </section>
@@ -69,6 +78,46 @@ import '../styles/global.css';
   const form = document.querySelector('[data-quote-form]');
   const status = document.querySelector('[data-quote-status]');
   if (form instanceof HTMLFormElement) {
+    const verification = form.querySelector('[data-turnstile-container]');
+    const challengeField = form.elements.namedItem('turnstile_token');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const turnstileWindow = window as Window & {
+      turnstile?: {
+        render(element: HTMLElement, options: Record<string, unknown>): string;
+        reset(widgetId: string): void;
+      };
+    };
+    let turnstileWidget: string | undefined;
+    const clearChallenge = () => {
+      if (challengeField instanceof HTMLInputElement) challengeField.value = '';
+      if (submitButton instanceof HTMLButtonElement) submitButton.disabled = true;
+    };
+    if (verification instanceof HTMLElement && verification.dataset.sitekey && challengeField instanceof HTMLInputElement) {
+      const script = document.createElement('script');
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      script.async = true;
+      script.addEventListener('load', () => {
+        if (!turnstileWindow.turnstile) {
+          if (status) status.textContent = 'Verification could not load. Please book a call or email us.';
+          return;
+        }
+        turnstileWidget = turnstileWindow.turnstile.render(verification, {
+          sitekey: verification.dataset.sitekey,
+          action: 'quote',
+          callback(token: string) {
+            challengeField.value = token;
+            if (submitButton instanceof HTMLButtonElement) submitButton.disabled = false;
+            if (status) status.textContent = '';
+          },
+          'expired-callback': clearChallenge,
+          'error-callback': clearChallenge,
+        });
+      });
+      script.addEventListener('error', () => {
+        if (status) status.textContent = 'Verification is unavailable. Please book a call or email us.';
+      });
+      document.head.appendChild(script);
+    }
     const tierSelect = form.elements.namedItem('tier');
     const tierFromUrl = new URL(window.location.href).searchParams.get('tier');
     if (tierFromUrl && tierSelect instanceof HTMLSelectElement) tierSelect.value = tierFromUrl;
@@ -83,6 +132,10 @@ import '../styles/global.css';
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (!form.reportValidity()) return;
+      if (!(challengeField instanceof HTMLInputElement) || !challengeField.value) {
+        if (status) status.textContent = 'Complete verification before submitting.';
+        return;
+      }
       const button = form.querySelector('button[type="submit"]');
       if (button instanceof HTMLButtonElement) button.disabled = true;
       if (status) status.textContent = 'Submitting securely…';
@@ -102,12 +155,15 @@ import '../styles/global.css';
         });
         if (!response.ok) throw new Error('quote request rejected');
         const receipt = await response.json();
-        if (typeof receipt?.submission_id !== 'string') throw new Error('invalid receipt');
+        if (typeof receipt?.submission_id !== 'string'
+            || receipt.submission_id !== payload.submission_id
+            || receipt.status !== 'received') throw new Error('invalid receipt');
         if (status) status.textContent = `Received. Quote request ${receipt.submission_id} is in the queue.`;
         form.querySelectorAll('input, select, textarea, button').forEach((control) => { control.disabled = true; });
       } catch {
-        if (status) status.textContent = 'We could not confirm the quote request. Please retry; the same submission ID is safe to reuse.';
-        if (button instanceof HTMLButtonElement) button.disabled = false;
+        if (status) status.textContent = 'We could not confirm the quote request. Please complete verification again before retrying; the same submission ID is safe to reuse.';
+        clearChallenge();
+        if (turnstileWidget && turnstileWindow.turnstile) turnstileWindow.turnstile.reset(turnstileWidget);
       }
     });
   }
@@ -135,6 +191,8 @@ import '../styles/global.css';
   .quote-form input, .quote-form select, .quote-form textarea { width: 100%; box-sizing: border-box; border: 1px solid var(--bf-border); border-radius: var(--radius-sm); padding: .85rem 1rem; background: var(--bf-bg); color: var(--bf-text-primary); font: inherit; }
   .quote-form textarea { resize: vertical; }
   .quote-form__status { min-height: 1.5rem; margin: 0; }
+  .quote-form__fallback { margin: 0; font-size: .92rem; line-height: 1.55; color: var(--bf-text-secondary); }
+  .quote-form__fallback a { color: var(--bf-text-primary); text-decoration: underline; text-underline-offset: 3px; }
   @media (max-width: 1180px) { .tier-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 760px) { .tier-grid, .quote-form-shell { grid-template-columns: 1fr; } }
 </style>
