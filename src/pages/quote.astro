@@ -155,7 +155,9 @@ const turnstileSiteKey = import.meta.env.PUBLIC_BENEFACTOR_TURNSTILE_SITE_KEY;
         });
         if (!response.ok) throw new Error('quote request rejected');
         const receipt = await response.json();
-        if (typeof receipt?.submission_id !== 'string') throw new Error('invalid receipt');
+        if (typeof receipt?.submission_id !== 'string'
+            || receipt.submission_id !== payload.submission_id
+            || receipt.status !== 'received') throw new Error('invalid receipt');
         if (status) status.textContent = `Received. Quote request ${receipt.submission_id} is in the queue.`;
         form.querySelectorAll('input, select, textarea, button').forEach((control) => { control.disabled = true; });
       } catch {
