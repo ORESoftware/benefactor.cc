@@ -1,0 +1,50 @@
+name: Repair production dependency lock (one-shot)
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/refresh-animation-deps.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: true
+      - name: Configure Node 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Repair exact Astro release and transitive vulnerabilities
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --save-exact astro@7.4.13 --ignore-scripts
+          npm audit fix --ignore-scripts
+          npm ci --ignore-scripts
+      - name: Verify tests, build, and production security
+        shell: bash
+        env:
+          CUSTOM_DOMAIN: benefactor.cc
+        run: |
+          set -euo pipefail
+          npm test
+          npm run build
+          npm audit --omit=dev
+      - name: Commit only validated dependency changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'benefactor-dependency-bot'
+          git config user.email 'benefactor-dependency-bot@users.noreply.github.com'
+          git add -- package.json package-lock.json
+          if git diff --cached --quiet; then
+            echo 'No dependency edits needed'
+            exit 0
+          fi
+          git commit -m 'fix(deps): clear Astro and transitive production advisories'
+          git push origin HEAD:main
