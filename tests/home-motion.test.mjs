@@ -56,6 +56,8 @@ test('runtime has an accessible fallback if JS fails and no duplicate CSS intro'
   assert.match(css, /body:has\(#hero\) \.animate-fade-in-up/);
   assert.match(motion, /window\.scrollY < window\.innerHeight \* 0\.5/);
   assert.match(motion, /gsap\.killTweensOf\(button\)/);
+  assert.doesNotMatch(motion, /autoAlpha/, 'Visual entrances must not hide content from assistive technology');
+  assert.match(motion, /scrollTrigger: \{ trigger: item, start: 'top 91%', once: true \}/);
 });
 
 test('animation dependencies are exact and integrity-pinned in lockfile', () => {

@@ -83,19 +83,19 @@ async function initializeMotion(): Promise<void> {
     if (window.scrollY < window.innerHeight * 0.5) {
       const hero = gsap.timeline({ defaults: { ease: 'power3.out', clearProps: 'transform,opacity,visibility' } });
       hero
-        .from('.hero__heading .badge', { y: 14, autoAlpha: 0, duration: 0.65 }, 0.04)
-        .from('.hero__title', { y: 34, autoAlpha: 0, duration: 0.9 }, 0.12)
-        .from('.hero__subtitle', { y: 23, autoAlpha: 0, duration: 0.75 }, 0.34)
-        .from('.hero__actions', { y: 22, autoAlpha: 0, duration: 0.7 }, 0.48)
-        .from('.hero__capabilities', { y: 16, autoAlpha: 0, duration: 0.65 }, 0.61)
-        .from('.hero__video', { x: compact ? 0 : 32, y: compact ? 16 : 0, scale: 0.975, autoAlpha: 0, duration: 1.05 }, 0.25);
+        .from('.hero__heading .badge', { y: 14, opacity: 0, duration: 0.65 }, 0.04)
+        .from('.hero__title', { y: 34, opacity: 0, duration: 0.9 }, 0.12)
+        .from('.hero__subtitle', { y: 23, opacity: 0, duration: 0.75 }, 0.34)
+        .from('.hero__actions', { y: 22, opacity: 0, duration: 0.7 }, 0.48)
+        .from('.hero__capabilities', { y: 16, opacity: 0, duration: 0.65 }, 0.61)
+        .from('.hero__video', { x: compact ? 0 : 32, y: compact ? 16 : 0, scale: 0.975, opacity: 0, duration: 1.05 }, 0.25);
     }
 
     document.querySelectorAll<HTMLElement>(headerSelector).forEach((header) => {
       const items = header.querySelectorAll(':scope > .badge, :scope > h2, :scope > p, :scope > .cta__actions');
       if (!items.length) return;
       gsap.from(items, {
-        y: rise, autoAlpha: 0, duration: compact ? 0.65 : 0.85,
+        y: rise, opacity: 0, duration: compact ? 0.65 : 0.85,
         stagger, ease: 'power3.out', clearProps: 'transform,opacity,visibility',
         scrollTrigger: { trigger: header, start: 'top 88%', once: true },
       });
@@ -106,11 +106,24 @@ async function initializeMotion(): Promise<void> {
       if (!group) continue;
       const items = group.querySelectorAll(itemSelector);
       if (!items.length) continue;
-      gsap.from(items, {
-        y: rise, autoAlpha: 0, duration: compact ? 0.62 : 0.82,
-        stagger, ease: 'power3.out', clearProps: 'transform,opacity,visibility',
-        scrollTrigger: { trigger: group, start: 'top 89%', once: true },
-      });
+
+      if (compact) {
+        // Tall single-column mobile sections need per-card entrance triggers.
+        // A grid-wide trigger would animate lower cards long before they appear.
+        items.forEach((item) => {
+          gsap.from(item, {
+            y: rise, opacity: 0, duration: 0.62, ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: { trigger: item, start: 'top 91%', once: true },
+          });
+        });
+      } else {
+        gsap.from(items, {
+          y: rise, opacity: 0, duration: 0.82,
+          stagger, ease: 'power3.out', clearProps: 'transform,opacity',
+          scrollTrigger: { trigger: group, start: 'top 89%', once: true },
+        });
+      }
     }
 
     if (policy.parallax) {
