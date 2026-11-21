@@ -45,6 +45,10 @@ jobs:
           CUSTOM_DOMAIN: benefactor.cc
         run: npm run build
 
+      - name: Verify browser motion lifecycle (real Chromium)
+        if: matrix.node-version == 22
+        run: node tests/home-motion.browsercheck.mjs
+
       - name: Verify sitemap-to-page parity
         run: node --test tests/site-discovery.buildcheck.mjs
 
