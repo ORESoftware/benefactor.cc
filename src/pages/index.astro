@@ -541,6 +541,14 @@ const withBase = (path = '') => `${baseUrl}${path}`.replace(/\/{2,}/g, '/');
   </section>
 </BaseLayout>
 
+<script>
+  import { bootHomeMotion } from '../scripts/home-motion';
+  void bootHomeMotion().catch(() => {
+    // Keep the original CSS experience if a progressive enhancement fails.
+    document.documentElement.classList.remove('motion-enhanced');
+  });
+</script>
+
 <style>
   .hero {
     position: relative;

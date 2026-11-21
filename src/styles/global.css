@@ -433,3 +433,29 @@ p {
   background: rgba(230, 57, 70, 0.3);
   color: var(--bf-text-primary);
 }
+
+
+/* GSAP takes over entrance effects only after the animation module is ready. */
+html.motion-enhanced .animate-fade-in-up,
+html.motion-enhanced .animate-fade-in,
+html.motion-enhanced .hero__orb {
+  animation: none;
+}
+
+/* Visible keyboard focus even when pointer motion is enabled. */
+:where(a, button):focus-visible {
+  outline: 2px solid var(--bf-red-light);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .animate-fade-in-up, .animate-fade-in, .hero__orb, .badge__dot {
+    animation: none !important;
+  }
+}
