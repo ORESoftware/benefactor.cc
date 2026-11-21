@@ -459,3 +459,26 @@ html.motion-enhanced .hero__orb {
     animation: none !important;
   }
 }
+
+/* Avoid replaying legacy CSS entrance effects while the home page GSAP chunk loads.
+   Content stays visible when scripts are unavailable or motion is disabled. */
+body:has(#hero) .animate-fade-in-up,
+body:has(#hero) .animate-fade-in {
+  animation: none;
+}
+
+/* Native smooth scrolling and Lenis must not compete for wheel/anchor motion. */
+html.lenis {
+  scroll-behavior: auto;
+}
+
+section[id] {
+  scroll-margin-top: var(--nav-height);
+}
+
+@media (prefers-reduced-data: reduce) {
+  body:has(#hero) .hero__orb,
+  body:has(#hero) .badge__dot {
+    animation: none;
+  }
+}
