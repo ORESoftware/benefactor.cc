@@ -8,14 +8,10 @@ export interface LocalSeoCaseStudy {
   readonly tags: readonly string[];
   readonly story: string;
   readonly whyHeading: string;
-  readonly whyIntro: string;
-  readonly whyPoints: readonly string[];
-  readonly benefactorHeading: string;
-  readonly benefactorPoints: readonly string[];
-  readonly close: string;
-  readonly ctaHeading: string;
-  readonly ctaCopy: string;
-  readonly question: string;
+  readonly stepsHeading: string;
+  readonly steps: readonly string[];
+  readonly measurement: string;
+  readonly benefactorCopy: string;
 }
 
 export const localSeoCaseStudies: readonly LocalSeoCaseStudy[] = [
@@ -23,298 +19,217 @@ export const localSeoCaseStudies: readonly LocalSeoCaseStudy[] = [
     slug: 'plumbing-companies-local-seo-case-study',
     title: 'Local SEO Playbook for Plumbing Companies That Need More Service Calls',
     description:
-      'A practical plumbing local SEO playbook for improving Google Maps visibility, reviews, service pages, and call tracking.',
+      "Make emergency calls and replacement estimates easy to route. Use dispatcher outcomes to decide which plumbing services and towns to promote.",
     industry: 'plumbing company',
     industryPlural: 'plumbing companies',
     category: 'Local SEO Playbook',
     tags: ['plumbing-marketing', 'local-seo', 'google-maps', 'lead-generation'],
     story:
-      'For plumbing companies, the real local SEO opportunity is urgent demand: emergency repairs, drain cleaning, water heaters, leaks, and service-area searches where homeowners need a credible provider fast. Benefactor focuses the page structure, Google Business Profile, reviews, citations, and call tracking around those searches so the business can see which local visibility work is producing real conversations.',
-    whyHeading: 'Why this matters to plumbing companies in the US',
-    whyIntro:
-      'Plumbing demand is usually urgent. When a pipe bursts, a water heater fails, or a sewer line backs up, homeowners choose the provider that appears fast, credible, and close.',
-    whyPoints: [
-      'Homeowners searching "plumber near me" rarely scroll deeply, so the top map listings capture the calls that matter most.',
-      'Local SEO should turn emergency searches into higher-intent calls instead of price-shopped leads from shared lead sellers.',
-      'Call tracking should show which neighborhoods, services, and search terms produce profitable work, so the company can stop guessing.',
+      "A homeowner with a leaking water heater wants two answers before calling. Does anyone cover this address, and can someone come today? A homeowner replacing a working heater can wait for a written estimate. Give each person a clear route from search to the right desk.",
+    whyHeading:
+      "Which plumbing calls can your dispatcher book?",
+    stepsHeading:
+      "Walk through an after-hours call",
+    steps: [
+      "Open the emergency repair page on a phone after dispatch closes. Can a caller see the towns you cover, the hours someone answers and what happens to a message?",
+      "Put the dispatch number next to those details. On the installation page, offer an estimate request and explain what the estimator needs to know about the property.",
     ],
-    benefactorHeading: 'This is exactly what Benefactor Marketing does for plumbing companies across the US',
-    benefactorPoints: [
-      'Dialed-in Google Business Profile categories, services, photos, posts, and review prompts for emergency plumbing, drain cleaning, water heaters, and repair queries.',
-      'Local SEO pages and citations built around the cities, neighborhoods, and high-margin services plumbers actually want to win.',
-      'Tracking tied to real business numbers: calls, booked jobs, average ticket, emergency work, repeat customers, and margin.',
-    ],
-    close:
-      'If you want more service calls from owned local visibility instead of rented leads, Benefactor builds the search system that helps homeowners find you first.',
-    ctaHeading: 'Want more plumbing calls from local search?',
-    ctaCopy:
-      'Send a note with your city and service area, and Benefactor Marketing will send you a quick Local Visibility Breakdown: where you rank now, which high-intent plumbing searches are missing, and what should be fixed first.',
-    question:
-      'How would you describe your current situation on Google right now: invisible, inconsistent, or dominant locally?',
+    measurement:
+      "Ask dispatch to label calls by service, area and outcome. Count booked visits per in-area repair call. If a town sends plenty of calls but no bookings, check coverage and staffing before buying more traffic there.",
+    benefactorCopy:
+      "We align the Google Business Profile, service pages and call reporting with the jobs your dispatchers can accept. Bring your service map and a week of call outcomes to the review.",
   },
   {
     slug: 'pool-cleaning-companies-local-seo-case-study',
     title: 'Local SEO Playbook for Pool Cleaning Companies That Need Denser Routes',
     description:
-      'How pool cleaning companies can use local SEO, Google Maps, reviews, and route-focused lead tracking to attract better-fit recurring accounts.',
+      "Choose neighborhoods with room on an existing pool route and measure the drive time each new weekly account adds.",
     industry: 'pool cleaning company',
     industryPlural: 'pool cleaning companies',
     category: 'Local SEO Playbook',
     tags: ['pool-cleaning-marketing', 'local-seo', 'recurring-revenue', 'google-maps'],
     story:
-      'For pool cleaning companies, the best local SEO work does not simply create more random inquiries. It helps the business become visible in the neighborhoods where recurring routes are efficient and where homeowners search for weekly service, green pool cleanup, filter cleaning, and seasonal opening support.',
-    whyHeading: 'Why this matters to pool cleaning companies in the US',
-    whyIntro:
-      'Pool service gets more profitable when the right homes are close together. Random one-off jobs create movement. Dense recurring routes create margin.',
-    whyPoints: [
-      'Homeowners looking for pool service usually want a reliable provider nearby, and the map pack shapes that shortlist quickly.',
-      'Local SEO should help the business appear for recurring maintenance, green pool cleanup, filter cleaning, and seasonal opening searches.',
-      'Better lead source tracking should clarify which neighborhoods are worth targeting because they produce recurring accounts, not just isolated cleanups.',
+      "A new weekly account two streets from an existing stop can use an open slot on Tuesday. The same account across town may need a different crew or an extra route day. Decide where you can take work before choosing which neighborhoods to promote.",
+    whyHeading:
+      "Where would one more pool stop pay off?",
+    stepsHeading:
+      "Build a page around an open route",
+    steps: [
+      "Mark your regular stops on a private map. Find a stretch with room for another pool, then name that service area and the available days on the weekly maintenance page.",
+      "Give green-pool recovery its own inquiry option. Explain what a weekly visit includes so a homeowner can request either a one-time cleanup or an ongoing quote.",
     ],
-    benefactorHeading: 'This is exactly what Benefactor Marketing does for pool cleaning companies across the US',
-    benefactorPoints: [
-      'Google Business Profile optimization for weekly service, repairs, seasonal cleanups, photos, service areas, and review velocity.',
-      'Neighborhood and service pages that help pool companies rank where route density matters most.',
-      'Tracking tied to calls, quote requests, recurring accounts, route density, churn, and revenue per stop.',
-    ],
-    close:
-      'If you want your next growth season driven by profitable recurring accounts instead of scattered jobs, Benefactor helps you become easier to find in the neighborhoods that matter.',
-    ctaHeading: 'Want denser pool service routes?',
-    ctaCopy:
-      'Send a note with your city and service area, and Benefactor Marketing will send you a quick Local Visibility Breakdown: where you rank now, which neighborhoods are underdeveloped, and which route-density opportunities should come first.',
-    question:
-      'How would you describe your Google visibility today: invisible, scattered, or dominant in the neighborhoods you want?',
+    measurement:
+      "For each new recurring stop, record the crew’s added drive minutes and whether the account is still active after a month. Review those figures alongside the number of inquiries from that area.",
+    benefactorCopy:
+      "Benefactor connects your service-area listings and quote form to route-level reporting. The owner can see which neighborhoods fill gaps in the schedule.",
   },
   {
     slug: 'roofing-companies-local-seo-case-study',
     title: 'Local SEO Playbook for Roofing Companies Facing Local Storm Demand',
     description:
-      'A practical roofing local SEO playbook for storm damage, repair, replacement, map pack visibility, and owned demand.',
+      "Prepare a storm inspection page, give planned roof replacements their own estimate path, and check whether crews can meet demand.",
     industry: 'roofing company',
     industryPlural: 'roofing companies',
     category: 'Local SEO Playbook',
     tags: ['roofing-marketing', 'local-seo', 'google-maps', 'storm-damage'],
     story:
-      'For roofing companies, local search demand often spikes around storms, leaks, insurance questions, roof repair, and replacement decisions. Benefactor helps structure the site, Google Business Profile, local proof, and tracking around those high-intent searches before demand spikes.',
-    whyHeading: 'Why this matters to roofers in the US',
-    whyIntro:
-      'Roofing demand arrives in sharp windows. Storm damage, leaks, insurance questions, and replacement decisions all push homeowners to search locally before they call.',
-    whyPoints: [
-      'Homeowners search "roofer near me" and pick from the top map listings most of the time, so if you are not there, you are invisible when storms hit.',
-      'Local SEO should turn casual visitors into inspection requests: more quality calls, fewer price-shoppers from lead resellers.',
-      'A more predictable flow of owned local leads can reduce dependence on rented demand and give the roofer more control over margin.',
+      "A homeowner who sees a ceiling stain after heavy rain needs to know how soon someone can inspect it. Someone budgeting for replacement wants examples of comparable roofs and an estimate. Putting both on the same waitlist makes it hard to give either caller a reliable answer.",
+    whyHeading:
+      "What happens to inspection requests after a storm?",
+    stepsHeading:
+      "Prepare the inspection page before the weather changes",
+    steps: [
+      "Publish the towns you cover, how to request an inspection and when the office can confirm a visit. Have one person update availability when the queue fills.",
+      "Give planned replacements a separate estimate path. Use a completed project, with permission, to show the roof type, scope and what the estimate covered.",
     ],
-    benefactorHeading: 'This is exactly what Benefactor Marketing does for roofing companies across the US',
-    benefactorPoints: [
-      'Dialed-in Google Business Profile visibility for roof repair, roof replacement, storm damage, emergency leaks, and city-specific searches.',
-      'Local SEO content and citations built specifically for roofers, so you outrank national directories and lead marketplaces stealing your traffic.',
-      'Tracking tied to real numbers: calls, inspections booked, signed contracts, job value, and profit margins.',
-    ],
-    close:
-      'If you want your next busy season profit to be driven by owned local visibility instead of rented leads, Benefactor builds the search foundation before demand spikes.',
-    ctaHeading: 'Want your roofing company to show up before the storm rush?',
-    ctaCopy:
-      'Send a note with your city and service area, and Benefactor Marketing will send you a quick Local Visibility Breakdown: where you rank now, which roof repair or replacement searches are missing, and what should be fixed before the next demand spike.',
-    question:
-      'How would you describe your current situation on Google right now: invisible, inconsistent, or dominant locally?',
+    measurement:
+      "Track requests, completed inspections and signed jobs by service. If requests rise while completed inspections stay flat, check appointment capacity and missed callbacks before expanding the campaign.",
+    benefactorCopy:
+      "We organize repair and replacement pages, listings and intake so your office can see which searches lead to inspections it can actually schedule.",
   },
   {
     slug: 'house-cleaning-companies-local-seo-case-study',
     title: 'Local SEO Playbook for House Cleaning Companies That Need Recurring Clients',
     description:
-      'How house cleaning companies can turn Google Maps visibility, reviews, and local service pages into recurring cleanings instead of one-off inquiries.',
+      "Write separate intake questions for recurring and move-out cleans, then follow a first visit through to the second booking.",
     industry: 'house cleaning company',
     industryPlural: 'house cleaning companies',
     category: 'Local SEO Playbook',
     tags: ['house-cleaning-marketing', 'local-seo', 'google-maps', 'recurring-clients'],
     story:
-      'For house cleaning companies, local SEO should help the business show up for recurring cleaning, deep cleaning, move-out cleaning, and neighborhood searches while giving prospects enough proof to trust the provider before asking for a quote.',
-    whyHeading: 'Why this matters to house cleaning companies in the US',
-    whyIntro:
-      'Cleaning is a trust business. People want proof, proximity, availability, and reviews before they let a provider into their home.',
-    whyPoints: [
-      'The map pack and review profile decide which companies get shortlisted for recurring cleaning, move-out cleaning, and deep cleaning searches.',
-      'Local SEO should attract customers looking for ongoing service, not only discount-driven one-time cleanings.',
-      'Better follow-up turned search leads into estimates, estimates into first cleans, and first cleans into recurring schedules.',
+      "A move-out clean has a deadline and an empty property. A household looking for fortnightly help wants to know which chores repeat and whether a regular slot is available. Using one quote form for both hides the details the scheduler needs.",
+    whyHeading:
+      "Will the first clean lead to a second visit?",
+    stepsHeading:
+      "Follow a recurring-clean inquiry to its second booking",
+    steps: [
+      "Show the first-visit scope and the maintenance checklist side by side. Explain how the team handles extras such as inside the oven or refrigerator.",
+      "Ask for neighborhood, home size and preferred frequency. Route move-outs to a separate deadline question so an urgent one-off job does not occupy a recurring slot by mistake.",
     ],
-    benefactorHeading: 'This is exactly what Benefactor Marketing does for house cleaning companies across the US',
-    benefactorPoints: [
-      'Google Business Profile optimization for recurring cleaning, deep cleaning, move-out cleaning, apartment cleaning, and neighborhood searches.',
-      'Review systems and service-area content that make the business feel trusted before the customer asks for a quote.',
-      'Tracking tied to calls, quote requests, first cleans, recurring plans, churn, and average monthly value.',
-    ],
-    close:
-      'If you want local visibility to turn into dependable weekly, biweekly, and monthly clients, Benefactor connects the search path to the booking path.',
-    ctaHeading: 'Want more recurring house cleaning clients?',
-    ctaCopy:
-      'Send a note with your city and service area, and Benefactor Marketing will send you a quick Local Visibility Breakdown: where you rank now, which cleaning services are missing demand, and what should be improved first.',
-    question:
-      'Are you currently invisible, inconsistent, or dominant when people search for cleaning services in your city?',
+    measurement:
+      "Count first cleans from recurring-service inquiries, then count how many of those households book a second visit. Ask the scheduler what prevented a rebooking before changing the page.",
+    benefactorCopy:
+      "Benefactor ties the service listing, scope and booking form together so the office can distinguish requests for regular help from one-off cleans.",
   },
   {
     slug: 'house-painters-local-seo-case-study',
     title: 'Local SEO Playbook for House Painters That Need Better Estimate Requests',
     description:
-      'A house painting local SEO playbook for ranking in local estimate searches, improving proof, and making seasonal demand easier to capture.',
+      "Use one completed painting project to explain prep and finish choices, then track the estimates that turn into signed jobs.",
     industry: 'house painting company',
     industryPlural: 'house painters',
     category: 'Local SEO Playbook',
     tags: ['house-painter-marketing', 'local-seo', 'estimate-requests', 'google-maps'],
     story:
-      'For house painters, local SEO needs to connect search visibility with visual proof. Benefactor helps organize service pages, project photos, reviews, Google Business Profile signals, and estimate paths around the painting jobs the business actually wants to win.',
-    whyHeading: 'Why this matters to house painters in the US',
-    whyIntro:
-      'Painting customers want proof they can see. Search visibility gets attention, but photos, reviews, and local relevance close the gap between browsing and requesting an estimate.',
-    whyPoints: [
-      'Homeowners searching for painters usually compare a small set of local providers with strong photos and reviews.',
-      'Local SEO should help the business rank for interior, exterior, cabinet, deck, and neighborhood painting terms instead of only broad homepage searches.',
-      'Better proof on the page reduced low-quality estimate requests and improved close rates on higher-margin jobs.',
+      "A gallery of finished rooms can establish taste while leaving a buyer unsure whether you handle the prep their job needs. A cabinet repaint and a whole-house exterior call for different walkthroughs, even in the same neighborhood.",
+    whyHeading:
+      "What does a homeowner need before requesting a painting estimate?",
+    stepsHeading:
+      "Turn one completed job into an estimate guide",
+    steps: [
+      "With permission, select photos from one project. Caption the surface, the prep the crew did and the finish the owner chose. Include a before photo when it helps explain the work.",
+      "Link the gallery from the matching service page. On the estimate form ask for the surface, approximate scope and desired timing so the estimator can prepare for the walkthrough.",
     ],
-    benefactorHeading: 'This is exactly what Benefactor Marketing does for house painters across the US',
-    benefactorPoints: [
-      'Google Business Profile and portfolio optimization built around real project photos, service categories, reviews, and city-level searches.',
-      'Local SEO pages for interior painting, exterior painting, cabinet painting, deck staining, and high-value neighborhoods.',
-      'Tracking tied to calls, estimate requests, walkthroughs booked, signed jobs, job size, and seasonal profit.',
-    ],
-    close:
-      'If you want homeowners to find your work before they ask a lead marketplace for three bids, Benefactor helps your local proof show up where decisions begin.',
-    ctaHeading: 'Want more painting estimates from local search?',
-    ctaCopy:
-      'Send a note with your city and service area, and Benefactor Marketing will send you a quick Local Visibility Breakdown: where you rank now, which painting services are underrepresented, and what proof should be easier for homeowners to find.',
-    question:
-      'When homeowners search for painters in your area, are you invisible, inconsistent, or clearly dominant?',
+    measurement:
+      "Compare requests, completed walkthroughs and accepted estimates by job type. If cabinet inquiries keep ending at the walkthrough, review what the page says about prep and scope with the estimator.",
+    benefactorCopy:
+      "We put relevant project evidence next to the estimate request and connect each request to its outcome. That gives the owner a way to decide which portfolio to expand.",
   },
   {
     slug: 'spas-local-seo-case-study',
     title: 'Local SEO Playbook for Spas That Need More Booked Appointments',
     description:
-      'How spas can improve Google visibility, reputation, service pages, and booking follow-up to increase appointments and repeat clients.',
+      "Follow a spa listing through service selection and booking. Check treatment names, room availability and completed first visits.",
     industry: 'spa',
     industryPlural: 'spas',
     category: 'Local SEO Playbook',
     tags: ['spa-marketing', 'local-seo', 'appointment-booking', 'reputation'],
     story:
-      'For spas, the useful local SEO work connects discovery with trust and booking ease. Benefactor helps organize service pages, Google Business Profile categories, reviews, photos, and booking prompts around the treatments people search for nearby.',
-    whyHeading: 'Why this matters to spas in the US',
-    whyIntro:
-      'Spa customers search with trust and mood in mind. They want a provider nearby, a service that fits the moment, and proof that the experience will feel worth it.',
-    whyPoints: [
-      'People searching for facials, massage, spa packages, and couples treatments often choose from the first few strong local listings.',
-      'Local SEO should help the spa show up by service, neighborhood, and intent instead of relying only on brand-name searches.',
-      'Better reviews, photos, and booking prompts turned visibility into appointments and appointments into repeat visits.',
+      "Someone searching for a couples massage needs to find two available places at the same time. A gift buyer may need a voucher instead. Both can land on the same listing and get lost when its booking link opens a long, unfiltered menu.",
+    whyHeading:
+      "Can a first-time spa guest book the treatment they found?",
+    stepsHeading:
+      "Try booking one service from a phone",
+    steps: [
+      "Start on the public listing and choose a treatment. Check that the service name, duration and price match the booking screen. Explain any deposit and how far ahead guests should arrive.",
+      "If a treatment needs two practitioners or a particular room, show how to confirm availability. Give gift buyers a separate link and explain how the recipient redeems it.",
     ],
-    benefactorHeading: 'This is exactly what Benefactor Marketing does for spas across the US',
-    benefactorPoints: [
-      'Google Business Profile optimization for facials, massage, body treatments, packages, memberships, photos, and review prompts.',
-      'Service pages and local content built around the treatments and neighborhoods most likely to drive profitable bookings.',
-      'Tracking tied to calls, online bookings, first visits, memberships, repeat appointments, and service revenue.',
-    ],
-    close:
-      'If you want your spa to be found by people who are ready to book, Benefactor connects local visibility with a calmer, clearer appointment path.',
-    ctaHeading: 'Want more spa appointments from local search?',
-    ctaCopy:
-      'Send a note with your city and service area, and Benefactor Marketing will send you a quick Local Visibility Breakdown: where you rank now, which treatments are underrepresented, and where the booking path should be clearer.',
-    question:
-      'Is your spa invisible, inconsistent, or dominant when people nearby search for treatments?',
+    measurement:
+      "Review completed first visits by treatment alongside booking starts. When starts rise and visits do not, try the path again for a busy Saturday and check whether suitable slots appear.",
+    benefactorCopy:
+      "Benefactor connects treatment pages to the right booking options and helps staff see which local searches lead to attended appointments.",
   },
   {
     slug: 'dentists-local-seo-case-study',
     title: 'Local SEO Playbook for Dentists That Need More New-Patient Demand',
     description:
-      'How dental practices can use local SEO, Google Maps visibility, reviews, and conversion tracking to grow new patient appointments.',
+      "Connect each office listing to the right appointment form and use front-desk questions to improve new-patient information.",
     industry: 'dental practice',
     industryPlural: 'dentists',
     category: 'Local SEO Playbook',
     tags: ['dentist-marketing', 'local-seo', 'new-patients', 'google-maps'],
     story:
-      'For dental practices, local SEO should make proximity, trust, service fit, availability, and patient proof easier to find. Benefactor helps structure treatment pages, Google Business Profile signals, reviews, Q&A, and appointment actions around the searches patients use before calling.',
-    whyHeading: 'Why this matters to dentists in the US',
-    whyIntro:
-      'Dental search is local, trust-heavy, and service-specific. Patients want proximity, insurance clarity, reviews, availability, and confidence before they call.',
-    whyPoints: [
-      'Patients searching "dentist near me" or "emergency dentist" often choose from the map pack and review profiles before visiting websites deeply.',
-      'Local SEO should help the practice appear for high-intent services like cleanings, emergency care, cosmetic dentistry, implants, and Invisalign-style searches.',
-      'Tracking should connect search visibility to scheduled appointments, so the practice can separate real production movement from vanity traffic.',
+      "A new patient looking for a routine exam needs practical details about location, payment and the next available appointment. A caller seeking urgent care needs to reach the practice promptly and know when someone answers.",
+    whyHeading:
+      "Can a new dental patient find the right appointment?",
+    stepsHeading:
+      "Check the path from the listing to the front desk",
+    steps: [
+      "Open the practice listing on a phone. Follow its appointment link and verify that a new patient can request the visit shown on the page at the correct office.",
+      "Ask the front desk which coverage and scheduling questions recur. Publish the office’s verification process and phone hours. Direct clinical questions to the care team through its approved channel.",
     ],
-    benefactorHeading: 'This is exactly what Benefactor Marketing does for dentists across the US',
-    benefactorPoints: [
-      'Google Business Profile optimization for core dental services, emergency queries, photos, Q&A, review generation, and appointment actions.',
-      'Local SEO content for treatment pages, city pages, patient questions, and service-specific intent.',
-      'Tracking tied to calls, appointment requests, scheduled patients, completed visits, treatment plans, and production.',
-    ],
-    close:
-      'If you want more new-patient demand from people already searching nearby, Benefactor helps your practice become easier to find and easier to choose.',
-    ctaHeading: 'Want more dental patients from local search?',
-    ctaCopy:
-      'Send a note with your city and service area, and Benefactor Marketing will send you a quick Local Visibility Breakdown: where you rank now, which treatment searches are missing, and what should be fixed to make new-patient demand easier to capture.',
-    question:
-      'Is your practice invisible, inconsistent, or dominant when patients search locally?',
+    measurement:
+      "Use aggregate counts of new-patient requests, appointments booked and visits attended. Keep patient names and clinical details out of campaign URLs and advertising reports.",
+    benefactorCopy:
+      "We help practices align listings, service information and appointment routing. The front desk can use aggregate outcomes to spot where interested callers lose their way.",
   },
   {
     slug: 'photographers-local-seo-case-study',
     title: 'Local SEO Playbook for Photographers That Need Better-Fit Bookings',
     description:
-      'How photographers can use local SEO, portfolio structure, reviews, and inquiry tracking to book better-fit shoots from local search.',
+      "Match each local photography search to a relevant gallery, ask shoot-specific questions and track which inquiries become paid bookings.",
     industry: 'photography business',
     industryPlural: 'photographers',
     category: 'Local SEO Playbook',
     tags: ['photographer-marketing', 'local-seo', 'portfolio', 'booking-inquiries'],
     story:
-      'For photographers, local SEO should help prospects find the right style, moment, location, and proof before they inquire. Benefactor helps organize galleries, service pages, Google Business Profile signals, reviews, and inquiry paths around the shoots the business wants to book.',
-    whyHeading: 'Why this matters to photographers in the US',
-    whyIntro:
-      'Photography buyers search by moment, style, location, and trust. A beautiful portfolio helps most when people can actually find it at the decision point.',
-    whyPoints: [
-      'Couples, families, brands, and seniors often search locally before asking for referrals, especially when dates or deadlines matter.',
-      'Local SEO should help the photographer rank for service-specific searches instead of relying only on Instagram or word-of-mouth.',
-      'Better portfolio organization should make inquiries more qualified because prospects can see the exact kind of work they want before reaching out.',
+      "A couple planning an indoor evening ceremony may love your outdoor portraits but still need to see how you handle a dim reception. A marketing manager booking headshots needs to know how many people you can schedule and what files they receive.",
+    whyHeading:
+      "Does your portfolio answer the question behind the inquiry?",
+    stepsHeading:
+      "Give one type of shoot its own booking path",
+    steps: [
+      "Choose a service you want to book. Publish a coherent gallery from a relevant shoot with the client’s permission, and explain the setting, deliverables and typical turnaround.",
+      "For a wedding, ask for date and venue. For a team session, ask for headcount and delivery deadline. Link directly to that inquiry form from the gallery.",
     ],
-    benefactorHeading: 'This is exactly what Benefactor Marketing does for photographers across the US',
-    benefactorPoints: [
-      'Google Business Profile and portfolio optimization for weddings, family sessions, portraits, events, branding, and city searches.',
-      'Service pages and galleries structured around the moments, styles, venues, and locations clients search for.',
-      'Tracking tied to inquiries, consults booked, sessions sold, average package value, and seasonal demand.',
-    ],
-    close:
-      'If you want more of the right clients finding your work before they land on a directory, Benefactor helps turn local discovery into booked shoots.',
-    ctaHeading: 'Want more photography bookings from local search?',
-    ctaCopy:
-      'Send a note with your city and service area, and Benefactor Marketing will send you a quick Local Visibility Breakdown: where you rank now, which photography services are missing demand, and how your portfolio should be easier to discover.',
-    question:
-      'Are you invisible, inconsistent, or dominant when people search for photographers in your market?',
+    measurement:
+      "Record the requested shoot type, date availability and whether a deposit was paid. If suitable inquiries arrive for dates already taken, clarify availability before changing the portfolio.",
+    benefactorCopy:
+      "Benefactor connects service-specific galleries to local search pages and inquiries so you can see which work attracts the commissions you want.",
   },
   {
     slug: 'pest-control-companies-local-seo-case-study',
     title: 'Local SEO Playbook for Pest Control Companies That Need Urgent Local Calls',
     description:
-      'How pest control companies can improve local SEO, Google Maps visibility, reviews, and call tracking to win more urgent service requests.',
+      "Build a local service page for one pest, route inspection requests to dispatch and check which service areas produce completed visits.",
     industry: 'pest control company',
     industryPlural: 'pest control companies',
     category: 'Local SEO Playbook',
     tags: ['pest-control-marketing', 'local-seo', 'google-maps', 'service-calls'],
     story:
-      'For pest control companies, local SEO needs to show credible help for urgent, uncomfortable, and pest-specific searches. Benefactor helps structure pages, reviews, Google Business Profile categories, seasonal content, and call tracking around the services customers need quickly.',
-    whyHeading: 'Why this matters to pest control companies in the US',
-    whyIntro:
-      'Pest control searches are uncomfortable, urgent, and highly local. Customers want proof that someone nearby can solve the problem quickly and discreetly.',
-    whyPoints: [
-      'People searching for exterminators, termites, bed bugs, rodents, ants, and mosquitoes usually call from the first credible local options they see.',
-      'Local SEO should help the business rank by pest type and service area instead of competing only on a generic homepage.',
-      'Better review signals and call tracking improved trust, response speed, and visibility into which services produced profitable work.',
+      "A tenant who has spotted bed bugs and a property manager arranging recurring rodent inspections need different first conversations. A generic contact form sends both to a dispatcher with little idea what to schedule.",
+    whyHeading:
+      "Which pest searches can your team act on?",
+    stepsHeading:
+      "Build the intake path for one pest first",
+    steps: [
+      "Choose a pest your team serves frequently. On its service page explain your coverage area, what the initial inspection involves and when the office confirms an appointment.",
+      "Ask for the property type, location and preferred callback time. Give recurring commercial inspections a separate route to the person who prepares those agreements.",
     ],
-    benefactorHeading: 'This is exactly what Benefactor Marketing does for pest control companies across the US',
-    benefactorPoints: [
-      'Google Business Profile optimization for extermination, termite inspections, bed bug treatment, rodent control, mosquito control, and emergency searches.',
-      'Local SEO content and citations built around pest types, neighborhoods, service areas, and seasonal demand.',
-      'Tracking tied to calls, inspections booked, treatments sold, recurring plans, service value, and profit margins.',
-    ],
-    close:
-      'If you want urgent pest control searches to become owned calls instead of shared marketplace leads, Benefactor helps you show up when customers are ready to act.',
-    ctaHeading: 'Want more pest control calls from local search?',
-    ctaCopy:
-      'Send a note with your city and service area, and Benefactor Marketing will send you a quick Local Visibility Breakdown: where you rank now, which pest-specific searches are missing, and what should be improved before the next seasonal demand window.',
-    question:
-      'When people nearby search for pest control, are you invisible, inconsistent, or dominant locally?',
+    measurement:
+      "Track booked inspections, completed visits and recurring agreements by service area and pest category. If callers repeatedly fall outside your coverage, make that boundary visible next to the phone number.",
+    benefactorCopy:
+      "Benefactor connects pest-specific listings and pages with dispatch outcomes so the owner can choose which services to promote as the season changes.",
   },
 ];
 
@@ -324,7 +239,7 @@ export const localSeoCaseStudyBlogPosts = localSeoCaseStudies.map((caseStudy) =>
   description: caseStudy.description,
   date: '2026-05-13',
   author: 'Benefactor Marketing',
-  readTime: '4 min read',
+  readTime: '1 min read',
   category: caseStudy.category,
   tags: caseStudy.tags,
 }));

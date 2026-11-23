@@ -29,33 +29,22 @@ const caseStudy = getLocalSeoCaseStudy(slug);
   category={frontmatter.category}
   tags={frontmatter.tags}
 >
+  <h2 id="why-this-happened">{caseStudy.whyHeading}</h2>
   <p>{caseStudy.story}</p>
 
-  <h2 id="why-this-happened">{caseStudy.whyHeading}</h2>
+  <h2>{caseStudy.stepsHeading}</h2>
+  <ol>
+    {caseStudy.steps.map((step) => <li>{step}</li>)}
+  </ol>
 
-  <p>{caseStudy.whyIntro}</p>
-
-  <ul>
-    {caseStudy.whyPoints.map((point) => <li>{point}</li>)}
-  </ul>
-
-  <h2 id="what-benefactor-does">{caseStudy.benefactorHeading}</h2>
-
-  <ul>
-    {caseStudy.benefactorPoints.map((point) => <li>{point}</li>)}
-  </ul>
-
-  <p>{caseStudy.close}</p>
+  <h2 id="current-situation">What to measure</h2>
+  <p>{caseStudy.measurement}</p>
 
   <div class="blog-cta">
-    <h3>{caseStudy.ctaHeading}</h3>
-    <p>{caseStudy.ctaCopy}</p>
+    <h2 id="what-benefactor-does">How Benefactor helps {caseStudy.industryPlural}</h2>
+    <p>{caseStudy.benefactorCopy}</p>
     <a href="mailto:hello@benefactor.cc" class="btn btn--primary btn--large">
-      Get a Local Visibility Breakdown
+      Ask about local search in your service area
     </a>
   </div>
-
-  <h2 id="current-situation">A question before the next growth push</h2>
-
-  <p>{caseStudy.question}</p>
 </BlogLayout>

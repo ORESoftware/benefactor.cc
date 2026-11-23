@@ -36,13 +36,21 @@ test('sitemap is exact parity with every indexable prerendered canonical URL', a
     }
     if (noindex) continue;
     const canonical = new URL(route, site).href;
-    assert.ok(html.includes('rel="canonical"') && html.includes('href="' + canonical + '"'),
-      'missing or incorrect canonical link on ' + route);
+    const links = (html.match(/<link\b[^>]*>/gi) ?? []).filter((tag) => /\srel="canonical"/i.test(tag));
+    assert.deepEqual(links.map((tag) => tag.match(/\shref="([^"]*)"/i)?.[1]), [canonical],
+      'missing, duplicate or incorrect canonical link on ' + route);
     expected.push(canonical);
   }
   assert.ok(expected.includes(site) && expected.includes(site + 'blogs/'));
   assert.ok(expected.some((url) => url.startsWith(site + 'blogs/') && url !== site + 'blogs/'));
   assert.deepEqual(urls, expected.sort(), 'sitemap differs from built public pages');
+
+  const blogIndex = await readFile(join(root, 'blogs', 'index.html'), 'utf8');
+  const postPaths = [...blogIndex.matchAll(/<a\b[^>]*\shref="(\/blogs\/[^"/?#]+\/)"/gi)]
+    .map((match) => new URL(match[1], site).href);
+  const listedPosts = [...new Set(postPaths)].sort();
+  const sitemapPosts = urls.filter((url) => url.startsWith(site + 'blogs/') && url !== site + 'blogs/');
+  assert.deepEqual(listedPosts, sitemapPosts, 'blog index and sitemap disagree on published articles');
   for (const url of urls) {
     assert.ok(url.startsWith(site) && url.endsWith('/') && !url.includes('#') && !url.includes('?'));
   }
@@ -50,8 +58,9 @@ test('sitemap is exact parity with every indexable prerendered canonical URL', a
 
 test('robots.txt points Google to production sitemap', async () => {
   const robots = await readFile(join(root, 'robots.txt'), 'utf8');
-  assert.match(robots, /^User-agent: \*\nAllow: \/\n/m);
-  assert.match(robots, /^Sitemap: https:\/\/benefactor\.cc\/sitemap\.xml$/m);
+  assert.deepEqual(robots.trim().split(/\r?\n/).filter(Boolean), [
+    'User-agent: *', 'Allow: /', 'Sitemap: https://benefactor.cc/sitemap.xml',
+  ], 'production artifact must allow crawling and advertise its canonical sitemap');
   assert.equal((await readFile(join(root, 'CNAME'), 'utf8')).trim(), 'benefactor.cc');
   await readFile(join(root, '.nojekyll'));
 });
