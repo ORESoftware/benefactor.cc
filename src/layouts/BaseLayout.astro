@@ -1,4 +1,6 @@
 ---
+import '../styles/global.css';
+
 interface Props {
   title: string;
   description?: string;
@@ -52,17 +54,58 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="medium">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0f1117" />
+    <meta name="theme-color" content="#e3e5e8" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta
       http-equiv="Content-Security-Policy"
       content={securityPolicy}
     />
+    <script is:inline>
+      (() => {
+        const key = 'benefactor-theme';
+        const root = document.documentElement;
+        function restore() {
+          try {
+            const saved = localStorage.getItem(key);
+            root.dataset.theme = saved === 'dark' || saved === 'light' ? saved : 'medium';
+          } catch {
+            // Keep the current page usable when browser storage is unavailable.
+          }
+        }
+
+        restore();
+        document.addEventListener('DOMContentLoaded', () => {
+          const picker = document.getElementById('theme-picker');
+          const themeColor = document.querySelector('meta[name="theme-color"]');
+          function syncControls() {
+            picker.value = root.dataset.theme;
+            themeColor.content = getComputedStyle(root).getPropertyValue('--bf-bg').trim();
+          }
+          syncControls();
+          picker.disabled = false;
+          picker.addEventListener('change', () => {
+            root.dataset.theme = picker.value;
+            syncControls();
+            try { localStorage.setItem(key, picker.value); } catch {}
+          });
+          function syncPreference() {
+            restore();
+            syncControls();
+          }
+          window.addEventListener('storage', (event) => {
+            if (event.key === key || event.key === null) syncPreference();
+          });
+          window.addEventListener('pageshow', (event) => {
+            if (event.persisted) syncPreference();
+          });
+        });
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
     <link rel="icon" type="image/x-icon" href={withBase('favicon.ico')} />
     <link rel="apple-touch-icon" href={withBase('apple-touch-icon.png')} />
@@ -118,6 +161,14 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
           <a href={sectionHref('contact')} class="btn btn--primary nav__cta" id="nav-contact">Get Started</a>
         </div>
 
+        <label class="nav__theme">
+          Theme
+          <select id="theme-picker" disabled>
+            <option value="light">Light</option>
+            <option value="medium" selected>Medium</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
         <button class="nav__mobile-toggle" id="nav-toggle" aria-label="Toggle navigation">
           <span></span>
           <span></span>
@@ -205,7 +256,7 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
         right: 0;
         z-index: 1000;
         height: var(--nav-height);
-        background: rgba(15, 17, 23, 0.88);
+        background: var(--bf-bg);
         backdrop-filter: blur(20px) saturate(180%);
         -webkit-backdrop-filter: blur(20px) saturate(180%);
         border-bottom: 1px solid var(--bf-border);
@@ -259,7 +310,7 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
       .nav__links {
         display: flex;
         align-items: center;
-        gap: var(--space-xl);
+        gap: clamp(0.8rem, 1.7vw, 1.7rem);
       }
 
       .nav__link {
@@ -292,6 +343,25 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
       .nav__cta {
         padding: 0.5rem 1.25rem;
         font-size: 0.85rem;
+      }
+
+      .nav__theme {
+        display: grid;
+        gap: 2px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        line-height: 1.1;
+        color: var(--bf-text-secondary);
+      }
+
+      .nav__theme select {
+        font: inherit;
+        font-size: 0.875rem;
+        color: var(--bf-text-primary);
+        background-color: var(--bf-surface);
+        border: 1px solid var(--bf-control-border);
+        border-radius: var(--radius-sm);
+        padding: 0.3rem 0.5rem;
       }
 
       .nav__mobile-toggle {
@@ -396,7 +466,7 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
         opacity: 0.8;
       }
 
-      @media (max-width: 900px) {
+      @media (max-width: 1080px) {
         .nav__links {
           display: none;
         }
@@ -413,7 +483,7 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
           padding: var(--space-lg);
           border: 1px solid var(--bf-border-hover);
           border-radius: var(--radius-lg);
-          background: rgba(11, 13, 17, 0.96);
+          background: var(--bf-surface);
           box-shadow: var(--shadow-lg);
         }
 
@@ -449,9 +519,9 @@ const securityPolicy = `default-src 'self'; base-uri 'self'; object-src 'none'; 
       if (nav) {
         window.addEventListener('scroll', () => {
           if (window.scrollY > 10) {
-            nav.style.borderBottomColor = 'rgba(255,255,255,0.1)';
+            nav.style.borderBottomColor = 'var(--bf-border-hover)';
           } else {
-            nav.style.borderBottomColor = 'rgba(255,255,255,0.06)';
+            nav.style.borderBottomColor = 'var(--bf-border)';
           }
         });
       }

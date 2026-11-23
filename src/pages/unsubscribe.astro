@@ -33,18 +33,18 @@ const mailto = `mailto:${email}?subject=${encodeURIComponent('Unsubscribe')}`;
     display: grid;
     place-items: center;
     padding: 6rem 1.25rem;
-    background: #f4f7f8;
+    background: var(--bf-bg);
   }
 
   .unsubscribe-panel {
     width: min(100%, 42rem);
-    border-left: 4px solid #c93d3d;
+    border-left: 4px solid var(--bf-red);
     padding: 1.5rem 0 1.5rem 2rem;
   }
 
   .eyebrow {
     margin: 0 0 0.75rem;
-    color: #a13030;
+    color: var(--bf-red);
     font-size: 0.78rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -52,14 +52,14 @@ const mailto = `mailto:${email}?subject=${encodeURIComponent('Unsubscribe')}`;
 
   h1 {
     margin: 0 0 1rem;
-    color: #142d3d;
+    color: var(--bf-text-primary);
     font-size: 3.25rem;
     line-height: 1.05;
   }
 
   p {
     max-width: 38rem;
-    color: #344c59;
+    color: var(--bf-text-secondary);
     line-height: 1.7;
   }
 
@@ -67,17 +67,17 @@ const mailto = `mailto:${email}?subject=${encodeURIComponent('Unsubscribe')}`;
     display: inline-flex;
     margin-top: 1rem;
     padding: 0.85rem 1.1rem;
-    border: 1px solid #142d3d;
-    background: #142d3d;
-    color: #fff;
+    border: 1px solid var(--bf-text-primary);
+    background: var(--bf-text-primary);
+    color: var(--bf-bg);
     font-weight: 700;
     text-decoration: none;
   }
 
   .button:hover,
   .button:focus-visible {
-    background: #fff;
-    color: #142d3d;
+    background: var(--bf-bg);
+    color: var(--bf-text-primary);
   }
 
   .note {

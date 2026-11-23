@@ -1,46 +1,44 @@
 /* ========================================
    Benefactor Marketing — Global Design System
-   Premium B2B Dark Theme — Gray, Navy Blue & Red
+   Light, Medium & Dark — Gray, Navy Blue & Red
    ======================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
 
 /* ── Design Tokens ── */
 :root {
-  /* Brand Colors — Navy Blue & Red Accents */
-  --bf-navy: #1e3a5f;
-  --bf-navy-light: #2d5a8e;
+  /* Medium is also the fallback before scripts run. */
+  color-scheme: light;
+  --bf-bg: #e3e5e8;
+  --bf-black: #d7dade;
+  --bf-surface: #f1f2f4;
+  --bf-surface-hover: #e6e9ed;
+  --bf-surface-elevated: #fafafa;
+  --bf-text-primary: #181e28;
+  --bf-text-secondary: #343f4d;
+  --bf-text-muted: #465262;
+  --bf-control-border: #66707e;
+  --bf-border: #bdc4ce;
+  --bf-border-hover: #929dab;
+  --bf-border-active: #a46474;
+
+  --bf-navy: #233e60;
+  --bf-navy-light: #284c72;
   --bf-navy-dark: #0f2440;
-  --bf-navy-glow: rgba(30, 58, 95, 0.15);
-
-  --bf-red: #e63946;
-  --bf-red-light: #ff6b6b;
-  --bf-red-dark: #c1121f;
-  --bf-red-glow: rgba(230, 57, 70, 0.12);
-
-  --bf-blue: #3b82f6;
+  --bf-navy-glow: rgba(30, 58, 95, 0.1);
+  --bf-red: #852038;
+  --bf-red-light: #8a2940;
+  --bf-red-dark: #78152a;
+  --bf-red-glow: rgba(151, 35, 58, 0.07);
+  --bf-button-start: #a32a42;
+  --bf-button-end: #78152a;
+  --bf-blue: #194c82;
   --bf-blue-glow: rgba(59, 130, 246, 0.1);
-
-  /* Neutrals — Gray Palette */
-  --bf-black: #0b0d11;
-  --bf-bg: #0f1117;
-  --bf-surface: #161921;
-  --bf-surface-hover: #1d212c;
-  --bf-surface-elevated: #232836;
-  --bf-border: rgba(255, 255, 255, 0.06);
-  --bf-border-hover: rgba(255, 255, 255, 0.12);
-  --bf-border-active: rgba(230, 57, 70, 0.35);
-
-  /* Text */
-  --bf-text-primary: #edf0f5;
-  --bf-text-secondary: #94a3b8;
-  --bf-text-muted: #64748b;
+  --bf-accent: var(--bf-red);
   --bf-text-accent: var(--bf-red);
-
-  /* Functional */
-  --bf-success: #4ade80;
-  --bf-error: #f87171;
-  --bf-warning: #fbbf24;
+  --bf-success: #17613a;
+  --bf-error: #88273a;
+  --bf-warning: #754300;
 
   /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -65,9 +63,9 @@
   --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0 1px 3px rgba(24, 30, 40, 0.09);
+  --shadow-md: 0 4px 12px rgba(24, 30, 40, 0.1);
+  --shadow-lg: 0 8px 32px rgba(24, 30, 40, 0.14);
   --shadow-glow: 0 0 40px rgba(230, 57, 70, 0.08);
   --shadow-navy-glow: 0 0 40px rgba(30, 58, 95, 0.15);
 
@@ -81,6 +79,41 @@
   /* Layout */
   --max-width: 1200px;
   --nav-height: 72px;
+}
+
+:root[data-theme="light"] {
+  --bf-bg: #ffffff;
+  --bf-black: #f2f4f7;
+  --bf-surface: #f9fafb;
+  --bf-surface-hover: #edf0f4;
+  --bf-surface-elevated: #ffffff;
+  --bf-border: #ced4dc;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bf-bg: #0f1117;
+  --bf-black: #0b0d11;
+  --bf-surface: #181c24;
+  --bf-surface-hover: #202634;
+  --bf-surface-elevated: #262d39;
+  --bf-text-primary: #f1f4fa;
+  --bf-text-secondary: #cbd4e1;
+  --bf-text-muted: #aebccc;
+  --bf-control-border: #8796a9;
+  --bf-border: #394250;
+  --bf-border-hover: #556173;
+  --bf-border-active: #b87182;
+  --bf-navy: #a4c3e5;
+  --bf-navy-light: #b3cff0;
+  --bf-red: #ffa4af;
+  --bf-red-light: #ffbec6;
+  --bf-red-glow: rgba(230, 57, 70, 0.12);
+  --bf-blue: #a5c8ff;
+  --bf-success: #75dfa2;
+  --bf-error: #ffabb5;
+  --bf-warning: #ffd374;
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
 /* ── Reset ── */
@@ -192,7 +225,7 @@ p {
 }
 
 .btn--primary {
-  background: linear-gradient(135deg, var(--bf-red), var(--bf-red-dark));
+  background: linear-gradient(135deg, var(--bf-button-start), var(--bf-button-end));
   color: #fff;
   box-shadow: 0 4px 16px rgba(230, 57, 70, 0.3);
 }
@@ -443,7 +476,7 @@ html.motion-enhanced .hero__orb {
 }
 
 /* Visible keyboard focus even when pointer motion is enabled. */
-:where(a, button):focus-visible {
+:where(a, button, select):focus-visible {
   outline: 2px solid var(--bf-red-light);
   outline-offset: 4px;
 }

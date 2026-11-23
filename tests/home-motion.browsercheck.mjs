@@ -151,6 +151,43 @@ try {
   await evaluate(`window.scrollTo({top: document.getElementById('services').offsetTop, behavior: 'instant'})`);
   await eventually(async () => (await flags())?.serviceVisible, 'service card visible after scroll', 10_000);
 
+  // Exercise the shared picker against rendered colors and a second route.
+  assert.equal(await evaluate("document.documentElement.dataset.theme"), 'medium');
+  const luminance = (rgb) => {
+    const linear = rgb.match(/\d+/g).slice(0, 3).map((channel) => {
+      const value = Number(channel) / 255;
+      return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+    });
+    return linear[0] * 0.2126 + linear[1] * 0.7152 + linear[2] * 0.0722;
+  };
+  const backgrounds = new Set();
+  for (const theme of ['medium', 'light', 'dark']) {
+    const pairs = await evaluate(`(() => {
+      const picker = document.querySelector('#theme-picker');
+      picker.value = ${JSON.stringify(theme)};
+      picker.dispatchEvent(new Event('change', { bubbles: true }));
+      const colors = (selector, surface) => [
+        getComputedStyle(document.querySelector(selector)).color,
+        getComputedStyle(document.querySelector(surface)).backgroundColor,
+      ];
+      return [
+        colors('.hero__title', 'body'), colors('.hero__subtitle', 'body'),
+        colors('.stats__label', '.stats'), colors('.footer__copy', 'footer'),
+        colors('#theme-picker', '#theme-picker'), colors('.nav__brand-name', '#main-nav'),
+      ];
+    })()`);
+    backgrounds.add(pairs[0][1]);
+    const ratios = pairs.map((pair) => {
+      const [low, high] = pair.map(luminance).sort((a, b) => a - b);
+      return (high + 0.05) / (low + 0.05);
+    });
+    assert.ok(Math.min(...ratios) >= 4.5, theme + ' contrast ratios: ' + ratios.join(', '));
+    console.log(theme + ' minimum measured text contrast: ' + Math.min(...ratios).toFixed(2) + ':1');
+  }
+  assert.equal(backgrounds.size, 3, 'each theme has a distinct page background');
+  await send('Page.navigate', { url: `http://127.0.0.1:${port}/blogs/` });
+  await eventually(() => evaluate("location.pathname === '/blogs/' && document.querySelector('#theme-picker')?.value === 'dark' && document.documentElement.dataset.theme === 'dark'"), 'stored theme on the blog');
+
   console.log(`PASS Chromium motion smoke: responsive, reduced-motion teardown/restart, content visible; bundle ${bytes} bytes`);
 } finally {
   socket?.close();
