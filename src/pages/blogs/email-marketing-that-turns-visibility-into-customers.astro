@@ -6,15 +6,7 @@ import { getBlogPostMeta } from '../../data/blogPosts';
 const frontmatter = getBlogPostMeta('email-marketing-that-turns-visibility-into-customers');
 ---
 
-<BlogLayout
-  title={frontmatter.title}
-  description={frontmatter.description}
-  date={frontmatter.date}
-  author={frontmatter.author}
-  readTime={frontmatter.readTime}
-  category={frontmatter.category}
-  tags={frontmatter.tags}
->
+<BlogLayout {...frontmatter}>
   <p>
     Email marketing works best when it is not treated as a separate channel. It is the bridge
     between being seen and being chosen. A prospect may discover a business through Google,

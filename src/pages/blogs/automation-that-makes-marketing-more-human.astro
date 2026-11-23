@@ -6,15 +6,7 @@ import { getBlogPostMeta } from '../../data/blogPosts';
 const frontmatter = getBlogPostMeta('automation-that-makes-marketing-more-human');
 ---
 
-<BlogLayout
-  title={frontmatter.title}
-  description={frontmatter.description}
-  date={frontmatter.date}
-  author={frontmatter.author}
-  readTime={frontmatter.readTime}
-  category={frontmatter.category}
-  tags={frontmatter.tags}
->
+<BlogLayout {...frontmatter}>
   <p>
     A lot of marketing automation feels bad for a simple reason: it was built to save labor,
     not to preserve context. The result is a flood of sequences, reminders, and internal

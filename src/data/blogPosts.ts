@@ -2,6 +2,7 @@ import { localSeoCaseStudyBlogPosts } from './localSeoCaseStudies';
 
 export interface BlogPostMeta {
   readonly slug: string;
+  readonly sampleUpvotes: number;
   readonly title: string;
   readonly description: string;
   readonly date: string;
@@ -14,6 +15,7 @@ export interface BlogPostMeta {
 export const blogPosts: readonly BlogPostMeta[] = [
   {
     slug: 'cosmetic-clinic-medical-tourism-marketing',
+    sampleUpvotes: 17,
     title: 'How Cosmetic Clinics and Medical Tourism Providers Can Attract More Patients',
     description:
       'How Benefactor helps elective healthcare providers build visibility, earn trust, and convert qualified patient inquiries through responsible digital marketing.',
@@ -26,6 +28,7 @@ export const blogPosts: readonly BlogPostMeta[] = [
   ...localSeoCaseStudyBlogPosts,
   {
     slug: 'email-marketing-that-turns-visibility-into-customers',
+    sampleUpvotes: 14,
     title: 'Email Marketing That Turns Visibility Into Customers',
     description:
       'How Benefactor connects email, SEO, Yelp, reputation, and social visibility so more leads become qualified conversations and paying customers.',
@@ -37,6 +40,7 @@ export const blogPosts: readonly BlogPostMeta[] = [
   },
   {
     slug: 'personal-security-in-digital-spaces',
+    sampleUpvotes: 27,
     title: 'A Practical Guide to Personal and Small-Business Digital Security',
     description:
       'Protect the inbox that resets your accounts, review what apps and AI tools receive, and rehearse what your team would do after losing a phone.',
@@ -48,6 +52,7 @@ export const blogPosts: readonly BlogPostMeta[] = [
   },
   {
     slug: 'founder-led-b2b-sites-that-stop-leaking-pipeline',
+    sampleUpvotes: 32,
     title: 'How Founder-Led B2B Sites Stop Leaking Pipeline',
     description:
       'A practical guide to fixing the common gaps between traffic, messaging, qualification, and follow-up so a B2B site starts producing real sales conversations.',
@@ -59,6 +64,7 @@ export const blogPosts: readonly BlogPostMeta[] = [
   },
   {
     slug: 'search-intent-mapping-for-lower-cac',
+    sampleUpvotes: 50,
     title: 'Search Intent Mapping for Lower CAC',
     description:
       'Why most teams overspend on search, how to restructure content and paid search around intent, and what to measure if you want lower acquisition cost.',
@@ -70,6 +76,7 @@ export const blogPosts: readonly BlogPostMeta[] = [
   },
   {
     slug: 'automation-that-makes-marketing-more-human',
+    sampleUpvotes: 23,
     title: 'Automation That Makes Marketing More Human',
     description:
       'The best automation does not feel robotic. It reduces lag, preserves context, and helps teams follow up at the right moment with the right message.',

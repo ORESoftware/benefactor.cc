@@ -1,6 +1,7 @@
 ---
 interface Props {
   title: string;
+  sampleUpvotes: number;
   description?: string;
   date?: string;
   author?: string;
@@ -13,6 +14,7 @@ import BaseLayout from './BaseLayout.astro';
 
 const {
   title,
+  sampleUpvotes,
   description = '',
   date = '',
   author = 'Benefactor Marketing',
@@ -46,6 +48,7 @@ const formattedDate = date ? new Date(date).toLocaleDateString('en-US', {
             {author && <span class="blog-hero__meta-item">{author}</span>}
             {formattedDate && <time datetime={date} class="blog-hero__meta-item">{formattedDate}</time>}
             {readTime && <span class="blog-hero__meta-item">{readTime}</span>}
+            <span class="blog-hero__meta-item"><span aria-hidden="true">👍</span> {sampleUpvotes} sample upvotes</span>
           </div>
           {tags.length > 0 && (
             <div class="blog-hero__tags animate-fade-in-up stagger-4">

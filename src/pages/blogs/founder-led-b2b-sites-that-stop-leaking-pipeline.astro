@@ -6,15 +6,7 @@ import { getBlogPostMeta } from '../../data/blogPosts';
 const frontmatter = getBlogPostMeta('founder-led-b2b-sites-that-stop-leaking-pipeline');
 ---
 
-<BlogLayout
-  title={frontmatter.title}
-  description={frontmatter.description}
-  date={frontmatter.date}
-  author={frontmatter.author}
-  readTime={frontmatter.readTime}
-  category={frontmatter.category}
-  tags={frontmatter.tags}
->
+<BlogLayout {...frontmatter}>
   <p>
     A surprising number of founder-led B2B websites are not underperforming because the team
     lacks traffic. They are underperforming because the site drops intent on the floor.

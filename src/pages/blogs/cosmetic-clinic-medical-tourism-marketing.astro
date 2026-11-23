@@ -6,15 +6,7 @@ import { getBlogPostMeta } from '../../data/blogPosts';
 const frontmatter = getBlogPostMeta('cosmetic-clinic-medical-tourism-marketing');
 ---
 
-<BlogLayout
-  title={frontmatter.title}
-  description={frontmatter.description}
-  date={frontmatter.date}
-  author={frontmatter.author}
-  readTime={frontmatter.readTime}
-  category={frontmatter.category}
-  tags={frontmatter.tags}
->
+<BlogLayout {...frontmatter}>
   <p>Cosmetic surgery, aesthetic medicine, dental restoration, hair transplantation, and other elective services increasingly attract people who compare providers beyond their home city or country. Some patients consider international travel for specialized expertise, access, or cost. For clinics, that creates opportunity—but also a responsibility to market services accurately and transparently.</p>
   <p>Prospective patients need more than an advertisement. They need trustworthy information about clinicians, qualifications, treatment options, risks, recovery, follow-up care, and the full cost of treatment and travel. Benefactor helps elective healthcare businesses make that information easier to discover and turn appropriate inquiries into organized consultations.</p>
 

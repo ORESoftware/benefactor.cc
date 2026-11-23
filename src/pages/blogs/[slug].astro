@@ -20,15 +20,7 @@ const frontmatter = getBlogPostMeta(slug);
 const caseStudy = getLocalSeoCaseStudy(slug);
 ---
 
-<BlogLayout
-  title={frontmatter.title}
-  description={frontmatter.description}
-  date={frontmatter.date}
-  author={frontmatter.author}
-  readTime={frontmatter.readTime}
-  category={frontmatter.category}
-  tags={frontmatter.tags}
->
+<BlogLayout {...frontmatter}>
   <h2 id="why-this-happened">{caseStudy.whyHeading}</h2>
   <p>{caseStudy.story}</p>
 

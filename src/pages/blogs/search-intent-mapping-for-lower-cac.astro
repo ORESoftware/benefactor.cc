@@ -6,15 +6,7 @@ import { getBlogPostMeta } from '../../data/blogPosts';
 const frontmatter = getBlogPostMeta('search-intent-mapping-for-lower-cac');
 ---
 
-<BlogLayout
-  title={frontmatter.title}
-  description={frontmatter.description}
-  date={frontmatter.date}
-  author={frontmatter.author}
-  readTime={frontmatter.readTime}
-  category={frontmatter.category}
-  tags={frontmatter.tags}
->
+<BlogLayout {...frontmatter}>
   <p>
     Lowering customer acquisition cost through search usually has less to do with clever bid
     tricks than teams hope. In most cases, CAC drops when the business gets more disciplined

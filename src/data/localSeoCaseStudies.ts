@@ -1,5 +1,6 @@
 export interface LocalSeoCaseStudy {
   readonly slug: string;
+  readonly sampleUpvotes: number;
   readonly title: string;
   readonly description: string;
   readonly industry: string;
@@ -17,6 +18,7 @@ export interface LocalSeoCaseStudy {
 export const localSeoCaseStudies: readonly LocalSeoCaseStudy[] = [
   {
     slug: 'plumbing-companies-local-seo-case-study',
+    sampleUpvotes: 21,
     title: 'Local SEO Playbook for Plumbing Companies That Need More Service Calls',
     description:
       "Make emergency calls and replacement estimates easy to route. Use dispatcher outcomes to decide which plumbing services and towns to promote.",
@@ -41,6 +43,7 @@ export const localSeoCaseStudies: readonly LocalSeoCaseStudy[] = [
   },
   {
     slug: 'pool-cleaning-companies-local-seo-case-study',
+    sampleUpvotes: 62,
     title: 'Local SEO Playbook for Pool Cleaning Companies That Need Denser Routes',
     description:
       "Choose neighborhoods with room on an existing pool route and measure the drive time each new weekly account adds.",
@@ -65,6 +68,7 @@ export const localSeoCaseStudies: readonly LocalSeoCaseStudy[] = [
   },
   {
     slug: 'roofing-companies-local-seo-case-study',
+    sampleUpvotes: 19,
     title: 'Local SEO Playbook for Roofing Companies Facing Local Storm Demand',
     description:
       "Prepare a storm inspection page, give planned roof replacements their own estimate path, and check whether crews can meet demand.",
@@ -89,6 +93,7 @@ export const localSeoCaseStudies: readonly LocalSeoCaseStudy[] = [
   },
   {
     slug: 'house-cleaning-companies-local-seo-case-study',
+    sampleUpvotes: 38,
     title: 'Local SEO Playbook for House Cleaning Companies That Need Recurring Clients',
     description:
       "Write separate intake questions for recurring and move-out cleans, then follow a first visit through to the second booking.",
@@ -113,6 +118,7 @@ export const localSeoCaseStudies: readonly LocalSeoCaseStudy[] = [
   },
   {
     slug: 'house-painters-local-seo-case-study',
+    sampleUpvotes: 25,
     title: 'Local SEO Playbook for House Painters That Need Better Estimate Requests',
     description:
       "Use one completed painting project to explain prep and finish choices, then track the estimates that turn into signed jobs.",
@@ -137,6 +143,7 @@ export const localSeoCaseStudies: readonly LocalSeoCaseStudy[] = [
   },
   {
     slug: 'spas-local-seo-case-study',
+    sampleUpvotes: 35,
     title: 'Local SEO Playbook for Spas That Need More Booked Appointments',
     description:
       "Follow a spa listing through service selection and booking. Check treatment names, room availability and completed first visits.",
@@ -161,6 +168,7 @@ export const localSeoCaseStudies: readonly LocalSeoCaseStudy[] = [
   },
   {
     slug: 'dentists-local-seo-case-study',
+    sampleUpvotes: 62,
     title: 'Local SEO Playbook for Dentists That Need More New-Patient Demand',
     description:
       "Connect each office listing to the right appointment form and use front-desk questions to improve new-patient information.",
@@ -185,6 +193,7 @@ export const localSeoCaseStudies: readonly LocalSeoCaseStudy[] = [
   },
   {
     slug: 'photographers-local-seo-case-study',
+    sampleUpvotes: 14,
     title: 'Local SEO Playbook for Photographers That Need Better-Fit Bookings',
     description:
       "Match each local photography search to a relevant gallery, ask shoot-specific questions and track which inquiries become paid bookings.",
@@ -209,6 +218,7 @@ export const localSeoCaseStudies: readonly LocalSeoCaseStudy[] = [
   },
   {
     slug: 'pest-control-companies-local-seo-case-study',
+    sampleUpvotes: 55,
     title: 'Local SEO Playbook for Pest Control Companies That Need Urgent Local Calls',
     description:
       "Build a local service page for one pest, route inspection requests to dispatch and check which service areas produce completed visits.",
@@ -235,6 +245,7 @@ export const localSeoCaseStudies: readonly LocalSeoCaseStudy[] = [
 
 export const localSeoCaseStudyBlogPosts = localSeoCaseStudies.map((caseStudy) => ({
   slug: caseStudy.slug,
+  sampleUpvotes: caseStudy.sampleUpvotes,
   title: caseStudy.title,
   description: caseStudy.description,
   date: '2026-05-13',
