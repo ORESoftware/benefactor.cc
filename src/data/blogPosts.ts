@@ -12,6 +12,17 @@ export interface BlogPostMeta {
 }
 
 export const blogPosts: readonly BlogPostMeta[] = [
+  {
+    slug: 'cosmetic-clinic-medical-tourism-marketing',
+    title: 'How Cosmetic Clinics and Medical Tourism Providers Can Attract More Patients',
+    description:
+      'How Benefactor helps elective healthcare providers build visibility, earn trust, and convert qualified patient inquiries through responsible digital marketing.',
+    date: '2026-11-23',
+    author: 'Benefactor Marketing',
+    readTime: '9 min read',
+    category: 'Healthcare Marketing',
+    tags: ['medical-tourism', 'cosmetic-clinics', 'healthcare-marketing', 'seo', 'patient-acquisition'],
+  },
   ...localSeoCaseStudyBlogPosts,
   {
     slug: 'email-marketing-that-turns-visibility-into-customers',
